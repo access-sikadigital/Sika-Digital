@@ -92,7 +92,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
       <span data-parallax className="absolute inset-0 block">
         <span className="absolute inset-0 block scale-[1.18]">
           <Image
-            src={industry.image!}
+            src={industry.image}
             alt=""
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"

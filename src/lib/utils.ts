@@ -61,12 +61,25 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/** Absolute URL against the canonical origin. Used for metadata and JSON-LD. */
+/**
+ * Absolute URL against the canonical origin. Used for metadata and JSON-LD.
+ *
+ * Two fallbacks and no more. The configured site URL wins; on a Vercel preview
+ * with no site URL set, the deployment's own host stands in; otherwise the base
+ * is empty and the result is a root-relative path, which is valid.
+ *
+ * There used to be a third `?? ""` on the end of this chain. It could never
+ * run: the ternary before it returns `""` on its false branch, so the operand
+ * to its left is a string in every case. TypeScript rejects the build for it
+ * (TS2881, "this expression is never nullish") rather than warning, which is
+ * the right call — a fallback that cannot fire is a misreading of the code
+ * above it, and this one hid the fact that the ternary was already handling
+ * the empty case.
+ */
 export function absoluteUrl(path = "/") {
   const base = (
     process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "") ??
-    ""
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "")
   ).replace(/\/$/, "");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }

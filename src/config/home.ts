@@ -116,17 +116,26 @@ export const servicePreviews: Record<string, string> = {
 
    ⚠️  Do NOT fill these with stock. The whole argument this site makes is that
        a generic site loses work, and four stock tradies on the homepage would
-       be the site disproving itself. Two real photos beat four bought ones:
-       the two without keep the typographic panel and the row still reads.
-
-   TODO: drop files in public/media/industries/ and uncomment. */
+       be the site disproving itself. Replace these with real work as it
+       becomes available, one at a time. */
 export type Industry = {
   key: string;
   label: string;
   blurb: string;
   href: string;
-  /** Path under /public. Omit for the typographic fallback. */
-  image?: string;
+  /**
+   * Path under /public. Required.
+   *
+   * This was optional while the section drew a typographic panel for any entry
+   * without a photo. The panel layout that replaced it has no such fallback:
+   * a panel is a photograph with a label over it and there is nothing to show
+   * if the photograph is missing.
+   *
+   * So the type enforces it. Commenting out a path here is a build error,
+   * which is the correct outcome: the alternative is `next/image` receiving
+   * `undefined` and throwing at runtime, on the homepage, in production.
+   */
+  image: string;
   /**
    * `object-position` for the crop.
    *
