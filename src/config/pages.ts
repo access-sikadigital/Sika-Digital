@@ -77,12 +77,34 @@ export type PageSpec = {
   conversionOnly?: boolean;
   /** Built but not indexed. */
   noindex?: boolean;
+  /**
+   * A route file exists for this page.
+   *
+   * ⚠️  Set this when you create `src/app/<slug>/page.tsx`, and not before.
+   *
+   * The sitemap is generated from this config, and its own header comment
+   * claims it "can never fall out of step with the routes that actually
+   * exist". That was untrue: the config describes 49 planned pages and five of
+   * them are built, so the sitemap was offering Google 44 URLs that return 404.
+   *
+   * Submitting 404s in a sitemap is not a neutral mistake. It wastes crawl
+   * budget on a new domain that has very little, and it is a quality signal
+   * against the site. On a site selling SEO it is also the kind of thing a
+   * prospect might check.
+   *
+   * This flag is deliberately manual rather than derived from the filesystem.
+   * A build-time `fs` check would be silently wrong the moment the sitemap is
+   * rendered anywhere other than a full build, and an explicit boolean is
+   * something a person can audit in one pass down the file.
+   */
+  built?: boolean;
 };
 
 export const pages: PageSpec[] = [
   /* ── Core ─────────────────────────────────────────────────────────────── */
   {
     key: "home",
+    built: true,
     label: "Home",
     url: "/",
     section: "Core",
@@ -126,6 +148,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "contact",
+    built: true,
     label: "Contact",
     url: "/contact/",
     section: "Core",
@@ -153,6 +176,7 @@ export const pages: PageSpec[] = [
    */
   {
     key: "services",
+    built: true,
     label: "Services",
     url: "/services/",
     section: "Core",
@@ -163,13 +187,14 @@ export const pages: PageSpec[] = [
     kd: 63,
     title: "Digital Marketing Services | Sika Digital",
     description:
-      "SEO, Google Ads, Meta ads, web design, lead generation and AI automation — built for Australian service and trade businesses.",
+      "SEO, Google Ads, Meta ads, web design, lead generation and AI automation, built for Australian service and trade businesses.",
     h1: "Everything we do, in one place.",
   },
 
   /* ── SEO cluster ──────────────────────────────────────────────────────── */
   {
     key: "seo",
+    built: true,
     label: "SEO",
     url: "/seo/",
     section: "SEO",
@@ -248,6 +273,7 @@ export const pages: PageSpec[] = [
   /* ── Google Ads cluster — the priority commercial win ──────────────────── */
   {
     key: "google-ads",
+    built: true,
     label: "Google Ads",
     url: "/google-ads/",
     section: "Google Ads",
@@ -280,6 +306,7 @@ export const pages: PageSpec[] = [
   /* ── Meta / Social ────────────────────────────────────────────────────── */
   {
     key: "facebook-ads",
+    built: true,
     label: "Facebook & Instagram Ads",
     url: "/facebook-ads/",
     section: "Meta Ads",
@@ -290,7 +317,7 @@ export const pages: PageSpec[] = [
     kd: 17,
     title: "Facebook & Instagram Ads Agency | Sika Digital",
     description:
-      "Meta ads for Australian service businesses — creative, targeting and Conversions API tracking that actually attributes leads.",
+      "Meta ads for Australian service businesses. Creative, targeting and Conversions API tracking that actually attributes leads.",
     h1: "Meta ads that generate real enquiries.",
   },
   {
@@ -305,13 +332,14 @@ export const pages: PageSpec[] = [
     kd: 36,
     title: "Social Media Marketing Agency | Sika Digital",
     description:
-      "Organic social that supports the paid work — content, scheduling and community management for Australian service brands.",
+      "Organic social that supports the paid work. Content, scheduling and community management for Australian service brands.",
     h1: "Social that earns attention.",
   },
 
   /* ── Lead generation ──────────────────────────────────────────────────── */
   {
     key: "lead-generation",
+    built: true,
     label: "Lead Generation",
     url: "/lead-generation/",
     section: "Lead Gen",
@@ -322,13 +350,14 @@ export const pages: PageSpec[] = [
     kd: 20,
     title: "Lead Generation Agency Australia | Sika Digital",
     description:
-      "End-to-end lead generation — traffic, landing pages, qualifying forms and CRM follow-up wired together so nothing leaks.",
+      "End-to-end lead generation. Traffic, landing pages, qualifying forms and CRM follow-up wired together so nothing leaks.",
     h1: "Leads, followed all the way to the sale.",
   },
 
   /* ── Web ──────────────────────────────────────────────────────────────── */
   {
     key: "web-design",
+    built: true,
     label: "Web Design",
     url: "/web-design/",
     section: "Web",
@@ -354,7 +383,7 @@ export const pages: PageSpec[] = [
     kd: 41,
     title: "Ecommerce Web Design Australia | Sika Digital",
     description:
-      "Online stores built for speed and conversion — Shopify and custom builds for Australian retailers.",
+      "Online stores built for speed and conversion. Shopify and custom builds for Australian retailers.",
     h1: "Online stores that sell.",
   },
   {
@@ -369,7 +398,7 @@ export const pages: PageSpec[] = [
     kd: 51,
     title: "WordPress Web Design Australia | Sika Digital",
     description:
-      "Custom WordPress themes built properly — fast, secure and easy for your team to update.",
+      "Custom WordPress themes built properly. Fast, secure and easy for your team to update.",
     h1: "WordPress, built properly.",
   },
   {
@@ -416,7 +445,7 @@ export const pages: PageSpec[] = [
     kd: 21,
     title: "Email Marketing Agency Australia | Sika Digital",
     description:
-      "Email and SMS flows that turn enquiries into customers — nurture, reactivation and review requests.",
+      "Email and SMS flows that turn enquiries into customers. Nurture, reactivation and review requests.",
     h1: "Email that earns its place in the inbox.",
   },
   {
@@ -478,7 +507,7 @@ export const pages: PageSpec[] = [
     kd: 7,
     title: "Digital Marketing for Tradies | Sika Digital",
     description:
-      "Run by a former licensed electrician. Get more of the jobs you want — not tyre-kickers and price-shoppers.",
+      "Run by a former licensed electrician. Get more of the jobs you want, not tyre-kickers and price-shoppers.",
     h1: "Digital marketing for tradies, by an ex-sparky.",
   },
   {
@@ -508,7 +537,7 @@ export const pages: PageSpec[] = [
     kd: 6,
     title: "Marketing for Plumbers | Sika Digital",
     description:
-      "Emergency work, maintenance contracts or renovations — marketing that brings the plumbing jobs you actually want.",
+      "Emergency work, maintenance contracts or renovations. Marketing that brings the plumbing jobs you actually want.",
     h1: "Marketing for plumbers.",
   },
   {
@@ -523,7 +552,7 @@ export const pages: PageSpec[] = [
     kd: 7,
     title: "Marketing for Builders | Sika Digital",
     description:
-      "Marketing for Australian builders and renovators — qualified enquiries for the projects worth quoting.",
+      "Marketing for Australian builders and renovators. Qualified enquiries for the projects worth quoting.",
     h1: "Marketing for builders.",
   },
 
@@ -555,7 +584,7 @@ export const pages: PageSpec[] = [
     kd: 35,
     title: "SEO Agency Sydney | Sika Digital",
     description:
-      "SEO for Sydney service businesses — technical, local and content SEO built around enquiries.",
+      "SEO for Sydney service businesses. Technical, local and content SEO built around enquiries.",
     h1: "SEO agency, Sydney.",
   },
   {
@@ -585,7 +614,7 @@ export const pages: PageSpec[] = [
     kd: 25,
     title: "SEO Agency Adelaide | Sika Digital",
     description:
-      "SEO for Adelaide businesses — local rankings, technical fixes and content that converts.",
+      "SEO for Adelaide businesses. Local rankings, technical fixes and content that converts.",
     h1: "SEO agency, Adelaide.",
   },
   {
@@ -615,7 +644,7 @@ export const pages: PageSpec[] = [
     kd: 32,
     title: "Google Ads Agency Sydney | Sika Digital",
     description:
-      "Google Ads management for Sydney businesses — built for lead quality, not click volume.",
+      "Google Ads management for Sydney businesses, built for lead quality, not click volume.",
     h1: "Google Ads agency, Sydney.",
   },
   {
@@ -705,7 +734,7 @@ export const pages: PageSpec[] = [
     kd: 39,
     title: "Digital Marketing Agency Sydney | Sika Digital",
     description:
-      "Full-service digital marketing for Sydney service businesses — SEO, Google Ads, Meta and web.",
+      "Full-service digital marketing for Sydney service businesses. SEO, Google Ads, Meta and web.",
     h1: "Digital marketing agency, Sydney.",
   },
 
@@ -720,7 +749,7 @@ export const pages: PageSpec[] = [
     primaryKeyword: "digital marketing guides",
     title: "Guides | Sika Digital",
     description:
-      "Straight answers on what marketing costs, what works and what to do first — written for Australian business owners.",
+      "Straight answers on what marketing costs, what works and what to do first. Written for Australian business owners.",
     h1: "Straight answers, no jargon.",
   },
   {
@@ -735,7 +764,7 @@ export const pages: PageSpec[] = [
     kd: 14,
     title: "How Much Does SEO Cost in Australia? (2026)",
     description:
-      "Real Australian SEO pricing — what you get at each level, what drives the number, and the pricing models to avoid.",
+      "Real Australian SEO pricing. What you get at each level, what drives the number, and the pricing models to avoid.",
     h1: "How much does SEO cost in Australia?",
   },
   {
@@ -765,7 +794,7 @@ export const pages: PageSpec[] = [
     kd: 26,
     title: "Google Maps SEO: How to Rank in the Map Pack",
     description:
-      "What actually moves map pack rankings in 2026 — proximity, prominence, reviews and the Google Business Profile fields that matter.",
+      "What actually moves map pack rankings in 2026. Proximity, prominence, reviews and the Google Business Profile fields that matter.",
     h1: "How to rank in the Google map pack.",
   },
   {
@@ -780,7 +809,7 @@ export const pages: PageSpec[] = [
     kd: 17,
     title: "Digital Marketing for Tradies: The Honest Guide",
     description:
-      "What actually gets a trade business more of the right jobs — and what is a waste of money. Written by a former sparky.",
+      "What actually gets a trade business more of the right jobs, and what is a waste of money. Written by a former sparky.",
     h1: "Digital marketing for tradies: the honest guide.",
   },
   {
@@ -840,7 +869,7 @@ export const pages: PageSpec[] = [
     kd: 25,
     title: "How to Get More Leads for Your Business",
     description:
-      "The order to fix things in — because more traffic on a page that does not convert just costs more.",
+      "The order to fix things in, because more traffic on a page that does not convert just costs more.",
     h1: "How to get more leads.",
   },
 ];
@@ -866,7 +895,14 @@ export const pagesInSection = (section: Section) =>
 
 export const pagesInTier = (tier: Tier) => pages.filter((p) => p.tier === tier);
 
-export const indexablePages = () => pages.filter((p) => !p.noindex);
+/**
+ * Pages that belong in the sitemap.
+ *
+ * `built` as well as `noindex`, because a page that does not exist cannot be
+ * indexed and should never be offered to a crawler. See the note on `built` in
+ * `PageSpec` for why that matters more than it sounds.
+ */
+export const indexablePages = () => pages.filter((p) => p.built && !p.noindex);
 
 /* ── Navigation ─────────────────────────────────────────────────────────── */
 
