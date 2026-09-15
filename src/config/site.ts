@@ -48,7 +48,29 @@ export const siteConfig = {
   /** Founding year. Renders only when set, so an unknown year leaves no gap. */
   established: "", // TODO
 
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sikadigital.com",
+  /**
+   * The canonical origin. Guaranteed to be a valid absolute URL.
+   *
+   * ── `||`, not `??` ────────────────────────────────────────────────────────
+   * This was `??`, which only falls through on null or undefined. An
+   * environment variable that exists but is set to an empty string is a string,
+   * so `??` kept it, and `new URL("")` in app/layout threw at build time with
+   * `ERR_INVALID_URL`. That is the normal state of an env var added in a
+   * dashboard and left blank, so it has to be handled rather than assumed away.
+   *
+   * ── Why VERCEL_URL is gated on the preview environment ────────────────────
+   * `VERCEL_URL` is set on every deployment including production, where it is
+   * the deployment-specific `*.vercel.app` host rather than the custom domain.
+   * Used unconditionally it would point production canonicals and Open Graph
+   * URLs at an address nobody should be indexing. On previews it is exactly
+   * what is wanted, so it is used there and only there.
+   */
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "") ||
+    "https://sikadigital.com",
   locale: "en_AU",
 
   /* ── Contact ─────────────────────────────────────────────────────────────── */

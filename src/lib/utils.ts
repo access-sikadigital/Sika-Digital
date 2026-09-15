@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
+import { siteConfig } from "@/config/site";
 
 /**
  * Tailwind-aware class merging.
@@ -64,23 +65,20 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Absolute URL against the canonical origin. Used for metadata and JSON-LD.
  *
- * Two fallbacks and no more. The configured site URL wins; on a Vercel preview
- * with no site URL set, the deployment's own host stands in; otherwise the base
- * is empty and the result is a root-relative path, which is valid.
+ * ── One source for the origin ───────────────────────────────────────────────
+ * This used to read the environment itself, which meant the site had two
+ * separate pieces of logic deciding what its own address was: this one, and
+ * `siteConfig.url`. They could disagree, and when the env var was blank they
+ * did — `siteConfig.url` fell back to the domain while this returned a
+ * root-relative path, so canonical tags and JSON-LD could end up disagreeing
+ * on the same page.
  *
- * There used to be a third `?? ""` on the end of this chain. It could never
- * run: the ternary before it returns `""` on its false branch, so the operand
- * to its left is a string in every case. TypeScript rejects the build for it
- * (TS2881, "this expression is never nullish") rather than warning, which is
- * the right call — a fallback that cannot fire is a misreading of the code
- * above it, and this one hid the fact that the ternary was already handling
- * the empty case.
+ * `siteConfig.url` is now the only place that decision is made, and it
+ * guarantees a valid absolute URL. Safe to import: config/site imports nothing,
+ * so there is no cycle.
  */
 export function absoluteUrl(path = "/") {
-  const base = (
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "")
-  ).replace(/\/$/, "");
+  const base = siteConfig.url.replace(/\/$/, "");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
