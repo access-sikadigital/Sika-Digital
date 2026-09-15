@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!--
+    FAVICON — the brand asterisk, knocked out of a lime tile.
+
+    Next.js serves this automatically from app/icon.svg and injects the link
+    tag. There is no icons config anywhere and there should not be one.
+
+    ── Why the colours are inverted from the site ──────────────────────────
+    On the site the mark is lime on ink. Here it is ink on lime, and that is
+    deliberate. A favicon is 16px in a strip of other favicons, most of which
+    are light, and browser chrome is itself light or dark depending on the
+    user. A near-black tile disappears into dark chrome; a lime one is the
+    only thing of its colour in a normal tab bar.
+
+    ── Why a tile and not the bare mark ────────────────────────────────────
+    The asterisk has eight arms. Drawn on transparent at 16px they are about
+    a pixel each and the shape reads as grit. Against a solid field the arms
+    are negative space, which is far more robust at small sizes because the
+    tile holds the silhouette even when the arms start to break up.
+
+    ── Why it is full bleed ────────────────────────────────────────────────
+    Browsers do not mask favicons, so a square renders as a square. iOS does
+    mask home-screen icons, and it masks from the edges, which is why the
+    mark sits at 74% with a margin rather than filling the tile.
+
+    Path data is verbatim from the brand kit, matching Logomark in
+    components/brand/Logo.tsx. Do not redraw it by hand.
+  -->
+  <rect width="200" height="200" fill="#BDF031" />
+  <g transform="translate(26 26) scale(0.74)">
+    <path
+      d="M74.5206 200L81.0959 133.333L25.7534 172.131L0 127.869L61.3699 100L0 71.5847L25.7534 27.8689L81.0959 66.6667L74.5206 0H125.479L118.904 66.1202L174.247 27.8689L200 71.5847L138.63 100L200 127.869L174.247 172.131L118.904 133.333L125.479 200H74.5206Z"
+      fill="#0B0B0B"
+    />
+  </g>
+</svg>

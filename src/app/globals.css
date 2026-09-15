@@ -1,0 +1,702 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SIKA DIGITAL — DESIGN TOKENS
+
+   Tailwind v4 keeps the design system in CSS rather than a JS config. Every
+   value below becomes a utility automatically: `--color-lime` gives you
+   `bg-lime`, `text-lime`, `border-lime` and so on.
+
+   Two layers, and the distinction matters:
+
+     1. PRIMITIVES  — the literal brand values. `--color-lime` is #BDF031 and
+                      will never be anything else.
+     2. SEMANTICS   — the role a colour plays. `--color-background` is whatever
+                      the current surface is. This is the layer components use.
+
+   Components must reference SEMANTIC tokens only. That is what lets a section
+   invert from dark to light by adding one class, instead of every component
+   knowing about both themes. Hobro does exactly this — dark homepage, light
+   contact page, same components.
+
+   Palette source: the brand SVGs in the Sika Digital brand kit, read directly
+   out of the fill attributes. These are exact, not sampled from a screenshot.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Brand primitives ───────────────────────────────────────────────────── */
+  --color-ink: #0b0b0b; /* wordmark black */
+  --color-lime: #bdf031; /* the asterisk — the accent, used sparingly */
+  --color-blue: #1a1bac; /* secondary logomark colour */
+  --color-paper: #ffffff;
+
+  /* Neutral ramp, warmed very slightly toward the brand black rather than a
+     pure grey. Pure #808080 next to #0B0B0B reads cold and cheap. */
+  --color-slate-50: #f6f6f5;
+  --color-slate-100: #e9e9e7;
+  --color-slate-200: #d2d2ce;
+  --color-slate-300: #aeaea9;
+  --color-slate-400: #85857f;
+  --color-slate-500: #64645f;
+  --color-slate-600: #4b4b47;
+  --color-slate-700: #363634;
+  --color-slate-800: #232322;
+  --color-slate-900: #151514;
+  --color-slate-950: #0b0b0b;
+
+  /* Feedback. Not brand colours — these exist so form errors never have to
+     borrow the accent, which would make an error look like a call to action. */
+  --color-success: #3ecf8e;
+  --color-danger: #ff5c47;
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  /* Archivo carries BOTH a weight and a width axis, which is why it can do the
+     condensed display setting the reference sites get from licensed faces —
+     at no licence cost, and consistent with Sika's own brand guidelines. */
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo-black), var(--font-archivo), sans-serif;
+  --font-mono: var(--font-mono-companion), ui-monospace, monospace;
+
+  /* Fluid type. clamp() means no breakpoint jumps — the scale is continuous
+     from 320px to 1920px, so a headline never snaps a size mid-resize. */
+  --text-display: clamp(3.5rem, 1.5rem + 9vw, 11rem);
+  --text-display--line-height: 0.86;
+  --text-display--letter-spacing: -0.035em;
+
+  --text-h1: clamp(2.5rem, 1.2rem + 5.5vw, 6rem);
+  --text-h1--line-height: 0.92;
+  --text-h1--letter-spacing: -0.03em;
+
+  --text-h2: clamp(2rem, 1.1rem + 3.6vw, 4rem);
+  --text-h2--line-height: 0.98;
+  --text-h2--letter-spacing: -0.025em;
+
+  --text-h3: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  --text-h3--line-height: 1.06;
+  --text-h3--letter-spacing: -0.02em;
+
+  --text-h4: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --text-h4--line-height: 1.16;
+  --text-h4--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-lead--line-height: 1.5;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.6;
+
+  /* The mono-caps label. Borrowed from the reference set, where it is the
+     counterweight that stops huge display type feeling shouty. Never below
+     12px — smaller fails WCAG legibility in practice even where it passes. */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* ── Layout ─────────────────────────────────────────────────────────────── */
+  --spacing-section: clamp(5rem, 3rem + 8vw, 11rem);
+  --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 3rem);
+
+  --container-wide: 96rem;
+  --container-text: 46rem; /* ~70ch — the readable measure for body copy */
+
+  --radius-card: 1rem;
+  /* Near-square. The pill this replaced was the one soft shape in a system
+     built on hard-edged display type, 1px schematic strokes and square-capped
+     arrows, and it read as borrowed from a different site. 3px keeps the
+     corner from looking like an unstyled input without rounding it. */
+  --radius-button: 3px;
+
+  /* ── Motion ─────────────────────────────────────────────────────────────── */
+  /* One easing vocabulary shared by CSS transitions, GSAP and Motion, so a
+     hover and a scroll reveal on the same element feel related. */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 620ms;
+  --duration-slower: 1000ms;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SEMANTIC LAYER
+
+   Dark is the DEFAULT, not a mode. The brand's natural home is black with a
+   lime accent, and every reference site in the set is dark-first.
+
+   `.theme-light` inverts a subtree. Put it on any <section> and everything
+   inside flips — no component needs to know which theme it is in.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  --color-background: var(--sika-background);
+  --color-surface: var(--sika-surface);
+  --color-foreground: var(--sika-foreground);
+  --color-muted: var(--sika-muted);
+  --color-faint: var(--sika-faint);
+  --color-line: var(--sika-line);
+  --color-line-strong: var(--sika-line-strong);
+  --color-accent: var(--sika-accent);
+  --color-on-accent: var(--sika-on-accent);
+}
+
+:root,
+.theme-dark {
+  --sika-background: var(--color-ink);
+  --sika-surface: var(--color-slate-900);
+  --sika-foreground: var(--color-paper);
+  --sika-muted: var(--color-slate-300);
+  --sika-faint: var(--color-slate-400);
+  --sika-line: rgb(255 255 255 / 0.12);
+  --sika-line-strong: rgb(255 255 255 / 0.28);
+  --sika-accent: var(--color-lime);
+  /* Lime is extremely bright — 0.87 relative luminance. White text on it is
+     roughly 1.2:1 and completely illegible. Ink on lime is 14:1. Any component
+     putting text on the accent must use --color-on-accent, never white. */
+  --sika-on-accent: var(--color-ink);
+}
+
+.theme-light {
+  --sika-background: var(--color-paper);
+  --sika-surface: var(--color-slate-50);
+  --sika-foreground: var(--color-ink);
+  --sika-muted: var(--color-slate-600);
+  --sika-faint: var(--color-slate-500);
+  --sika-line: rgb(11 11 11 / 0.12);
+  --sika-line-strong: rgb(11 11 11 / 0.28);
+  --sika-accent: var(--color-blue); /* lime on white is unreadable — see below */
+  --sika-on-accent: var(--color-paper);
+}
+
+/*
+  WHY THE ACCENT CHANGES IN LIGHT MODE.
+
+  Lime (#BDF031) against white is about 1.3:1. It is invisible as text and
+  barely visible as a border. Against ink it is 14:1 and sings. So on light
+  surfaces the accent role is played by the brand blue (#1A1BAC, ~11:1 on
+  white), and lime is demoted to a fill behind ink text — which is exactly how
+  the brand's own poster mockup uses it.
+
+  Do not "fix" this by using lime for text on white. It will fail WCAG AA and,
+  more to the point, nobody will be able to read it.
+*/
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    /* NOT scroll-behavior: smooth. Lenis owns scrolling; setting both makes
+       them fight and produces a stutter on anchor links. */
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem; /* clears the fixed header on anchor jumps */
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible focus, but only for keyboard users. Removing focus rings outright
+     makes a site unusable without a mouse. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance; /* stops a lone orphan word on the last line */
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/*
+  The header mark inverts itself over whatever is behind it — one line of CSS
+  instead of a scroll listener that watches section backgrounds and swaps a
+  class. Lifted from the reference set, where it is the single smartest trick
+  on the page.
+
+  Caveat: `difference` against a mid-grey produces mid-grey. It works because
+  this site's surfaces are near-black or near-white, never in between.
+*/
+@utility blend-invert {
+  mix-blend-mode: difference;
+  color: var(--color-paper);
+}
+
+/* Hides a split-text line until GSAP reveals it, without removing it from the
+   accessibility tree. The text is still present for screen readers and for
+   Google, it is only clipped visually. */
+@utility line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+/*
+  FILM GRAIN.
+
+  A near-black page is the hardest surface on the web to make look expensive,
+  because a flat #0B0B0B fill reads as "nothing rendered yet". A few percent of
+  noise gives the eye something to hold and kills the banding that large dark
+  gradients produce on 8-bit displays.
+
+  Generated by feTurbulence as a data URI, so it costs no network request and
+  no image decode. `pointer-events: none` because it sits over content.
+*/
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/*
+  Radial brand glow. Sits behind content to stop a dark section reading flat.
+  Lime at 8% is enough to register as warmth without becoming a colour wash.
+*/
+@utility glow-accent {
+  background: radial-gradient(
+    60% 50% at 75% 15%,
+    color-mix(in oklab, var(--color-lime) 8%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+
+   A global kill switch. Individual components also check the media query in JS
+   before building timelines — this rule is the backstop for anything that
+   slips through, including third-party CSS.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  THE BRAND MARK, TURNING.
+
+  A slow continuous rotation. The asterisk has eight-fold symmetry, so there is
+  no visible start or end to the cycle: it simply turns, forever, with nothing
+  that reads as a loop point.
+
+  ── Why CSS and not GSAP ───────────────────────────────────────────────────
+  Nothing here depends on scroll, state or input, so JavaScript would buy
+  nothing and cost a tween per mark on every page. A CSS animation on
+  `transform` runs on the compositor, needs no hydration, and starts painting
+  before any script has parsed.
+
+  It is also covered for free by the reduced-motion block above, which collapses
+  every animation duration to almost nothing. No separate handling required.
+
+  ── Twenty seconds ─────────────────────────────────────────────────────────
+  Slow enough that you notice it only if you look, which is the point. Anything
+  under about ten seconds starts pulling attention away from the words next to
+  it, and a logo that demands attention from its own headline is a logo doing
+  the wrong job.
+
+  ── Applied to the SVG, not the wrapper ────────────────────────────────────
+  The wrapper carries layout transforms in places, such as the superscript nudge
+  on the hero asterisk. Two `transform` animations cannot compose, so the
+  rotation goes on the inner SVG and leaves positioning alone.
+*/
+/*
+  ⚠️  A PLAIN CLASS, NOT `@utility`.
+
+  The first attempt registered this as a Tailwind `@utility`, and the animation
+  never ran. Tailwind v4 only emits a `@keyframes` block when it can tie the
+  animation back to a registered `--animate-*` theme variable; a bare keyframes
+  definition next to a custom utility gets dropped on the way out, so the class
+  applied cleanly and referenced an animation that did not exist in the output.
+
+  Nothing here needs Tailwind. A plain class selector passes through untouched
+  and always works. If this ever moves back into the theme layer it has to be
+  registered as `--animate-mark-turn` in `@theme` and used as `animate-mark-turn`.
+*/
+@keyframes mark-turn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mark-turn {
+  animation: mark-turn 20s linear infinite;
+  /* SVG roots resolve percentage origins against the element box, so this is
+     the centre of the mark rather than the user-space origin. */
+  transform-origin: 50% 50%;
+}
+
+/*
+  The same rotation for the asterisk inside the full lockup.
+
+  It needs its own rule because it is a <path> inside a larger SVG rather than
+  an SVG root, and an SVG child resolves `transform-origin` against the nearest
+  viewport, not against itself. At 50% 50% that is the centre of the whole
+  wordmark, so the asterisk would swing around the middle of the word like a
+  hammer throw instead of spinning in place. `fill-box` scopes the origin to the
+  glyph's own bounding box.
+*/
+.mark-turn-glyph {
+  animation: mark-turn 20s linear infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+/*
+  ═══════════════════════════════════════════════════════════════════════════
+  TILE GLOW — soft coloured light drifting inside a card on hover.
+  ═══════════════════════════════════════════════════════════════════════════
+
+  Two blurred blobs, one lime and one brand blue, orbiting on different clocks.
+  Because the periods do not divide evenly (11s and 14s) the pair never repeats
+  the same arrangement, so there is no loop to notice.
+
+  ── Transform only ──────────────────────────────────────────────────────────
+  The blobs are rendered once as radial gradients and then only moved and
+  scaled. The obvious alternative, animating `background-position` on a gradient,
+  repaints the whole layer every frame. Transform composites and repaints
+  nothing.
+
+  ── Paused until hovered ────────────────────────────────────────────────────
+  This is the important one. A CSS animation keeps running whether or not its
+  element is visible, so five cards each holding two animated blobs is ten
+  animations burning frames permanently for something nobody can see. Pausing
+  by default and running on hover means at most two are ever live.
+
+  `animation-play-state` also resumes from where it stopped rather than
+  restarting, so moving between cards does not snap the light back to a start
+  position.
+
+  ── Blend mode ──────────────────────────────────────────────────────────────
+  `screen` is additive: it can only brighten. A plain translucent overlay would
+  average toward its own colour and dull the card instead of lighting it.
+*/
+@keyframes tile-glow-a {
+  0%,
+  100% {
+    transform: translate3d(-18%, -12%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(26%, 20%, 0) scale(1.25);
+  }
+}
+
+@keyframes tile-glow-b {
+  0%,
+  100% {
+    transform: translate3d(28%, 24%, 0) scale(1.15);
+  }
+  50% {
+    transform: translate3d(-22%, -16%, 0) scale(0.9);
+  }
+}
+
+.tile-glow {
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.group:hover .tile-glow,
+.group:focus-within .tile-glow {
+  animation-play-state: running;
+}
+
+.tile-glow--a {
+  animation: tile-glow-a 11s ease-in-out infinite;
+}
+
+.tile-glow--b {
+  animation: tile-glow-b 14s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   SCHEMATIC LIFE
+
+   The drawn interfaces in the middle of the page are illustrations of live
+   things: a page loading, a query returning, enquiries arriving, a workflow
+   firing. Drawn once and left still, they read as diagrams. Given a small
+   continuous loop each, they read as the thing itself.
+
+   ── Paused until the section is on screen ─────────────────────────────────
+   There are around ten schematics on the homepage and they carry roughly
+   thirty looping elements between them. Running all of that permanently would
+   keep the compositor busy for the entire visit, most of it on drawings
+   nobody can see. Everything here is paused by default; a ScrollTrigger in
+   each section adds `is-alive` to the section while it is in the viewport,
+   which is the only thing that starts them.
+
+   ── Transform and opacity only ────────────────────────────────────────────
+   Nothing here touches a property that triggers layout or paint. That is what
+   makes thirty simultaneous loops affordable at all.
+
+   ── transform-box ─────────────────────────────────────────────────────────
+   SVG children resolve `transform-origin` against the nearest viewport, not
+   against themselves, so `scale()` on a rect halfway down a drawing would
+   fling it toward the corner. `fill-box` scopes the origin to the element's
+   own bounding box, which is what every rule below assumes.
+   ───────────────────────────────────────────────────────────────────────── */
+.sch {
+  animation-play-state: paused;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.is-alive .sch {
+  animation-play-state: running;
+}
+
+/* The loops are ambience, not information. Nothing is lost by stopping them,
+   so for anyone who has asked for less motion they simply do not exist. */
+@media (prefers-reduced-motion: reduce) {
+  .sch {
+    animation: none !important;
+  }
+}
+
+/* ── Amplitude is not a constant ──────────────────────────────────────────
+   The panels render around 450px wide and the marks around 110px, and every
+   animation below is expressed in the drawing's own user units. So the same
+   keyframe is four times weaker on a mark: a 1.055 scale on a 4px dot inside
+   a mark works out at roughly half a screen pixel, which is running, correct,
+   and completely invisible.
+
+   Every amplitude is therefore a custom property with the panel value as its
+   fallback. `.sch-strong` raises them for anything drawn at mark size. Adding
+   it beside `.sch` is the whole fix; the keyframes are shared. */
+.sch-strong {
+  --sch-scale: 1.45;
+  --sch-scale-x: 1.38;
+  --sch-fade: 0.5;
+  --sch-dash: 9 27;
+  --sch-period: 36px;
+}
+
+/* Breathing. For the one element in a drawing that is being pressed, liked,
+   or otherwise acted on. */
+@keyframes sch-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(var(--sch-scale, 1.055));
+    opacity: var(--sch-fade, 0.82);
+  }
+}
+
+.sch-pulse {
+  animation: sch-pulse 2.4s ease-in-out infinite;
+}
+
+/* A ring thrown off the thing that was just pressed. Reads at any size,
+   because what carries it is the travel rather than the object, and it is the
+   only cue here that survives being drawn at 8px. */
+@keyframes sch-ripple {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.65;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.sch-ripple {
+  animation: sch-ripple 2.4s ease-out infinite;
+}
+
+/* A cursor with somewhere to be. Arrives from off the corner, presses, holds,
+   leaves. The panel-sized version of this only nudged, which is right when the
+   drawing is large enough that a nudge is several pixels; at mark size the
+   pointer has to actually travel or there is nothing to see. */
+@keyframes sch-cursor {
+  0% {
+    transform: translate(16px, 18px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  38%,
+  44% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1.5px, -3.5px);
+  }
+  58%,
+  82% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(16px, 18px);
+    opacity: 0;
+  }
+}
+
+.sch-cursor {
+  animation: sch-cursor 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* A caret, or anything that should read as waiting for input. `steps(1)` so it
+   snaps rather than fades: a caret that eases is a glow, not a caret. */
+@keyframes sch-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  99% {
+    opacity: 0.18;
+  }
+}
+
+.sch-blink {
+  animation: sch-blink 1.6s steps(1, end) infinite;
+}
+
+/* Data moving along a wire. A short dash chasing a long gap, which is the one
+   honest way to draw flow without drawing a dot and keyframing its position
+   along a curve.
+
+   The dasharray and the offset have to travel the same distance or the dash
+   visibly jumps at the loop point. 8 + 52 = 60, so the offset ends at -60. */
+@keyframes sch-flow {
+  to {
+    stroke-dashoffset: calc(-1 * var(--sch-period, 60px));
+  }
+}
+
+.sch-flow {
+  stroke-dasharray: var(--sch-dash, 8 52);
+  animation: sch-flow 2.4s linear infinite;
+}
+
+/* Chart bars. Origin at the foot, so they grow from the axis rather than from
+   their own middles. Staggered by an inline `animation-delay` at the call
+   site, which is what makes a row of them read as data arriving rather than as
+   one object breathing. */
+@keyframes sch-bar {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.86);
+  }
+}
+
+.sch-bar {
+  transform-origin: 50% 100%;
+  animation: sch-bar 3.2s ease-in-out infinite;
+}
+
+/* A held search position, widening and settling. Origin at the left so it
+   extends rather than centring. */
+@keyframes sch-extend {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(var(--sch-scale-x, 1.12));
+  }
+}
+
+.sch-extend {
+  transform-origin: 0% 50%;
+  animation: sch-extend 3.6s ease-in-out infinite;
+}
+
+/* A row being read, top to bottom. Used behind result lists and audit rows.
+   Percentages resolve against the element's own box under `fill-box`, so the
+   travel is expressed as multiples of the band's height. */
+@keyframes sch-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--sch-scan-travel, 600%));
+    opacity: 0;
+  }
+}
+
+.sch-scan {
+  animation: sch-scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
