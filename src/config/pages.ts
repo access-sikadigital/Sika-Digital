@@ -120,6 +120,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "about",
+    built: true,
     label: "About",
     url: "/about/",
     section: "Core",
@@ -133,6 +134,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "results",
+    built: true,
     label: "Results",
     url: "/results/",
     section: "Core",
@@ -140,8 +142,22 @@ export const pages: PageSpec[] = [
     tier: 1,
     primaryKeyword: "case studies",
     title: "Results & Case Studies | Sika Digital",
+    /*
+      ⚠️  This description must match the state of the page.
+
+      It previously read "Leads, rankings and revenue from real Australian
+      businesses ... with the numbers." That was written for the page as
+      planned, and the page as built has no case studies on it, because none
+      are signed off. A meta description is the snippet in the search result,
+      so shipping that version would have promised figures the page does not
+      contain: a bait-and-switch performed on the one page arguing against
+      exactly that.
+
+      Put the original back the day the first three case studies go live, and
+      not before.
+    */
     description:
-      "Leads, rankings and revenue from real Australian businesses. What our SEO, Google Ads and web work actually delivered, with the numbers.",
+      "What we measure, what we report, and the standard we think any agency should be held to. Case studies go up here as clients approve them.",
     /* Was "The numbers, not the adjectives." Clever, and clever is the thing to
        avoid. This says the same in plain words. */
     h1: "What the work actually did.",
@@ -482,6 +498,7 @@ export const pages: PageSpec[] = [
   /* ── Industries — the trades wedge (finding #2, cheapest ground) ──────── */
   {
     key: "industries",
+    built: true,
     label: "Industries",
     url: "/industries/",
     section: "Industries",
@@ -497,6 +514,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "tradies",
+    built: true,
     label: "Tradies",
     url: "/industries/tradies/",
     section: "Industries",
@@ -512,6 +530,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "electricians",
+    built: true,
     label: "Electricians",
     url: "/industries/electricians/",
     section: "Industries",
@@ -527,6 +546,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "plumbers",
+    built: true,
     label: "Plumbers",
     url: "/industries/plumbers/",
     section: "Industries",
@@ -542,6 +562,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "builders",
+    built: true,
     label: "Builders",
     url: "/industries/builders/",
     section: "Industries",
