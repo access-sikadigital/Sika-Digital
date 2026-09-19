@@ -35,12 +35,15 @@ export function Marquee({
   reverse = false,
   /** Gap between repeated items. */
   gap = "3rem",
+  /** Ease to a stop while hovered, so an item in the band can be inspected. */
+  pauseOnHover = false,
 }: {
   children: ReactNode;
   className?: string;
   speed?: number;
   reverse?: boolean;
   gap?: string;
+  pauseOnHover?: boolean;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
@@ -67,10 +70,24 @@ export function Marquee({
         onToggle: (self) => (self.isActive ? tween.play() : tween.pause()),
       });
 
+      /* Hover eases the band's speed down to nothing and back up rather than
+         pausing dead, so it never jolts under the cursor. Tweening timeScale
+         leaves the loop position untouched. */
+      if (pauseOnHover) {
+        const slow = () => gsap.to(tween, { timeScale: 0, duration: 0.6, ease: "power2.out" });
+        const resume = () => gsap.to(tween, { timeScale: 1, duration: 0.6, ease: "power2.in" });
+        container.addEventListener("pointerenter", slow);
+        container.addEventListener("pointerleave", resume);
+        return () => {
+          container.removeEventListener("pointerenter", slow);
+          container.removeEventListener("pointerleave", resume);
+        };
+      }
+
       /* useGSAP's context reverts the tween and its ScrollTrigger on unmount,
          so no manual cleanup is needed here. */
     },
-    { scope: root, dependencies: [speed, reverse] }
+    { scope: root, dependencies: [speed, reverse, pauseOnHover] }
   );
 
   return (

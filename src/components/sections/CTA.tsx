@@ -48,6 +48,16 @@ import { MarkAnchor } from "@/components/motion/MarkFlight";
  * ── The headline drifts ─────────────────────────────────────────────────────
  * Two lines moving opposite ways on `xPercent`, scrubbed. It echoes the hero,
  * where the two words converge, so the page opens and closes on the same idea.
+ *
+ * Both lines drift within 0 to +8%, never negative. The container clips its
+ * overflow, and a line that starts shifted left loses its first letter behind
+ * the left edge ("IND OUT WHAT"). Both lines are short, so the room to move is
+ * all on the right.
+ *
+ * ── Brand blue ──────────────────────────────────────────────────────────────
+ * The one saturated band on the page, via `theme-blue` (see globals.css). It
+ * closes the page on the cover artwork's pairing, blue with lime, and sits
+ * directly above the lime ticker band in the footer.
  */
 
 /**
@@ -88,12 +98,13 @@ export function CTA() {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-drift]", el).forEach((line, i) => {
-        const dir = i % 2 === 0 ? -1 : 1;
+        /* Opposite directions, both inside 0 to 8. */
+        const [from, to] = i % 2 === 0 ? [0, 8] : [8, 0];
         gsap.fromTo(
           line,
-          { xPercent: dir * 5 },
+          { xPercent: from },
           {
-            xPercent: dir * -5,
+            xPercent: to,
             ease: "none",
             scrollTrigger: {
               trigger: el,
@@ -129,16 +140,22 @@ export function CTA() {
   return (
     <section
       ref={root}
-      className="grain relative overflow-hidden border-t border-line py-(--spacing-section)"
+      className="theme-blue grain relative overflow-hidden bg-background py-(--spacing-section)"
     >
+      {/* Depth. A flat saturated fill reads as a banner ad; a darker corner
+          and a lifted centre make it read as lit. */}
       <div
         aria-hidden
-        className="glow-accent pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(80% 90% at 20% 0%, rgb(255 255 255 / 0.10) 0%, transparent 60%), radial-gradient(70% 80% at 100% 100%, rgb(11 11 11 / 0.35) 0%, transparent 70%)",
+        }}
       />
 
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-[18%] top-1/2 hidden w-[36rem] -translate-y-1/2 opacity-[0.05] lg:block"
+        className="pointer-events-none absolute -right-[18%] top-1/2 hidden w-[36rem] -translate-y-1/2 opacity-[0.12] lg:block"
       >
         <Logomark className="mark-turn" color="lime" decorative />
       </div>

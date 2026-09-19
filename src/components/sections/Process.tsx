@@ -1,66 +1,62 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { gsap, ScrollTrigger, useGSAP, EASE } from "@/lib/gsap";
-import { processSteps } from "@/config/home";
+import { processSteps, type Step } from "@/config/home";
+import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
-import { MarkAnchor } from "@/components/motion/MarkFlight";
+import { Button } from "@/components/ui/Button";
 import {
-  AuditRows,
-  PlanSteps,
-  SiteFrame,
-  ReportChart,
-} from "@/components/graphics/Schematic";
+  AuditMock,
+  PlanMock,
+  BuildMock,
+  ReportMock,
+} from "@/components/graphics/ProcessMocks";
 import { cn } from "@/lib/utils";
 
 /**
- * The deliverable at each step, in order. Defined at module scope so the
- * elements are created once rather than on every render of every step.
+ * The product panel for each step, in order. `wide` puts the panel on its own
+ * row across the full width, with the trace running into it; the build has
+ * three things to show (creative, search, landing pages) and needs the room.
  */
-const STEP_ART = [
-  <AuditRows key="audit" />,
-  <PlanSteps key="plan" />,
-  <SiteFrame key="build" />,
-  <ReportChart key="report" />,
+const STEP_ART: { node: ReactNode; wide?: boolean }[] = [
+  { node: <AuditMock key="audit" /> },
+  { node: <PlanMock key="plan" /> },
+  { node: <BuildMock key="build" />, wide: true },
+  { node: <ReportMock key="report" /> },
 ];
 
 /**
- * PROCESS — a sticky counter and a run of full-height steps.
+ * PROCESS — "How it works", drawn as a circuit.
  *
- * ── What this replaced, and why ─────────────────────────────────────────────
- * Four cards in a sticky stack. The problem was not the stacking, it was the
- * card. A bordered box with a tiny number in the left third and a narrow
- * paragraph in the right two thirds is the default shape every generated
- * layout lands on, and it wasted half its own width on empty panel. Four of
- * them in a column reads as four of the same thing, which is the opposite of
- * what a process is: an order.
+ * ── The idea ────────────────────────────────────────────────────────────────
+ * Sika was founded by a licensed electrician, and the intro above already
+ * says "wire the follow-up". So the process is wired: a lime current runs down
+ * a trace from "Your business" to a lamp at the bottom that reads "Your phone
+ * rings". Each step is a breaker on the trace. When the current reaches it,
+ * the breaker flips on, a branch runs out to that step's panel, and the step
+ * powers up with a short fluorescent flicker.
  *
- * Here the section is split. The left rail sticks for the whole section and
- * holds the heading, a counter, and a segmented progress bar. The right column
- * is the steps themselves at full height, one screen each. Scrolling advances
- * a counter rather than sliding a card, so the section behaves like a machine
- * stepping through states instead of a list you are falling down.
+ * Deliberately not a rail of stacked cards. Copy and panel sit on opposite
+ * sides of the trace and alternate, so the section zig-zags down the page and
+ * the trace is the thing holding it together.
  *
- * ── The counter ────────────────────────────────────────────────────────────
- * An odometer: all four numerals stacked in a column inside a one-line clip,
- * with the column translated up by exactly one numeral per step. The travel is
- * `-(100 / n) * i` percent of the column, which is one numeral's height by
- * definition, so it stays correct at any font size and never needs measuring.
+ * ── The current is a position readout ───────────────────────────────────────
+ * The fill is scrubbed to scroll, so it always shows exactly how far through
+ * the process the reader is. `scaleY` from the top: a transform, composited.
+ * The spark at its head is translated by the same scrub rather than scaled,
+ * which would squash it.
  *
- * ── Sticky, not pinned ─────────────────────────────────────────────────────
- * Same reason as before. ScrollTrigger's `pin` takes the rail out of flow,
- * inserts a spacer and drives it from JavaScript, recalculating on every
- * resize, and on iOS it can visibly detach during momentum scrolling.
- * `position: sticky` does it natively on the compositor for nothing. GSAP is
- * left doing only transforms, which is what it is good at.
+ * ── Power state ─────────────────────────────────────────────────────────────
+ * Steps are ON by default. Script marks the steps below the fold OFF on mount
+ * and flips each one ON as the current reaches it (and OFF again scrolling
+ * back up). The dimming and the flicker are CSS, keyed on `data-power`; see
+ * the CIRCUIT notes in globals.css. With reduced motion none of this runs and
+ * every step is simply on.
  *
- * ── The reveal guard ───────────────────────────────────────────────────────
- * Every reveal here checks whether its element is already on screen at mount
- * and skips itself if so. This is the project's standing rule and it exists
- * because `fromTo` renders its start state immediately: create one for
- * something already in view and the content is hidden with no scroll left to
- * bring it back. Skipping leaves the element in its resting state, which is
- * the correct state, so the section is readable even if the motion never runs.
+ * ── The reveal guard ────────────────────────────────────────────────────────
+ * The project's standing rule. `fromTo` renders its start state immediately,
+ * so nothing already on screen at mount is given a reveal.
  */
 export function Process() {
   const root = useRef<HTMLElement>(null);
@@ -71,8 +67,6 @@ export function Process() {
       if (!el) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      /* The step drawings loop only while the section is on screen. See the
-         note on `.sch` in globals.css. */
       ScrollTrigger.create({
         trigger: el,
         start: "top bottom",
@@ -80,330 +74,497 @@ export function Process() {
         toggleClass: "is-alive",
       });
 
-      const steps = gsap.utils.toArray<HTMLElement>("[data-step]", el);
-      if (!steps.length) return;
+      const circuit = el.querySelector<HTMLElement>("[data-circuit]");
+      const fill = el.querySelector<HTMLElement>("[data-current]");
+      const spark = el.querySelector<HTMLElement>("[data-spark]");
+      const lamp = el.querySelector<HTMLElement>("[data-lamp]");
 
-      /** True when the element is already in view, so a reveal would hide it. */
-      const onScreen = (node: Element) =>
-        node.getBoundingClientRect().top < window.innerHeight * 0.95;
-
-      /* ── Per-step reveal. Runs at every breakpoint. ──────────────────── */
-      steps.forEach((step) => {
-        const masked = gsap.utils.toArray<HTMLElement>("[data-rise]", step);
-        if (!masked.length || onScreen(step)) return;
-
+      /* ── The current ───────────────────────────────────────────────────── */
+      if (circuit && fill) {
+        const scroll = {
+          trigger: circuit,
+          start: "top 60%",
+          end: "bottom 60%",
+          scrub: 0.4,
+        };
         gsap.fromTo(
-          masked,
-          { yPercent: 115 },
+          fill,
+          { scaleY: 0 },
           {
-            yPercent: 0,
-            duration: 1.1,
-            ease: EASE.expo,
-            stagger: 0.08,
-            scrollTrigger: { trigger: step, start: "top 78%", once: true },
+            scaleY: 1,
+            ease: "none",
+            transformOrigin: "top center",
+            scrollTrigger: scroll,
           }
         );
-
-        /* The drawing assembles part by part, after the copy has landed. It
-           trails the text on purpose: the sentence says what the step hands
-           over and the picture is the evidence for it, so arriving first would
-           put the answer before the question. */
-        const art = step.querySelector<HTMLElement>("[data-art]");
-        const parts = art?.querySelectorAll<SVGElement>("[data-g]");
-
-        if (art && parts?.length) {
+        if (spark) {
           gsap.fromTo(
-            art,
-            { autoAlpha: 0, y: 28 },
+            spark,
+            { y: 0 },
             {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.9,
-              delay: 0.2,
-              ease: EASE.expo,
-              scrollTrigger: { trigger: step, start: "top 78%", once: true },
-            }
-          );
-
-          gsap.fromTo(
-            parts,
-            { autoAlpha: 0, xPercent: -4 },
-            {
-              autoAlpha: 1,
-              xPercent: 0,
-              duration: 0.45,
-              delay: 0.35,
-              ease: EASE.quart,
-              stagger: 0.05,
-              scrollTrigger: { trigger: step, start: "top 78%", once: true },
+              y: () => circuit.offsetHeight,
+              ease: "none",
+              scrollTrigger: { ...scroll, invalidateOnRefresh: true },
             }
           );
         }
-      });
+      }
 
-      /* ── Desktop only: the counter, the segments, the active marker. ──────
-         None of it means anything on a phone, where the rail scrolls away and
-         there is no such thing as the step you are currently on.
+      /* ── Power ─────────────────────────────────────────────────────────── */
+      const powerAt = (node: HTMLElement) => {
+        const rect = node.getBoundingClientRect();
+        if (rect.top + rect.height / 2 > window.innerHeight * 0.6) {
+          node.dataset.power = "off";
+        }
+        ScrollTrigger.create({
+          trigger: node,
+          start: "center 60%",
+          onEnter: () => (node.dataset.power = "on"),
+          onLeaveBack: () => (node.dataset.power = "off"),
+        });
+      };
 
-         ── No dimming ───────────────────────────────────────────────────────
-         The first build faded inactive steps to 22%. It looked decisive in
-         isolation and was unreadable in practice: the steps are 76vh tall, so
-         a neighbour is always partly on screen, and most of what you could see
-         at any moment was a ghost. Nothing here is allowed to make the copy
-         harder to read. The active step is marked with a lime rule instead,
-         which costs no legibility at all. */
-      const mm = gsap.matchMedia();
+      const steps = gsap.utils.toArray<HTMLElement>("[data-step]", el);
+      steps.forEach(powerAt);
+      if (lamp) powerAt(lamp);
 
-      mm.add("(min-width: 1024px)", () => {
-        const column = el.querySelector<HTMLElement>("[data-odometer]");
-        const travel = 100 / processSteps.length;
+      /* ── Reveals ───────────────────────────────────────────────────────── */
+      const onScreen = (node: Element) =>
+        node.getBoundingClientRect().top < window.innerHeight * 0.95;
 
-        /* One reusable tween, retargeted. `quickTo` skips creating a new tween
-           object on every step change, which matters because these fire during
-           scroll. */
-        const setStep = column
-          ? gsap.quickTo(column, "yPercent", {
-              duration: 0.65,
+      steps.forEach((step) => {
+        if (onScreen(step)) return;
+        const trigger = { trigger: step, start: "top 78%", once: true };
+
+        const blocks = step.querySelectorAll("[data-reveal]");
+        if (blocks.length) {
+          gsap.fromTo(
+            blocks,
+            { autoAlpha: 0, y: 48 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 1.1,
+              stagger: 0.12,
+              ease: EASE.expo,
+              scrollTrigger: trigger,
+            }
+          );
+        }
+
+        const chips = step.querySelectorAll("[data-chip]");
+        if (chips.length) {
+          gsap.fromTo(
+            chips,
+            { autoAlpha: 0, y: 10 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.5,
+              delay: 0.35,
+              stagger: 0.05,
               ease: EASE.quart,
-            })
-          : null;
+              scrollTrigger: trigger,
+            }
+          );
+        }
 
-        steps.forEach((step, i) => {
-          /* Activation. Drives the counter and the active marker together, so
-             the numeral can never disagree with the step that is marked. */
-          const activate = () => {
-            setStep?.(-travel * i);
-            steps.forEach((s, j) => {
-              s.dataset.active = String(j === i);
-            });
-          };
+        const pops = step.querySelectorAll("[data-pop]");
+        if (pops.length) {
+          gsap.fromTo(
+            pops,
+            { autoAlpha: 0, y: 16 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.6,
+              delay: 0.45,
+              stagger: 0.06,
+              ease: EASE.quart,
+              scrollTrigger: trigger,
+            }
+          );
+        }
 
-          /* A bare ScrollTrigger, not a timeline with one attached. There is no
-             tween here, only two callbacks, and an empty timeline would be a
-             playhead running for nothing.
+        const growY = step.querySelectorAll("[data-grow-y]");
+        if (growY.length) {
+          gsap.fromTo(
+            growY,
+            { scaleY: 0 },
+            {
+              scaleY: 1,
+              duration: 1,
+              delay: 0.6,
+              stagger: 0.08,
+              ease: EASE.expo,
+              transformOrigin: "bottom center",
+              scrollTrigger: trigger,
+            }
+          );
+        }
 
-             ── Why both edges sit on the same line ──────────────────────────
-             A step is active while the 45% line is inside it. Because that is
-             one line and the steps are stacked flush, exactly one step can
-             contain it at any scroll position, so the handoff is a single
-             clean swap.
+        const growX = step.querySelectorAll("[data-grow-x]");
+        if (growX.length) {
+          gsap.fromTo(
+            growX,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration: 0.9,
+              delay: 0.6,
+              stagger: 0.1,
+              ease: EASE.expo,
+              transformOrigin: "left center",
+              scrollTrigger: trigger,
+            }
+          );
+        }
 
-             The earlier values were `top 80%` to `bottom 40%`, and they were
-             wrong: a step is 76vh tall, so the next step's top reached the 80%
-             mark while the current step still filled the screen. Both had
-             fired, the later one won, and the counter sat one ahead of what
-             you were reading. */
-          ScrollTrigger.create({
-            trigger: step,
-            start: "top 45%",
-            end: "bottom 45%",
-            onEnter: activate,
-            onEnterBack: activate,
+        /* Count-ups. The target is in the attribute; see ProcessMocks. */
+        step.querySelectorAll<HTMLElement>("[data-count]").forEach((node) => {
+          const prefix = node.dataset.prefix ?? "";
+          const suffix = node.dataset.suffix ?? "";
+          const target = Number(node.dataset.count) || 0;
+          const counter = { v: 0 };
+          gsap.to(counter, {
+            v: target,
+            duration: 1.6,
+            delay: 0.6,
+            ease: "power2.out",
+            scrollTrigger: trigger,
+            onUpdate: () => {
+              node.textContent = `${prefix}${Math.round(counter.v)}${suffix}`;
+            },
           });
-
-          /* The segment for this step fills across it. Scrubbed, so the bar is
-             a position readout rather than a thing that animates at you. */
-          const seg = el.querySelector<HTMLElement>(`[data-seg="${i}"]`);
-          if (seg) {
-            gsap.fromTo(
-              seg,
-              { scaleX: 0 },
-              {
-                scaleX: 1,
-                ease: "none",
-                transformOrigin: "left center",
-                scrollTrigger: {
-                  trigger: step,
-                  /* The same two edges the activation uses, so the segment is
-                     filling for exactly as long as its step is the active one.
-                     Different edges and the bar would still be filling after
-                     the counter had already moved on. */
-                  start: "top 45%",
-                  end: "bottom 45%",
-                  scrub: 0.4,
-                },
-              }
-            );
-          }
         });
-
-        /* The first step is marked on arrival, before any trigger has fired. */
-        steps.forEach((s, j) => {
-          s.dataset.active = String(j === 0);
-        });
-
-        return () => {
-          steps.forEach((s) => delete s.dataset.active);
-        };
       });
-
-      return () => mm.revert();
     },
     { scope: root }
   );
 
+  const { primary } = siteConfig.offer;
+
   return (
     <section
       ref={root}
-      className="grain relative border-t border-line py-(--spacing-section)"
+      className="grain relative overflow-hidden border-t border-line py-(--spacing-section)"
     >
-      <Container>
-        <div className="lg:flex lg:items-start lg:gap-16">
-          {/* ── Left rail. Sticks for the length of the section. ─────────── */}
-          {/* `min-h-screen`, not `h-screen`. A fixed-height flex column shrinks
-              its children to fit when their combined height exceeds it, and it
-              does so silently: the tallest child loses the most. That is what
-              was slicing the counter down to a sliver of a numeral. `min-h`
-              lets the rail grow instead, and `shrink-0` below means nothing in
-              it can ever be compressed to make room. */}
-          <div className="lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:w-[44%] lg:shrink-0 lg:flex-col lg:justify-center lg:py-16">
-            <div className="flex shrink-0 items-center gap-3">
-              <MarkAnchor size="w-3.5" />
-              <p className="eyebrow text-accent">How it works</p>
-            </div>
+      {/* Ambient light: blue pools either side of the trace. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(40% 25% at 12% 30%, color-mix(in oklab, var(--color-blue) 34%, transparent) 0%, transparent 70%), radial-gradient(40% 25% at 88% 62%, color-mix(in oklab, var(--color-blue) 30%, transparent) 0%, transparent 70%)",
+        }}
+      />
 
-            {/* `18ch` sets this to three lines rather than four. The rail has
-                to fit a short laptop viewport in full, and a wrapped line of
-                display type is the most expensive thing in it. */}
-            <h2 className="mt-6 max-w-[18ch] shrink-0 font-display text-h2 uppercase leading-[0.94] text-foreground">
-              Four steps, and you can stop after the first.
-            </h2>
+      <Container className="relative">
+        {/* ── Heading ─────────────────────────────────────────────────────── */}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="eyebrow text-accent">How it works</p>
+          <h2 className="mt-5 font-display text-h2 leading-[0.94] text-foreground uppercase">
+            Wired for enquiries.
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lead text-muted">
+            Four steps, in order. The first one is free and you keep it whether
+            or not you hire us.
+          </p>
+        </div>
 
-            {/* ── The odometer ──────────────────────────────────────────────
-                A one-numeral-tall window over a column of four.
+        {/* ── Source terminal ─────────────────────────────────────────────── */}
+        <div className="relative mt-14 flex lg:mt-20 lg:justify-center">
+          <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-line-strong bg-ink px-4 py-2 font-mono text-[0.68rem] tracking-[0.14em] text-muted uppercase">
+            <Plug className="size-3.5 text-accent" />
+            Your business
+          </span>
+        </div>
 
-                The box is 1.3em, not 1em. A heavy display face draws taller
-                than its em square, so a 1em line box clips the glyph top and
-                bottom. 1.3em with the numeral centred in it gives clearance on
-                both sides at any size. The window and each numeral use the same
-                figure, which is what keeps the travel exact: the column is
-                n × 1.3em, so one numeral is 100/n percent of it, no matter what
-                that figure is. */}
-            <div
-              aria-hidden
-              className="mt-8 hidden h-[1.3em] shrink-0 overflow-hidden font-display text-[clamp(3rem,5vw,5.5rem)] leading-none lg:block"
+        {/* ── The circuit ─────────────────────────────────────────────────── */}
+        <ol data-circuit className="relative mx-auto max-w-6xl pl-14 lg:pl-0">
+          {/* Trace: unlit copper, the lit current over it, the spark. */}
+          <span
+            aria-hidden
+            className="absolute top-0 bottom-0 left-5 w-[2px] -translate-x-1/2 bg-line lg:left-1/2"
+          >
+            <span
+              data-current
+              className="absolute inset-0 origin-top overflow-hidden bg-gradient-to-b from-accent via-accent to-blue shadow-[0_0_14px_rgb(189_240_49/0.55)]"
             >
-              <div data-odometer className="will-change-transform">
-                {processSteps.map((step) => (
-                  <span
-                    key={step.n}
-                    className="flex h-[1.3em] items-center tabular-nums leading-none text-accent"
-                  >
-                    {step.n}
-                  </span>
-                ))}
-              </div>
-            </div>
+              <span className="sch current-flow absolute inset-x-0 -top-12 bottom-0 opacity-60" />
+            </span>
+            <span data-spark className="absolute inset-x-0 top-0 h-0">
+              <span className="absolute top-0 left-1/2 block size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-paper shadow-[0_0_0_4px_rgb(189_240_49/0.35),0_0_28px_6px_rgb(189_240_49/0.8)]" />
+            </span>
+          </span>
 
-            {/* ── Segmented progress ────────────────────────────────────────
-                Four segments rather than one bar. A single bar tells you how
-                far through the section you are, which nobody needs. Segments
-                tell you which step you are in and how far through it, which is
-                the same information the counter gives, read a second way. */}
-            <div
+          {processSteps.map((step, i) => (
+            <CircuitStep key={step.n} step={step} index={i} art={STEP_ART[i]} />
+          ))}
+        </ol>
+
+        {/* ── The lamp ────────────────────────────────────────────────────── */}
+        <div
+          data-lamp
+          className="group/lamp relative flex flex-col items-start lg:items-center"
+        >
+          <div className="flex items-center gap-4 lg:flex-col lg:gap-5">
+            <span
               aria-hidden
-              className="mt-8 hidden shrink-0 grid-cols-4 gap-2 lg:grid"
+              className={cn(
+                "relative flex size-10 items-center justify-center rounded-full border transition-[background-color,border-color,box-shadow,color] duration-(--duration-slow) lg:size-16",
+                "border-accent bg-accent text-on-accent shadow-[0_0_0_8px_rgb(189_240_49/0.12),0_0_60px_10px_rgb(189_240_49/0.45)]",
+                "group-data-[power=off]/lamp:border-line-strong group-data-[power=off]/lamp:bg-ink group-data-[power=off]/lamp:text-faint group-data-[power=off]/lamp:shadow-none"
+              )}
             >
-              {processSteps.map((step, i) => (
-                <span
-                  key={step.n}
-                  className="relative block h-px w-full overflow-hidden bg-line"
-                >
-                  <span
-                    data-seg={i}
-                    className="absolute inset-0 block origin-left scale-x-0 bg-accent"
-                  />
-                </span>
-              ))}
-            </div>
-
-            <p className="mt-8 max-w-sm shrink-0 text-lead text-muted">
-              The first one is free and you keep it whether or not you hire us.
+              <Bulb className="size-5 lg:size-7" />
+            </span>
+            <p
+              data-power-target
+              className="font-display text-h4 leading-none text-foreground uppercase"
+            >
+              Your phone rings.
             </p>
           </div>
 
-          {/* ── Right column. One step per screen. ───────────────────────── */}
-          <ol className="mt-16 lg:mt-0 lg:w-[56%]">
-            {processSteps.map((step, i) => (
-              <li
-                key={step.n}
-                data-step
-                className={cn(
-                  "group/step flex flex-col justify-center border-t border-line py-14 lg:min-h-[76vh]",
-                  /* The active marker. A lime rule down the left edge of the
-                     step you are on, appearing only where there is room for
-                     it. `border-l-2` is always present so the step never
-                     shifts sideways when it becomes active; only the colour
-                     changes. */
-                  "lg:border-t-0 lg:border-l-2 lg:pl-10 lg:transition-colors lg:duration-slow lg:ease-out-quart",
-                  /* A plain `data-*` variant, not `group-data-*`. The attribute
-                     is set on this element, and `group-*` only ever looks at
-                     ancestors, so the group form would never match. */
-                  "lg:data-[active=true]:border-l-accent",
-                  /* `cn` merges through tailwind-merge, so the override wins by
-                     precedence rather than by whichever rule Tailwind happened
-                     to emit last. Plain string concatenation cannot do this. */
-                  i === 0 && "border-t-0 pt-0"
-                )}
-              >
-                {/* Each masked line is a clip with the content inside it, so
-                    the rise reads as type coming up out of a rule rather than
-                    a box sliding in. */}
-                <div className="overflow-hidden">
-                  <div
-                    data-rise
-                    className="flex items-center gap-4 border-b border-line pb-4"
-                  >
-                    <span className="font-mono text-eyebrow tabular-nums text-accent">
-                      {step.n}
-                    </span>
-                    {i === 0 && (
-                      <span className="rounded-full border border-accent px-3 py-1 font-mono text-eyebrow uppercase tracking-wider text-accent">
-                        Free
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-8 overflow-hidden">
-                  <h3
-                    data-rise
-                    /* One step below the rail heading. At the same size they
-                       compete, and the rail is the one that owns the section. */
-                    className="font-display text-h3 uppercase leading-[0.98] text-foreground"
-                  >
-                    {step.title}
-                  </h3>
-                </div>
-
-                <div className="mt-6 overflow-hidden">
-                  <p data-rise className="max-w-xl text-lead text-muted">
-                    {step.copy}
-                  </p>
-                </div>
-
-                {/* ── What you get at this step ─────────────────────────────
-                    One drawing per step, of the thing that step hands over:
-                    the audit, the plan, the build, the report. Four steps of
-                    heading and paragraph was the most text-dense stretch on
-                    the page, and a drawing of the deliverable does more than a
-                    fifth sentence describing it would.
-
-                    Indexed by position rather than configured per step,
-                    because the drawings are a fixed set of four that exist
-                    only for this section. If the process ever becomes three
-                    steps or five, this wants to move into config alongside the
-                    copy rather than silently running out of pictures. */}
-                {STEP_ART[i] && (
-                  <div data-art className="mt-10 w-full max-w-md">
-                    {STEP_ART[i]}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ol>
+          <div className="mt-10 flex flex-col items-start gap-3 lg:items-center">
+            <Button href={primary.href} size="lg">
+              Start with step one, free
+            </Button>
+            <p className="text-small text-faint">
+              Yours to keep, whether or not you hire us.
+            </p>
+          </div>
         </div>
       </Container>
     </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   One step: breaker on the trace, copy on one side, panel on the other.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function CircuitStep({
+  step,
+  index,
+  art,
+}: {
+  step: Step;
+  index: number;
+  art?: { node: ReactNode; wide?: boolean };
+}) {
+  /* Even steps: copy left, panel right. Odd steps swap. */
+  const copyLeft = index % 2 === 0;
+  const wide = art?.wide;
+
+  return (
+    <li
+      data-step
+      className="group/step relative py-12 lg:grid lg:grid-cols-[1fr_7rem_1fr] lg:items-center lg:py-20"
+    >
+      {/* ── Breaker. On the trace: at the step's top on phones, centred on
+          the row from lg. ─────────────────────────────────────────────── */}
+      <div
+        aria-hidden
+        className="absolute top-12 -left-[3.125rem] z-10 lg:relative lg:top-auto lg:left-auto lg:col-start-2 lg:row-start-1 lg:flex lg:items-center lg:justify-center lg:self-stretch"
+      >
+        {/* Branch: from the trace out to the panel's side. Not on wide
+            steps, where the trace runs straight into the panel instead. */}
+        {!wide ? (
+          <span
+            className={cn(
+              "absolute top-1/2 hidden h-[2px] w-1/2 -translate-y-1/2 bg-line lg:block",
+              copyLeft ? "left-1/2" : "right-1/2"
+            )}
+          >
+            <span
+              className={cn(
+                "absolute inset-0 bg-accent shadow-[0_0_10px_rgb(189_240_49/0.6)] transition-transform duration-(--duration-slow) ease-(--ease-out-quart)",
+                copyLeft ? "origin-left" : "origin-right",
+                "group-data-[power=off]/step:scale-x-0"
+              )}
+            />
+            {/* Solder pad where the branch meets the panel. */}
+            <span
+              className={cn(
+                "absolute top-1/2 size-2.5 -translate-y-1/2 rounded-full border-2 border-accent bg-ink transition-colors duration-(--duration-slow) group-data-[power=off]/step:border-line-strong",
+                copyLeft ? "-right-1" : "-left-1"
+              )}
+            />
+          </span>
+        ) : null}
+        <Breaker n={step.n} />
+      </div>
+
+      {/* ── Copy ─────────────────────────────────────────────────────────── */}
+      <div
+        className={cn(
+          "lg:row-start-1",
+          copyLeft
+            ? "lg:col-start-1 lg:justify-self-end lg:pr-4"
+            : "lg:col-start-3 lg:pl-4"
+        )}
+      >
+        {/* Two wrappers: the reveal leaves an inline opacity behind, which
+            would override the power dimming if both sat on one element. */}
+        <div data-reveal className="max-w-xl">
+          <div data-power-target>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-eyebrow tracking-[0.16em] text-accent uppercase">
+                Step {step.n}
+              </span>
+              {index === 0 ? (
+                <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[0.62rem] font-medium tracking-wider text-on-accent uppercase">
+                  Free
+                </span>
+              ) : null}
+            </div>
+            <h3 className="mt-4 font-display text-h3 leading-[0.98] text-foreground uppercase">
+              {step.title}
+            </h3>
+            <p className="mt-5 text-lead text-muted">{step.copy}</p>
+            {!wide ? <Chips tags={step.tags} className="mt-7" /> : null}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Panel ────────────────────────────────────────────────────────── */}
+      {wide ? (
+        <>
+          {/* The chips take the free side of the copy row. */}
+          <div
+            className={cn(
+              "lg:row-start-1 lg:self-center",
+              copyLeft ? "lg:col-start-3 lg:pl-4" : "lg:col-start-1 lg:pr-4"
+            )}
+          >
+            <div data-reveal>
+              <div data-power-target>
+                <Chips tags={step.tags} className="mt-7 lg:mt-0" />
+              </div>
+            </div>
+          </div>
+          {/* Full-width device. Solid, so it sits over the trace, which reads
+              as the current running into it at the top and out at the foot. */}
+          <div className="relative z-10 mt-10 lg:col-span-3 lg:row-start-2 lg:mt-12">
+            <div data-reveal>
+              <div
+                data-power-target
+                className="relative rounded-[1.25rem] border border-line-strong/70 bg-[#0e0f11] p-5 shadow-[0_40px_100px_-40px_rgb(0_0_0/0.95)] sm:p-7"
+              >
+                <Pad className="-top-1.5" />
+                {art?.node}
+                <Pad className="-bottom-1.5" />
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div
+          className={cn(
+            "mt-10 lg:row-start-1 lg:mt-0",
+            copyLeft ? "lg:col-start-3" : "lg:col-start-1 lg:justify-self-end"
+          )}
+        >
+          <div data-reveal className="lg:max-w-lg">
+            <div data-power-target>{art?.node}</div>
+          </div>
+        </div>
+      )}
+    </li>
+  );
+}
+
+function Chips({ tags, className }: { tags: string[]; className?: string }) {
+  return (
+    <ul className={cn("flex flex-wrap gap-2", className)}>
+      {tags.map((t) => (
+        <li
+          key={t}
+          data-chip
+          className="flex items-center gap-1.5 rounded-full border border-line-strong bg-[rgb(255_255_255/0.03)] px-3 py-1.5 text-small text-foreground/90"
+        >
+          <svg viewBox="0 0 16 16" className="size-3 text-accent" aria-hidden>
+            <path
+              d="M2.5 8.5L6 12l7.5-8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="square"
+            />
+          </svg>
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * A breaker switch. ON is the default look; `data-power="off"` on the step
+ * drops the toggle and greys it. The toggle moves on `transform`.
+ */
+function Breaker({ n }: { n: string }) {
+  return (
+    <span className="relative flex flex-col items-center gap-1.5 bg-ink py-1.5">
+      <span
+        className={cn(
+          "relative flex h-11 w-7 justify-center rounded-[6px] border bg-[#141517] p-[3px] transition-[border-color,box-shadow] duration-(--duration-slow) lg:h-14 lg:w-9",
+          "border-accent shadow-[0_0_24px_rgb(189_240_49/0.35)]",
+          "group-data-[power=off]/step:border-line-strong group-data-[power=off]/step:shadow-none"
+        )}
+      >
+        <span
+          className={cn(
+            "block h-1/2 w-full rounded-[3px] transition-[transform,background-color] duration-(--duration-slow) ease-(--ease-out-expo)",
+            "bg-accent",
+            "group-data-[power=off]/step:translate-y-full group-data-[power=off]/step:bg-slate-600"
+          )}
+        />
+      </span>
+      <span className="font-mono text-[0.6rem] leading-none text-faint tabular-nums">
+        {n}
+      </span>
+    </span>
+  );
+}
+
+/** A solder pad on the trace, where it meets the wide device. */
+function Pad({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "absolute hidden size-3 rounded-full border-2 border-accent bg-ink lg:left-1/2 lg:block lg:-translate-x-1/2",
+        "group-data-[power=off]/step:border-line-strong",
+        className
+      )}
+    />
+  );
+}
+
+function Plug({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" className={className} fill="none" aria-hidden>
+      <path
+        d="M5.5 1.5v4M10.5 1.5v4M3.5 5.5h9v2.5a4.5 4.5 0 0 1-9 0V5.5zM8 12.5v2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+function Bulb({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden>
+      <path
+        d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

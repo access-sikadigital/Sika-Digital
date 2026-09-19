@@ -105,6 +105,19 @@ export const siteConfig = {
   },
 
   /**
+   * Google reviews badge, shown above the homepage H1.
+   *
+   * `count` is empty rather than guessed: a review count is a public claim and
+   * has to match the Google Business Profile. Until it is set the badge reads
+   * "5-Star Google Reviews" with no number. `url` links the badge to the
+   * profile's reviews when set.
+   */
+  googleReviews: {
+    count: "", // TODO — e.g. "53+", from the Google Business Profile
+    url: "", // TODO — Google Business Profile reviews link
+  },
+
+  /**
    * Primary first-step offer — Open Question #2.
    *
    * The scope recommends the free growth/"leak" audit with a 15-minute call as

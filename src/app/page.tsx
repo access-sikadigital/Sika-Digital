@@ -1,5 +1,6 @@
 import { metadataFor } from "@/lib/metadata";
 import { Hero } from "@/components/sections/Hero";
+import { TrustedBy } from "@/components/sections/TrustedBy";
 import { IntroStatement } from "@/components/sections/IntroStatement";
 import { ServicesList } from "@/components/sections/ServicesList";
 import { Process } from "@/components/sections/Process";
@@ -13,6 +14,8 @@ export const metadata = metadataFor("home");
  *
  * ── The order, and why ──────────────────────────────────────────────────────
  *   1. Hero              Who this is and where.
+ *   1b. Trusted by       Client logo band. Renders only once real logos
+ *                        are in config/home.ts.
  *   2. Intro statement   What Sika actually does, in one sentence.
  *   3. Services          The five service lines, in priority order.
  *   4. Process           How an engagement runs. Removes the fear of the
@@ -61,6 +64,7 @@ export default function HomePage() {
   return (
     <>
       <Hero video="/media/hero.mp4" poster="/media/hero-poster.jpg" />
+      <TrustedBy />
       <IntroStatement />
       <ServicesList />
       <Process />

@@ -12,6 +12,54 @@ import { getPage } from "@/config/pages";
  *     how a real business works and needs John's confirmation before launch.
  */
 
+/* ── The hero ───────────────────────────────────────────────────────────────
+   Lifted word for word from Sika's own cover artwork, so the site opens on the
+   same line the brand already uses everywhere else. Three beats, one per line;
+   the last is the payoff and is the one set on the lime highlight. */
+export const hero = {
+  lines: ["Get found.", "Get clicks."],
+  highlight: "Get customers.",
+  services: ["Websites", "SEO", "Paid Ads", "AI Search"],
+} as const;
+
+/* ── Trusted by ─────────────────────────────────────────────────────────────
+   The client logo band under the hero. A logo here is a public claim that the
+   business is a client, so it is never filled with stand-ins.
+
+   Files live in public/media/clients/, full colour. The band greys them out
+   and restores the real colours on hover.
+
+     width/height  The file's intrinsic size. Only the ratio is used: the band
+                   sizes every logo to the same visual area, so a wide wordmark
+                   and a square badge carry the same weight.
+     tone          What the logo's real colours need behind them. "dark" logos
+                   (dark ink) get a light tile on hover, or they would vanish
+                   into the page; "light" logos stay on the dark page.
+     idle          "silhouette" flattens to white at rest. "grayscale" is for
+                   illustrated marks, which flatten into a solid blob.
+
+   TODO: the real client count for the label (e.g. "100+"). */
+export type ClientLogo = {
+  name: string;
+  src: string;
+  width: number;
+  height: number;
+  tone: "dark" | "light";
+  idle?: "silhouette" | "grayscale";
+};
+
+export const trustedBy: { count: string; logos: ClientLogo[] } = {
+  count: "", // TODO
+  logos: [
+    { name: "Wells Roofing", src: "/media/clients/wells-roofing.avif", width: 1080, height: 415, tone: "dark" },
+    { name: "Demo Bros", src: "/media/clients/demo-bros.svg", width: 334, height: 330, tone: "light", idle: "grayscale" },
+    { name: "Formline Joinery", src: "/media/clients/formline-joinery.svg", width: 600, height: 107, tone: "dark" },
+    { name: "Fintellect", src: "/media/clients/fintellect.svg", width: 800, height: 687, tone: "light" },
+    { name: "By Willow", src: "/media/clients/by-willow.svg", width: 1000, height: 170, tone: "dark" },
+    { name: "Heartbreaker", src: "/media/clients/heartbreaker.svg", width: 830, height: 53, tone: "light" },
+  ],
+};
+
 /* ── The opening statement ──────────────────────────────────────────────────
    Four words. The section that carries this is built around a sequence, so the
    headline only has to land the idea and get out of the way.
@@ -45,28 +93,38 @@ export const introChain: ChainLink[] = [
    anyone reads.
 
    TODO: confirm this is how Sika actually runs an engagement. */
-export type Step = { n: string; title: string; copy: string };
+export type Step = {
+  n: string;
+  title: string;
+  copy: string;
+  /** What the step covers, shown as tick chips. Short nouns, no claims. */
+  tags: string[];
+};
 
 export const processSteps: Step[] = [
   {
     n: "01",
     title: "We look at what you have",
     copy: "Your website, your Google Business Profile, your ad accounts. We find where the enquiries are going missing before anyone talks about budget.",
+    tags: ["Website review", "Google Business Profile", "Ad accounts", "Tracking check"],
   },
   {
     n: "02",
     title: "We tell you what we would do",
     copy: "A plan with an order to it, and the reasoning behind each piece. If the first fix is something you can do yourself, we will say so.",
+    tags: ["Priority order", "Channel plan", "Budget guide", "Quick wins first"],
   },
   {
     n: "03",
     title: "We build it",
     copy: "Website, tracking, campaigns and the follow-up that catches the lead. In house, so there is one team accountable for the whole thing.",
+    tags: ["Websites", "Google Ads", "Meta Ads", "Landing pages", "Call tracking", "Follow-up automation"],
   },
   {
     n: "04",
     title: "We report on what it did",
     copy: "Leads and revenue, not impressions. If something is not working we change it rather than explaining it.",
+    tags: ["Lead tracking", "Cost per lead", "Revenue by source", "Monthly review"],
   },
 ];
 
