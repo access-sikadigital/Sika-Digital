@@ -28,12 +28,25 @@ import { cn } from "@/lib/utils";
  * editable from config/home.ts.
  *
  * ── The headline types itself ───────────────────────────────────────────────
- * Each line is revealed left to right with `clip-path`, stepped once per
- * character, with a caret riding the edge. Clip is used rather than animating
- * width or adding a character per frame: the text is laid out once, so nothing
- * reflows, and the whole sentence is in the DOM from the first byte for search
- * engines and screen readers. The lime strip wipes in under the last line at
- * exactly the typing speed, like a highlighter following the words.
+ * Letter by letter, with a caret sitting after the last one typed.
+ *
+ * The first attempt swept a `clip-path` across each line, stepped once per
+ * character. It looked wrong, and the reason is worth keeping: a clip is a
+ * percentage of the LINE, while letters are all different widths. So the edge
+ * lands mid-glyph and you watch half an "m" appear. A caret pinned to that
+ * edge drifts away from the text it is supposed to be following.
+ *
+ * So the line is split into one span per character on mount, all hidden, and
+ * revealed one at a time. `visibility`, not display or opacity: the text is
+ * laid out once at its final size, so nothing reflows as it types and the
+ * caret can be parked at a character's real edge, measured up front.
+ *
+ * The rhythm is uneven on purpose — each keystroke varies, and there is a
+ * pause after a full stop. A metronome reads as a progress bar, not typing.
+ *
+ * The split is client-side only, so the server HTML carries the plain
+ * sentence, and the h1 keeps an `aria-label` so a screen reader announces the
+ * whole line rather than whatever has been typed so far.
  *
  * ── The resting state is the default ────────────────────────────────────────
  * Same rule as KineticWordmark: `fromTo`, built synchronously, no
@@ -74,17 +87,16 @@ const TORN = (() => {
  *
  * Sized in em, so it matches the line at every viewport width.
  */
-function Caret({ className, inset }: { className?: string; inset?: string }) {
+function Caret({ className }: { className?: string }) {
   return (
-    <span aria-hidden className={cn("absolute inset-y-0 left-0 block", inset)}>
-      <span
-        data-caret
-        className={cn(
-          "absolute top-[0.14em] bottom-[0.16em] left-0 w-[0.055em] bg-accent opacity-0",
-          className
-        )}
-      />
-    </span>
+    <span
+      data-caret
+      aria-hidden
+      className={cn(
+        "absolute top-[0.14em] bottom-[0.16em] left-0 block w-[0.055em] bg-accent opacity-0",
+        className
+      )}
+    />
   );
 }
 
@@ -109,14 +121,39 @@ export function Hero({
       const strip = el.querySelector<HTMLElement>("[data-strip]");
       if (!lines.length) return;
 
-      const tl = gsap.timeline();
-      /* Seconds per character, and the gap between lines. Tuned so the whole
-         headline lands inside about 1.5s: it is the page's largest text, and
-         an agency selling Core Web Vitals should not hide its own H1 behind a
-         long animation. */
-      const PER_CHAR = 0.035;
-      const GAP = 0.12;
+      /* Seconds per keystroke, the pause after a full stop, and the pause
+         between lines. Typing is meant to be read along with, so this is
+         closer to a person typing than to a loading bar. */
+      const PER_CHAR = 0.065;
+      /* The beat after a line lands, which is also the pause the full stop
+         earns. */
+      const BETWEEN_LINES = 0.45;
 
+      /* One span per character, hidden but laid out. Returns the spans and a
+         function that puts the plain text back. */
+      const split = (node: HTMLElement) => {
+        const original = node.textContent ?? "";
+        node.textContent = "";
+        const frag = document.createDocumentFragment();
+        const chars = [...original].map((ch) => {
+          const span = document.createElement("span");
+          /* A non-breaking space still takes its width while hidden. */
+          span.textContent = ch === " " ? " " : ch;
+          span.style.visibility = "hidden";
+          frag.appendChild(span);
+          return span;
+        });
+        node.appendChild(frag);
+        return {
+          chars,
+          restore: () => {
+            node.textContent = original;
+          },
+        };
+      };
+
+      const restores: (() => void)[] = [];
+      const tl = gsap.timeline();
       let at = 0;
 
       lines.forEach((line, i) => {
@@ -124,65 +161,92 @@ export function Hero({
         const caret = line.querySelector<HTMLElement>("[data-caret]");
         if (!text) return;
 
-        const chars = Math.max((text.textContent ?? "").length, 1);
-        const duration = chars * PER_CHAR;
-        const last = i === lines.length - 1;
+        const { chars, restore } = split(text);
+        restores.push(restore);
+        if (!chars.length) return;
 
-        /* One step per character, so the reveal lands on letter boundaries
-           rather than sliding through them. */
-        tl.fromTo(
-          text,
-          { clipPath: "inset(0 100% 0 0)" },
-          { clipPath: "inset(0 0% 0 0)", duration, ease: `steps(${chars})` },
+        /* Every caret position measured before the timeline writes anything,
+           so the reads cannot interleave with writes and force a reflow per
+           character. Hidden characters still occupy their place, so these
+           are the final positions.
+
+           Measured from rects rather than `offsetLeft`, which is relative to
+           whichever ancestor happens to be positioned. The caret is placed
+           against the line, so the distances are taken from the line. */
+        const lineLeft = line.getBoundingClientRect().left;
+        const stops = chars.map(
+          (ch) => ch.getBoundingClientRect().right - lineLeft
+        );
+        const last = i === lines.length - 1;
+        const start = at;
+
+        if (caret) tl.set(caret, { autoAlpha: 1, x: 0 }, at);
+
+        /*
+          ONE tween per line, driving a counter, rather than a `set()` per
+          character.
+
+          `timeline.set()` looked like the obvious way to write this and it is
+          a trap: a zero-duration tween renders the moment it is CREATED, so
+          every character in a line turned visible while the timeline was
+          still being built, and each line appeared in one go. Whatever the
+          position parameter says.
+
+          Driving a counter has no such edge, and it keeps the caret honest:
+          both the characters and the caret are set from the same number in
+          the same frame, so the bar is always exactly at the last letter.
+        */
+        const typed = { n: 0 };
+        const duration = chars.length * PER_CHAR;
+
+        tl.to(
+          typed,
+          {
+            n: chars.length,
+            duration,
+            ease: "none",
+            onUpdate: () => {
+              const shown = Math.floor(typed.n);
+              chars.forEach((ch, k) => {
+                ch.style.visibility = k < shown ? "visible" : "hidden";
+              });
+              if (caret) {
+                gsap.set(caret, { x: shown > 0 ? stops[shown - 1] : 0 });
+              }
+            },
+          },
           at
         );
 
-        if (caret) {
-          /* The caret travels to the end of the line on the same clock. The
-             width is read at run time, so it is correct at any type size. */
-          tl.fromTo(
-            caret,
-            { x: 0, autoAlpha: 1 },
-            {
-              x: () => text.getBoundingClientRect().width,
-              duration,
-              ease: `steps(${chars})`,
-            },
-            at
-          );
-
-          if (last) {
-            /* Four blinks at the end, then it leaves. */
-            tl.to(caret, {
-              autoAlpha: 0,
-              duration: 0.45,
-              repeat: 7,
-              yoyo: true,
-              ease: "steps(1)",
-            });
-          } else {
-            tl.to(caret, { autoAlpha: 0, duration: 0.08 }, at + duration);
-          }
-        }
-
-        /* The strip wipes in under the last line at the typing speed, so the
-           lime arrives with the words rather than after them. */
+        /* The strip wipes in under the last line as it types, so the lime
+           arrives with the words rather than landing on them afterwards. */
         if (last && strip) {
-          tl.fromTo(
-            strip,
-            { scaleX: 0 },
-            {
-              scaleX: 1,
-              duration,
-              ease: "none",
-              transformOrigin: "left center",
-            },
-            at
+          /* Set before the timeline runs rather than leaning on a `fromTo`
+             rendering its own start state: the strip is lime on near-black
+             and there is no hiding a frame of it at full width. CSS leaves it
+             drawn, so with no script it is simply there. */
+          gsap.set(strip, { scaleX: 0, transformOrigin: "left center" });
+          tl.to(strip, { scaleX: 1, duration, ease: "none" }, start);
+        }
+
+        at += duration;
+
+        /* The caret leaves at the end of its line. On the last one it goes
+           for good: a bar blinking beside a finished headline is a cursor
+           waiting for input that is never coming. */
+        if (caret) {
+          tl.to(
+            caret,
+            { autoAlpha: 0, duration: 0.15 },
+            at + (last ? 0.25 : 0)
           );
         }
 
-        at += duration + GAP;
+        at += BETWEEN_LINES;
       });
+
+      /* useGSAP reverts the tweens; the DOM split is ours to undo. */
+      return () => restores.forEach((fn) => fn());
     },
     { scope: headline, dependencies: [] }
   );
@@ -252,12 +316,13 @@ export function Hero({
         */}
         <h1
           ref={headline}
+          aria-label={[...hero.lines, hero.highlight].join(" ")}
           className="flex flex-col items-center font-sans text-[clamp(2.4rem,10.5vw,4rem)] leading-[0.94] font-black tracking-[-0.045em] text-foreground [word-spacing:0.05em] md:text-[clamp(4.5rem,0.75rem+6.6vw,8.25rem)]"
           style={{ fontStretch: "88%" }}
         >
           {hero.lines.map((line) => (
             <span key={line} data-line className="relative block pb-[0.04em]">
-              <span data-type className="block">
+              <span data-type className="relative block">
                 {line}
               </span>
               <Caret />
@@ -287,16 +352,18 @@ export function Hero({
                   style={{ backgroundImage: NOISE }}
                 />
               </span>
+              {/* Relative, so the typed text paints above the strip, which is
+                  absolutely positioned and would otherwise cover it. */}
               <span data-type className="relative block">
                 {hero.highlight}
               </span>
-              <Caret className="bg-blue" inset="px-[0.24em]" />
+              <Caret className="bg-blue" />
             </span>
           </span>
         </h1>
 
         {/* Waits for the headline to finish typing. */}
-        <Reveal delay={1.6} className="mt-8 sm:mt-10">
+        <Reveal delay={3.3} className="mt-8 sm:mt-10">
           <p className="text-body text-foreground/80 sm:text-lead">
             {hero.services.join(" · ")}
           </p>
