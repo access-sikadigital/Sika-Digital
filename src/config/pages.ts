@@ -226,6 +226,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "local-seo",
+    built: true,
     label: "Local SEO",
     url: "/seo/local-seo/",
     section: "SEO",
@@ -241,6 +242,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "ecommerce-seo",
+    built: true,
     label: "Ecommerce SEO",
     url: "/seo/ecommerce-seo/",
     section: "SEO",
@@ -256,6 +258,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "small-business-seo",
+    built: true,
     label: "Small Business SEO",
     url: "/seo/small-business-seo/",
     section: "SEO",
@@ -271,6 +274,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "seo-audit",
+    built: true,
     label: "SEO Audit",
     url: "/seo/seo-audit/",
     section: "SEO",
@@ -305,6 +309,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "ppc-management",
+    built: true,
     label: "PPC Management",
     url: "/google-ads/ppc-management/",
     section: "Google Ads",
@@ -338,6 +343,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "social-media-marketing",
+    built: true,
     label: "Social Media Marketing",
     url: "/social-media-marketing/",
     section: "Social",
@@ -389,6 +395,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "ecommerce-web-design",
+    built: true,
     label: "Ecommerce Web Design",
     url: "/web-design/ecommerce/",
     section: "Web",
@@ -404,6 +411,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "wordpress-web-design",
+    built: true,
     label: "WordPress Web Design",
     url: "/web-design/wordpress/",
     section: "Web",
@@ -419,6 +427,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "cro",
+    built: true,
     label: "Conversion Rate Optimisation",
     url: "/conversion-rate-optimisation/",
     section: "Web",
@@ -436,6 +445,7 @@ export const pages: PageSpec[] = [
   /* ── AI & other services ──────────────────────────────────────────────── */
   {
     key: "ai-automation",
+    built: true,
     label: "AI Automation",
     url: "/ai-automation/",
     section: "AI",
@@ -451,6 +461,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "email-marketing",
+    built: true,
     label: "Email Marketing",
     url: "/email-marketing/",
     section: "Other",
@@ -466,6 +477,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "content-marketing",
+    built: true,
     label: "Content Marketing",
     url: "/content-marketing/",
     section: "Other",
@@ -481,6 +493,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "reputation-management",
+    built: true,
     label: "Reputation Management",
     url: "/reputation-management/",
     section: "Other",
@@ -580,6 +593,7 @@ export const pages: PageSpec[] = [
   /* ── Locations ────────────────────────────────────────────────────────── */
   {
     key: "google-ads-brisbane",
+    built: true,
     label: "Google Ads Brisbane",
     url: "/google-ads-agency-brisbane/",
     section: "Location",
@@ -595,6 +609,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "seo-sydney",
+    built: true,
     label: "SEO Sydney",
     url: "/seo-agency-sydney/",
     section: "Location",
@@ -610,6 +625,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "seo-brisbane",
+    built: true,
     label: "SEO Brisbane",
     url: "/seo-agency-brisbane/",
     section: "Location",
@@ -625,6 +641,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "seo-adelaide",
+    built: true,
     label: "SEO Adelaide",
     url: "/seo-agency-adelaide/",
     section: "Location",
@@ -640,6 +657,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "seo-perth",
+    built: true,
     label: "SEO Perth",
     url: "/seo-agency-perth/",
     section: "Location",
@@ -655,6 +673,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "google-ads-sydney",
+    built: true,
     label: "Google Ads Sydney",
     url: "/google-ads-agency-sydney/",
     section: "Location",
@@ -670,6 +689,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "local-seo-sydney",
+    built: true,
     label: "Local SEO Sydney",
     url: "/local-seo-sydney/",
     section: "Location",
@@ -685,6 +705,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "local-seo-brisbane",
+    built: true,
     label: "Local SEO Brisbane",
     url: "/local-seo-brisbane/",
     section: "Location",
@@ -700,6 +721,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "web-design-brisbane",
+    built: true,
     label: "Web Design Brisbane",
     url: "/web-design-brisbane/",
     section: "Location",
@@ -715,6 +737,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "web-design-sydney",
+    built: true,
     label: "Web Design Sydney",
     url: "/web-design-sydney/",
     section: "Location",
@@ -730,6 +753,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "web-design-perth",
+    built: true,
     label: "Web Design Perth",
     url: "/web-design-perth/",
     section: "Location",
@@ -745,6 +769,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "dma-sydney",
+    built: true,
     label: "Digital Marketing Sydney",
     url: "/digital-marketing-agency-sydney/",
     section: "Location",
@@ -762,6 +787,7 @@ export const pages: PageSpec[] = [
   /* ── Guides ───────────────────────────────────────────────────────────── */
   {
     key: "guides",
+    built: true,
     label: "Guides",
     url: "/guides/",
     section: "Content",
@@ -775,6 +801,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-seo-cost",
+    built: true,
     label: "How much does SEO cost in Australia?",
     url: "/guides/how-much-does-seo-cost-australia/",
     section: "Content",
@@ -790,6 +817,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-seo-vs-ads",
+    built: true,
     label: "SEO vs Google Ads",
     url: "/guides/seo-vs-google-ads/",
     section: "Content",
@@ -805,6 +833,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-maps-seo",
+    built: true,
     label: "Google Maps SEO",
     url: "/guides/google-maps-seo/",
     section: "Content",
@@ -820,6 +849,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-tradies",
+    built: true,
     label: "Digital marketing for tradies",
     url: "/guides/digital-marketing-for-tradies/",
     section: "Content",
@@ -835,6 +865,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-what-is-local-seo",
+    built: true,
     label: "What is local SEO?",
     url: "/guides/what-is-local-seo/",
     section: "Content",
@@ -850,6 +881,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-website-cost",
+    built: true,
     label: "How much does a website cost?",
     url: "/guides/how-much-does-a-website-cost/",
     section: "Content",
@@ -865,6 +897,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-ads-cost",
+    built: true,
     label: "How much do Google Ads cost?",
     url: "/guides/how-much-do-google-ads-cost/",
     section: "Content",
@@ -880,6 +913,7 @@ export const pages: PageSpec[] = [
   },
   {
     key: "guide-more-leads",
+    built: true,
     label: "How to get more leads",
     url: "/guides/how-to-get-more-leads/",
     section: "Content",

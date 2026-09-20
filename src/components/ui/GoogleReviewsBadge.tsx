@@ -8,12 +8,17 @@ import { cn } from "@/lib/utils";
  * of five: the label already says five-star, and one mark reads as a badge
  * where five reads as a rating widget.
  *
+ * Sized down on phones, where it sits directly above the H1 and a full-size
+ * pill crowds the headline. Full size from sm up.
+ *
  * Reads from `siteConfig.googleReviews`. With no count set it drops the number
  * rather than inventing one; with a `url` set it becomes a link to the profile.
  */
 export function GoogleReviewsBadge({ className }: { className?: string }) {
   const { count, url } = siteConfig.googleReviews;
-  const label = count ? `${count} 5-Star Google Reviews` : "5-Star Google Reviews";
+  const label = count
+    ? `${count} 5-Star Google Reviews`
+    : "5-Star Google Reviews";
 
   const body = (
     <>
@@ -22,9 +27,9 @@ export function GoogleReviewsBadge({ className }: { className?: string }) {
         aria-hidden
         className="badge-sheen pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-white/25 to-transparent"
       />
-      <GoogleG className="relative size-4 shrink-0" />
-      <Star className="badge-star relative size-3.5 shrink-0 text-[#FBBC04] drop-shadow-[0_0_6px_rgb(251_188_4/0.6)]" />
-      <span className="relative text-small text-foreground/85">
+      <GoogleG className="relative size-3.5 shrink-0 sm:size-4" />
+      <Star className="badge-star relative size-3 shrink-0 text-[#FBBC04] drop-shadow-[0_0_6px_rgb(251_188_4/0.6)] sm:size-3.5" />
+      <span className="relative text-[0.78rem] text-foreground/85 sm:text-small">
         {count ? (
           <strong className="font-semibold text-foreground">{count} </strong>
         ) : null}
@@ -34,7 +39,7 @@ export function GoogleReviewsBadge({ className }: { className?: string }) {
   );
 
   const classes = cn(
-    "relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-line-strong bg-white/[0.06] px-4 py-2 backdrop-blur-md",
+    "relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-line-strong bg-white/[0.06] px-3 py-1.5 backdrop-blur-md sm:gap-2.5 sm:px-4 sm:py-2",
     url &&
       "transition-colors duration-(--duration-base) hover:border-foreground/50 hover:bg-white/10",
     className
@@ -81,7 +86,12 @@ function GoogleG({ className }: { className?: string }) {
 
 function Star({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden fill="currentColor" className={className}>
+    <svg
+      viewBox="0 0 20 20"
+      aria-hidden
+      fill="currentColor"
+      className={className}
+    >
       <path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L10 14.8l-5.2 2.8 1-5.8L1.5 7.7l5.9-.8z" />
     </svg>
   );

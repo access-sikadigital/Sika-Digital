@@ -5,7 +5,8 @@ import { hero } from "@/config/home";
 import { HeroVideo } from "@/components/media/HeroVideo";
 import { GoogleReviewsBadge } from "@/components/ui/GoogleReviewsBadge";
 import { Reveal } from "@/components/motion/Reveal";
-import { gsap, useGSAP, EASE } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { cn } from "@/lib/utils";
 
 /**
  * HOMEPAGE HERO.
@@ -25,6 +26,14 @@ import { gsap, useGSAP, EASE } from "@/lib/gsap";
  * It is the page's H1, so it is set in HTML rather than baked into an image:
  * readable by search engines and screen readers, sharp at every size, and
  * editable from config/home.ts.
+ *
+ * ── The headline types itself ───────────────────────────────────────────────
+ * Each line is revealed left to right with `clip-path`, stepped once per
+ * character, with a caret riding the edge. Clip is used rather than animating
+ * width or adding a character per frame: the text is laid out once, so nothing
+ * reflows, and the whole sentence is in the DOM from the first byte for search
+ * engines and screen readers. The lime strip wipes in under the last line at
+ * exactly the typing speed, like a highlighter following the words.
  *
  * ── The resting state is the default ────────────────────────────────────────
  * Same rule as KineticWordmark: `fromTo`, built synchronously, no
@@ -50,13 +59,34 @@ const TORN = (() => {
   const pt = (x: number, y: number) => `${x.toFixed(1)}% ${y.toFixed(1)}%`;
 
   const pts: string[] = [];
-  for (let i = 0; i <= steps; i++) pts.push(pt((i / steps) * 100, jag(i, 1) * 7));
+  for (let i = 0; i <= steps; i++)
+    pts.push(pt((i / steps) * 100, jag(i, 1) * 7));
   for (let i = 1; i < 4; i++) pts.push(pt(100 - jag(i, 2) * 1.2, i * 25));
   for (let i = steps; i >= 0; i--)
     pts.push(pt((i / steps) * 100, 100 - jag(i, 3) * 7));
   for (let i = 3; i > 0; i--) pts.push(pt(jag(i, 4) * 1.2, i * 25));
   return `polygon(${pts.join(", ")})`;
 })();
+
+/**
+ * The typing caret. Hidden at rest, so a headline that never animates — no
+ * script, or reduced motion — has no stray bar sitting beside it.
+ *
+ * Sized in em, so it matches the line at every viewport width.
+ */
+function Caret({ className, inset }: { className?: string; inset?: string }) {
+  return (
+    <span aria-hidden className={cn("absolute inset-y-0 left-0 block", inset)}>
+      <span
+        data-caret
+        className={cn(
+          "absolute top-[0.14em] bottom-[0.16em] left-0 w-[0.055em] bg-accent opacity-0",
+          className
+        )}
+      />
+    </span>
+  );
+}
 
 export function Hero({
   /** Optional video. Until footage is chosen the hero renders on the poster
@@ -76,35 +106,83 @@ export function Hero({
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const lines = gsap.utils.toArray<HTMLElement>("[data-line]", el);
-      const stamp = el.querySelector<HTMLElement>("[data-stamp]");
+      const strip = el.querySelector<HTMLElement>("[data-strip]");
+      if (!lines.length) return;
 
       const tl = gsap.timeline();
+      /* Seconds per character, and the gap between lines. Tuned so the whole
+         headline lands inside about 1.5s: it is the page's largest text, and
+         an agency selling Core Web Vitals should not hide its own H1 behind a
+         long animation. */
+      const PER_CHAR = 0.035;
+      const GAP = 0.12;
 
-      /* The two white lines rise out of their masks, one after another. */
-      tl.fromTo(
-        lines,
-        { yPercent: 110 },
-        { yPercent: 0, duration: 1.1, ease: EASE.expo, stagger: 0.12 }
-      );
+      let at = 0;
 
-      /* The payoff is stamped down last: it drops in oversized and slightly
-         over-rotated, then settles with a small overshoot, like a sticker
-         slapped onto the page. The resting tilt lives on the wrapper, so this
-         only ever animates back to neutral. */
-      if (stamp) {
+      lines.forEach((line, i) => {
+        const text = line.querySelector<HTMLElement>("[data-type]");
+        const caret = line.querySelector<HTMLElement>("[data-caret]");
+        if (!text) return;
+
+        const chars = Math.max((text.textContent ?? "").length, 1);
+        const duration = chars * PER_CHAR;
+        const last = i === lines.length - 1;
+
+        /* One step per character, so the reveal lands on letter boundaries
+           rather than sliding through them. */
         tl.fromTo(
-          stamp,
-          { scale: 1.35, rotate: -5, autoAlpha: 0 },
-          {
-            scale: 1,
-            rotate: 0,
-            autoAlpha: 1,
-            duration: 0.75,
-            ease: "back.out(2.2)",
-          },
-          0.4
+          text,
+          { clipPath: "inset(0 100% 0 0)" },
+          { clipPath: "inset(0 0% 0 0)", duration, ease: `steps(${chars})` },
+          at
         );
-      }
+
+        if (caret) {
+          /* The caret travels to the end of the line on the same clock. The
+             width is read at run time, so it is correct at any type size. */
+          tl.fromTo(
+            caret,
+            { x: 0, autoAlpha: 1 },
+            {
+              x: () => text.getBoundingClientRect().width,
+              duration,
+              ease: `steps(${chars})`,
+            },
+            at
+          );
+
+          if (last) {
+            /* Four blinks at the end, then it leaves. */
+            tl.to(caret, {
+              autoAlpha: 0,
+              duration: 0.45,
+              repeat: 7,
+              yoyo: true,
+              ease: "steps(1)",
+            });
+          } else {
+            tl.to(caret, { autoAlpha: 0, duration: 0.08 }, at + duration);
+          }
+        }
+
+        /* The strip wipes in under the last line at the typing speed, so the
+           lime arrives with the words rather than after them. */
+        if (last && strip) {
+          tl.fromTo(
+            strip,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration,
+              ease: "none",
+              transformOrigin: "left center",
+            },
+            at
+          );
+        }
+
+        at += duration + GAP;
+      });
     },
     { scope: headline, dependencies: [] }
   );
@@ -115,7 +193,7 @@ export function Hero({
       {video ? (
         <HeroVideo src={video} poster={poster} opacity="opacity-80" />
       ) : (
-        <div aria-hidden className="glow-accent absolute inset-0" />
+        <div aria-hidden className="absolute inset-0 glow-accent" />
       )}
 
       {/*
@@ -143,7 +221,7 @@ export function Hero({
           below, so the hero hands over rather than stopping at a line. */}
       <div
         aria-hidden
-        className="glow-blue pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70 glow-blue"
       />
       {/* Mobile keeps a flat wash on top: the copy runs edge to edge at that
           width, so it crosses far more of the picture. */}
@@ -174,15 +252,15 @@ export function Hero({
         */}
         <h1
           ref={headline}
-          className="flex flex-col items-center font-sans text-[clamp(2.4rem,10.5vw,4rem)] leading-[0.94] font-black tracking-[-0.045em] [word-spacing:0.05em] text-foreground md:text-[clamp(4.5rem,0.75rem+6.6vw,8.25rem)]"
+          className="flex flex-col items-center font-sans text-[clamp(2.4rem,10.5vw,4rem)] leading-[0.94] font-black tracking-[-0.045em] text-foreground [word-spacing:0.05em] md:text-[clamp(4.5rem,0.75rem+6.6vw,8.25rem)]"
           style={{ fontStretch: "88%" }}
         >
           {hero.lines.map((line) => (
-            /* Outer span clips, inner span travels. */
-            <span key={line} className="block overflow-hidden pb-[0.04em]">
-              <span data-line className="block">
+            <span key={line} data-line className="relative block pb-[0.04em]">
+              <span data-type className="block">
                 {line}
               </span>
+              <Caret />
             </span>
           ))}
 
@@ -195,12 +273,13 @@ export function Hero({
               artwork and measures roughly 10:1.
             */}
             <span
-              data-stamp
+              data-line
               className="relative block px-[0.24em] pt-[0.06em] pb-[0.1em] text-blue"
             >
               <span
+                data-strip
                 aria-hidden
-                className="absolute inset-0 bg-lime"
+                className="absolute inset-0 origin-left bg-lime"
                 style={{ clipPath: TORN }}
               >
                 <span
@@ -208,12 +287,16 @@ export function Hero({
                   style={{ backgroundImage: NOISE }}
                 />
               </span>
-              <span className="relative">{hero.highlight}</span>
+              <span data-type className="relative block">
+                {hero.highlight}
+              </span>
+              <Caret className="bg-blue" inset="px-[0.24em]" />
             </span>
           </span>
         </h1>
 
-        <Reveal delay={0.9} className="mt-8 sm:mt-10">
+        {/* Waits for the headline to finish typing. */}
+        <Reveal delay={1.6} className="mt-8 sm:mt-10">
           <p className="text-body text-foreground/80 sm:text-lead">
             {hero.services.join(" · ")}
           </p>
