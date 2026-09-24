@@ -90,19 +90,33 @@ export function Marquee({
     { scope: root, dependencies: [speed, reverse, pauseOnHover] }
   );
 
+  /*
+    ── The seam ──────────────────────────────────────────────────────────────
+    The gap between the two copies lives INSIDE each copy, as trailing padding,
+    not between them on the track.
+
+    This used to be `gap` on the track, and it produced a visible jump once per
+    cycle. With the gap between the copies the track is 2W + g wide, so -50%
+    travels W + g/2, but one full period of the pattern is W + g. The loop reset
+    early by half a gap, about 24px at the default, every cycle. It was already
+    doing this in the footer band; a row of client logos would have made it
+    impossible to miss.
+
+    With the gap as padding on each copy, each copy is W + g, the track is
+    exactly two of them, and -50% is exactly one period.
+  */
   return (
     <div ref={root} className={cn("w-full overflow-hidden", className)}>
-      <div
-        ref={track}
-        className="flex w-max flex-nowrap items-center"
-        style={{ gap }}
-      >
-        <div className="flex flex-nowrap items-center" style={{ gap }}>
+      <div ref={track} className="flex w-max flex-nowrap items-center">
+        <div
+          className="flex flex-nowrap items-center"
+          style={{ gap, paddingRight: gap }}
+        >
           {children}
         </div>
         <div
           className="flex flex-nowrap items-center"
-          style={{ gap }}
+          style={{ gap, paddingRight: gap }}
           aria-hidden
         >
           {children}

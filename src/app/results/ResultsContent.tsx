@@ -12,6 +12,7 @@ import { MarkAnchor } from "@/components/motion/MarkFlight";
 import { PageOpening } from "@/components/ui/PageOpening";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { ReportChart } from "@/components/graphics/Schematic";
+import { ClientLogos } from "@/components/sections/ClientLogos";
 import { CTA } from "@/components/sections/CTA";
 
 /**
@@ -118,8 +119,32 @@ export function ResultsContent() {
         eyebrow="Results"
         title={page.h1}
         titleMax="max-w-[16ch]"
-        intro="There are no case studies on this page yet. Rather than fill it with something that reads like one, here is exactly what will be on it."
+        intro="Who we have worked with is below. What we have not done is dress any of it up as a case study with numbers we cannot show you."
       />
+
+      {/* ── Who ───────────────────────────────────────────────────────────────
+          First on the page, above the explanation of why there are no case
+          studies. The logos are the one piece of proof here that is simply
+          true with nothing attached, so they go where proof is looked for.
+
+          Same list as the band under the homepage hero, read from the same
+          config. */}
+      <Container className="mt-16 lg:mt-24">
+        <Reveal y={14} className="flex items-center gap-4">
+          <MarkAnchor size="w-3.5" />
+          <p className="eyebrow shrink-0 text-accent">Who we have worked with</p>
+          <Rule className="flex-1" delay={0.15} />
+        </Reveal>
+
+        <ClientLogos className="mt-10 lg:mt-12" />
+
+        <p className="mt-6 max-w-text text-small text-faint">
+          {/* Permission confirmed by John, 24 Sep 2026, for all 30. Anyone
+              added later needs the same before this sentence stays true. */}
+          Every one a real client, listed with their permission. Hover a logo
+          for its real colours.
+        </p>
+      </Container>
 
       {/* ── The empty slots ──────────────────────────────────────────────────
           Stated plainly and in the position the case studies will occupy, so

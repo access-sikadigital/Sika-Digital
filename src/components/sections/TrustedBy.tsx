@@ -11,10 +11,18 @@ import { cn } from "@/lib/utils";
 const LOGO_AREA = 4400;
 const MAX_HEIGHT = 58;
 
-function logoWidth(width: number, height: number) {
+/**
+ * Exported because the results page shows the same set as a grid, and two
+ * sizing rules for the same logos would drift until one of them looked wrong.
+ *
+ * `scale` is the per-logo optical correction from config. Equal area gets most
+ * of the way; a dense wordmark still reads heavier than a hairline one at the
+ * same area, and that difference is set by eye rather than by formula.
+ */
+export function logoWidth(width: number, height: number, scale = 1) {
   const ratio = width / height;
   const h = Math.min(Math.sqrt(LOGO_AREA / ratio), MAX_HEIGHT);
-  return Math.round(h * ratio);
+  return Math.round(h * ratio * scale);
 }
 
 /**
@@ -92,7 +100,7 @@ export function TrustedBy() {
                     height={logo.height}
                     unoptimized={logo.src.endsWith(".svg")}
                     style={{
-                      width: `calc(${logoWidth(logo.width, logo.height)}px * var(--logo-scale))`,
+                      width: `calc(${logoWidth(logo.width, logo.height, logo.scale)}px * var(--logo-scale))`,
                     }}
                     className={cn(
                       "h-auto max-w-none opacity-60 transition-[filter,opacity] duration-(--duration-base) group-hover/logo:opacity-100 group-hover/logo:filter-none",
