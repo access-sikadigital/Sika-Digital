@@ -22,9 +22,25 @@ export const hero = {
   services: ["Websites", "SEO", "Paid Ads", "AI Search"],
 } as const;
 
+/* ── Service ticker ─────────────────────────────────────────────────────────
+   The lime band under the hero. `label` is the name people search and say;
+   `key` is the page in config/pages it links to, resolved through getPage so a
+   moved URL can never leave a dead link here.
+
+   "Meta Ads" rather than "Facebook Ads": Meta is the current name of the
+   platform and the term the market uses. It links to the Facebook & Instagram
+   page, which is where that service lives. */
+export const serviceTicker = [
+  { label: "SEO", key: "seo" },
+  { label: "Google Ads", key: "google-ads" },
+  { label: "Meta Ads", key: "facebook-ads" },
+  { label: "Local SEO", key: "local-seo" },
+  { label: "Web Design", key: "web-design" },
+] as const;
+
 /* ── Trusted by ─────────────────────────────────────────────────────────────
    The client logo band under the hero, and the grid on the results page. A
-   logo here is a public claim that the business is a client. All 30 below are
+   logo here is a public claim that the business is a client. All below are
    real clients who have agreed to be listed (confirmed 24 Sep 2026).
 
    Every client has TWO files, and that is deliberate.
@@ -39,8 +55,8 @@ export const hero = {
 
    How each hover file was chosen, every one checked by rendering it on glass:
      · Official "FullColor Light" (made for dark backgrounds) where supplied:
-       King Electrical, Lumenx, Forefront Community Care, Demo Bros, and both
-       Mr. marks. Used as supplied.
+       King Electrical, Lumenx, Forefront Community Care, Demo Bros and
+       Mr. Site Cleanups. Used as supplied.
      · Derived, where the client only supplied colour for LIGHT backgrounds:
        5Star, A&A, Australasian, Bathroom & Balconies, Compare, LiftX, Survaid,
        Top Spot, Weyn, True Align, Forefront Trades Co, Wells. Built the way
@@ -57,7 +73,7 @@ export const hero = {
      · Blinds Corp: its cream B is kept; only the dark grey wordmark, which
        vanished on glass, is turned white.
      · White on hover too, for the six who supplied only White and Black:
-       Aust Construct, Deslar, Grindcorp, Lucent Epoxy, Pititto and Rock Up.
+       Aust Construct, Deslar, Grindcorp, Pititto and Rock Up.
      · Fintellect: the "F." mark supplied 26 Sep 2026, in its brand green
        #206943, sampled from their own site. (An earlier version used cream
        #FBFEEE, which is their BACKGROUND colour, not the mark's.) Used at the
@@ -103,7 +119,6 @@ export const trustedBy: { count: string; logos: ClientLogo[] } = {
     { name: "Lumenx", src: "/media/clients/lumenx.c6f4fd18.png", white: "/media/clients/lumenx-white.8d38ad6d.png", width: 720, height: 135 },
     { name: "Demo Bros", src: "/media/clients/demo-bros.1e65756c.png", white: "/media/clients/demo-bros-white.e2753b0b.png", width: 284, height: 280, scale: 1.05 },
     { name: "Aust Construct", src: "/media/clients/aust-construct.b253fa24.png", white: "/media/clients/aust-construct-white.b253fa24.png", width: 628, height: 280 },
-    { name: "Mr. Tile Removal", src: "/media/clients/mr-tile-removal.94da7e46.png", white: "/media/clients/mr-tile-removal-white.af1840c3.png", width: 720, height: 192, scale: 0.92 },
     { name: "A&A Flooring & Blinds", src: "/media/clients/a-and-a-flooring-and-blinds.1314f7cc.png", white: "/media/clients/a-and-a-flooring-and-blinds-white.5530ed1e.png", width: 516, height: 280 },
     { name: "Grindcorp", src: "/media/clients/grindcorp.ebb846b6.png", white: "/media/clients/grindcorp-white.ebb846b6.png", width: 720, height: 111, scale: 0.86 },
     { name: "Fintellect", src: "/media/clients/fintellect.32c9eaa7.svg", white: "/media/clients/fintellect-white.a44c30b8.svg", width: 677, height: 800, scale: 1.1 },
@@ -122,7 +137,6 @@ export const trustedBy: { count: string; logos: ClientLogo[] } = {
     { name: "Blinds Corp", src: "/media/clients/blinds-corp.2e18ca7c.png", white: "/media/clients/blinds-corp-white.1502eb78.png", width: 334, height: 280, scale: 1.05 },
     { name: "Heartbreaker Ink", src: "/media/clients/heartbreaker-ink.f2d1de40.png", white: "/media/clients/heartbreaker-ink-white.54dec076.png", width: 720, height: 38, scale: 1.1 },
     { name: "Australasian Home", src: "/media/clients/australasian-home.f53dd9c9.png", white: "/media/clients/australasian-home-white.c5a53509.png", width: 720, height: 232 },
-    { name: "Lucent Epoxy", src: "/media/clients/lucent-epoxy.5f2067f0.png", white: "/media/clients/lucent-epoxy-white.5f2067f0.png", width: 240, height: 280, scale: 1.22 },
     { name: "Rock Up Group", src: "/media/clients/rock-up-group.62053168.png", white: "/media/clients/rock-up-group-white.62053168.png", width: 614, height: 280 },
     { name: "True Align", src: "/media/clients/true-align.d18abbbd.png", white: "/media/clients/true-align-white.f27abd97.png", width: 463, height: 280, scale: 1.05 },
     { name: "Forefront Community Care", src: "/media/clients/forefront-community-care.acb2d74e.png", white: "/media/clients/forefront-community-care-white.511923a2.png", width: 720, height: 209 },

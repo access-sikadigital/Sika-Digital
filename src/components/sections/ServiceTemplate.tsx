@@ -105,7 +105,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
               >
                 {detail.angleHeading}
               </SplitLines>
@@ -141,7 +141,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             The parts that actually move it.
           </SplitLines>
@@ -157,7 +157,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <h3 className="mt-3 max-w-[24ch] font-display text-h4 uppercase leading-tight text-foreground transition-colors duration-slow ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[36%] lg:shrink-0">
+                <h3 className="mt-3 max-w-[24ch] font-display text-h4 leading-tight text-foreground transition-colors duration-slow ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[36%] lg:shrink-0">
                   {item.t}
                 </h3>
 
@@ -182,7 +182,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
 
             <SplitLines
               as="h2"
-              className="mt-7 max-w-[20ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+              className="mt-7 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
             >
               {detail.honestHeading}
             </SplitLines>
@@ -217,7 +217,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             Three things, before anyone spends anything.
           </SplitLines>
@@ -236,7 +236,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
                   aria-hidden
                   className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
                 />
-                <h3 className="mt-7 max-w-[20ch] font-display text-h4 uppercase leading-tight text-foreground">
+                <h3 className="mt-7 max-w-[20ch] font-display text-h4 leading-tight text-foreground">
                   {f.t}
                 </h3>
                 <p className="mt-4 text-body text-muted">{f.c}</p>
@@ -282,7 +282,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <SplitLines
             as="h2"
-            className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             {parent ? `The rest of ${parent.label.toLowerCase()}.` : "Everything else."}
           </SplitLines>
@@ -294,7 +294,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
                   href={child.href}
                   className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                 >
-                  <span className="font-display text-h4 uppercase leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                  <span className="font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
                     {child.label}
                   </span>
                   <span

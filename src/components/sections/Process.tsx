@@ -263,7 +263,7 @@ export function Process() {
         {/* ── Heading ─────────────────────────────────────────────────────── */}
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow text-accent">How it works</p>
-          <h2 className="mt-5 font-display text-h2 leading-[0.94] text-foreground uppercase">
+          <h2 className="mt-5 font-display text-h2 leading-[1.1] text-foreground">
             Wired for enquiries.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lead text-muted">
@@ -321,7 +321,7 @@ export function Process() {
             </span>
             <p
               data-power-target
-              className="font-display text-h4 leading-none text-foreground uppercase"
+              className="font-display text-h4 leading-[1.1] text-foreground"
             >
               Your phone rings.
             </p>
@@ -420,7 +420,7 @@ function CircuitStep({
                 </span>
               ) : null}
             </div>
-            <h3 className="mt-4 font-display text-h3 leading-[0.98] text-foreground uppercase">
+            <h3 className="mt-4 font-display text-h3 leading-[1.1] text-foreground">
               {step.title}
             </h3>
             <p className="mt-5 text-lead text-muted">{step.copy}</p>

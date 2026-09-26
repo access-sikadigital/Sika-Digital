@@ -1,5 +1,6 @@
 import { metadataFor } from "@/lib/metadata";
 import { Hero } from "@/components/sections/Hero";
+import { ServiceTicker } from "@/components/sections/ServiceTicker";
 import { TrustedBy } from "@/components/sections/TrustedBy";
 import { IntroStatement } from "@/components/sections/IntroStatement";
 import { ServicesList } from "@/components/sections/ServicesList";
@@ -64,6 +65,7 @@ export default function HomePage() {
   return (
     <>
       <Hero video="/media/hero.mp4" poster="/media/hero-poster.jpg" />
+      <ServiceTicker />
       <TrustedBy />
       <IntroStatement />
       <ServicesList />

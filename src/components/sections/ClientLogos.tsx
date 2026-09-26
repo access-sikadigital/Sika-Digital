@@ -60,7 +60,11 @@ export function ClientLogos({ className }: { className?: string }) {
     <div
       ref={root}
       className={cn(
-        "grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-3 lg:grid-cols-5",
+        /* ⚠️  Column counts must divide the number of logos (28: 2, 4, 7).
+           The lines are the grey background showing through a 1px gap, so an
+           empty cell in a short last row renders as a solid grey block. If the
+           count changes, change these. */
+        "grid grid-cols-2 gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-4 lg:grid-cols-7",
         className
       )}
     >

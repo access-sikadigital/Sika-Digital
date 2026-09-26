@@ -17,7 +17,7 @@ export default function NotFound() {
       <Container>
         <Logomark className="size-12" decorative />
         <p className="eyebrow mt-8 text-accent">404</p>
-        <h1 className="mt-5 max-w-[14ch] font-display text-h1 uppercase">
+        <h1 className="mt-5 max-w-[14ch] font-display text-h1">
           That page has moved or never existed.
         </h1>
         <p className="mt-6 max-w-text text-lead text-muted">

@@ -212,7 +212,7 @@ export function MobileMenu({
                   <Link
                     href={item.href}
                     onClick={onClose}
-                    className="flex min-h-14 items-center font-display text-h2 uppercase text-foreground transition-colors hover:text-accent"
+                    className="flex min-h-14 items-center font-display text-h2 text-foreground transition-colors hover:text-accent"
                   >
                     {item.label}
                   </Link>
@@ -253,7 +253,7 @@ export function MobileMenu({
               <Link
                 href={item.href}
                 onClick={onClose}
-                className="flex min-h-14 items-center font-display text-h2 uppercase text-foreground transition-colors hover:text-accent"
+                className="flex min-h-14 items-center font-display text-h2 text-foreground transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>

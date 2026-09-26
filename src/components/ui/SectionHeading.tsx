@@ -118,7 +118,7 @@ export function SectionHeading({
         <SplitLines
           as={as}
           className={cn(
-            "font-display uppercase text-foreground",
+            "font-display text-foreground",
             sizeClass,
             /* Caps the line length in characters rather than pixels, so the
                headline breaks at a sensible place at every viewport size. */

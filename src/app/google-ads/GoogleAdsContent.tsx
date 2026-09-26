@@ -201,7 +201,7 @@ export function GoogleAdsContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[19ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[19ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             <>
               The same budget, pointed at{" "}
@@ -273,7 +273,7 @@ export function GoogleAdsContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             Six searches an unmanaged account will happily buy.
           </SplitLines>
@@ -321,7 +321,7 @@ export function GoogleAdsContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             Four moves, in this order.
           </SplitLines>
@@ -353,7 +353,7 @@ export function GoogleAdsContent() {
                     className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
                   />
 
-                  <h3 className="mt-7 max-w-[22ch] font-display text-h4 uppercase leading-tight text-foreground">
+                  <h3 className="mt-7 max-w-[22ch] font-display text-h4 leading-tight text-foreground">
                     {c.t}
                   </h3>
                   <p className="mt-4 text-body text-muted">{c.c}</p>
@@ -378,7 +378,7 @@ export function GoogleAdsContent() {
 
             <SplitLines
               as="h2"
-              className="mt-7 max-w-[20ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+              className="mt-7 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
             >
               Four clicks, and you can check this without us.
             </SplitLines>
@@ -448,7 +448,7 @@ export function GoogleAdsContent() {
           <Container>
             <SplitLines
               as="h2"
-              className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+              className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
             >
               More specific than that?
             </SplitLines>
@@ -460,7 +460,7 @@ export function GoogleAdsContent() {
                     href={child.href}
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
-                    <span className="font-display text-h4 uppercase leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <span className="font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
                       {child.label}
                     </span>
                     <span

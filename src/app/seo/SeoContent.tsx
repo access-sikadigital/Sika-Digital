@@ -183,7 +183,7 @@ export function SeoContent() {
         <div className="mt-8 lg:flex lg:items-end lg:gap-16">
           <SplitLines
             as="h1"
-            className="max-w-[15ch] font-display text-h1 uppercase leading-[0.94] text-foreground lg:shrink-0"
+            className="max-w-[15ch] font-display text-h1 leading-[1.1] text-foreground lg:shrink-0"
           >
             {page.h1}
           </SplitLines>
@@ -221,7 +221,7 @@ export function SeoContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             <>
               Two kinds of first place. Only one of them{" "}
@@ -278,7 +278,7 @@ export function SeoContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             The order matters more than the speed.
           </SplitLines>
@@ -306,7 +306,7 @@ export function SeoContent() {
                   />
 
                   <div className="lg:flex lg:items-baseline lg:gap-12">
-                    <h3 className="font-display text-h3 uppercase leading-tight text-foreground lg:w-[34%] lg:shrink-0">
+                    <h3 className="font-display text-h3 leading-tight text-foreground lg:w-[34%] lg:shrink-0">
                       {entry.t}
                     </h3>
                     <p className="mt-4 max-w-text text-body text-muted lg:mt-0 lg:min-w-0 lg:flex-1">
@@ -369,7 +369,7 @@ export function SeoContent() {
           <Container>
             <SplitLines
               as="h2"
-              className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+              className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
             >
               More specific than that?
             </SplitLines>
@@ -381,7 +381,7 @@ export function SeoContent() {
                     href={child.href}
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
-                    <span className="font-display text-h4 uppercase leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <span className="font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
                       {child.label}
                     </span>
                     <span

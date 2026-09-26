@@ -51,7 +51,7 @@ export function PageOpening({
         <SplitLines
           as="h1"
           className={cn(
-            "font-display text-h1 uppercase leading-[0.94] text-foreground lg:shrink-0",
+            "font-display text-h1 leading-[1.1] text-foreground lg:shrink-0",
             titleMax
           )}
         >

@@ -67,7 +67,7 @@ const linkClass =
  * longest heading to two lines and unbalances the column it lands in.
  */
 const headingClass =
-  "mb-4 border-b border-line pb-3 font-display text-body uppercase tracking-wide text-foreground";
+  "mb-4 border-b border-line pb-3 font-display text-body text-foreground";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -90,7 +90,7 @@ export function Footer() {
           ].map((item) => (
             <span
               key={item}
-              className="flex items-center gap-10 font-display text-h4 uppercase"
+              className="flex items-center gap-10 font-display text-h4"
             >
               {item}
               <Logomark

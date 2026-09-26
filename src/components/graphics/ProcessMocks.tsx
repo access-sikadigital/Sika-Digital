@@ -414,7 +414,7 @@ function LandingCard({
         <span className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/20" />
         <div className="absolute inset-0 flex items-center justify-between gap-3 p-4">
           <div className="max-w-[60%]">
-            <p className="font-display text-[clamp(0.85rem,2.2vw,1.25rem)] leading-[1.05] text-paper uppercase">
+            <p className="font-display text-[clamp(0.85rem,2.2vw,1.25rem)] leading-[1.05] text-paper">
               {headline}
             </p>
             <span className="mt-3 inline-block rounded-[3px] bg-accent px-2.5 py-1 text-[0.62rem] font-bold text-on-accent uppercase">

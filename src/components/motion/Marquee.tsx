@@ -55,12 +55,24 @@ export function Marquee({
       if (!el || !container) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const tween = gsap.to(el, {
-        xPercent: reverse ? 50 : -50,
-        duration: speed,
-        ease: "none",
-        repeat: -1,
-      });
+      /* Forward runs 0 to -50%. Reverse must run -50% to 0, NOT 0 to +50%.
+
+         The track is two copies laid left to right starting at the left edge.
+         Moving it right from 0 drags copy one away from the edge with nothing
+         behind it, so a blank stretch opens on the left and grows to half the
+         track before the loop resets. That is what the reverse direction did
+         until this was fixed. Starting at -50% puts copy two under the left
+         edge, and it slides into exactly the place copy one began. */
+      const tween = gsap.fromTo(
+        el,
+        { xPercent: reverse ? -50 : 0 },
+        {
+          xPercent: reverse ? 0 : -50,
+          duration: speed,
+          ease: "none",
+          repeat: -1,
+        }
+      );
 
       /* Run only while the band is on screen. */
       ScrollTrigger.create({
@@ -114,10 +126,16 @@ export function Marquee({
         >
           {children}
         </div>
+        {/* `inert` as well as `aria-hidden`. aria-hidden hides the duplicate
+            from screen readers but leaves any links in it focusable, so a
+            keyboard user would tab into a copy that does not officially exist.
+            inert removes it from focus, clicks and the accessibility tree in
+            one go. */}
         <div
           className="flex flex-nowrap items-center"
           style={{ gap, paddingRight: gap }}
           aria-hidden
+          inert
         >
           {children}
         </div>

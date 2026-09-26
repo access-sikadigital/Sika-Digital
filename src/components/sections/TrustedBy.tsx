@@ -108,9 +108,12 @@ export function ClientMark({
  * at `trustedBy` in config/home.ts.
  *
  * ── Speed ───────────────────────────────────────────────────────────────────
- * 48 seconds per cycle. 40 read as busy and logos passed before they could be
- * recognised; 60 read as stalled. 48 is between the two, by eye.
- *
+ * 57 seconds per cycle, about 115px a second at desktop. Set from the band's
+ * length, not picked: 40s read as busy, 60s as stalled, 48s was then asked to
+ * be 20% slower. The loop time is per full cycle, so it scales with how many
+ * logos there are. If logos are added or removed, recompute from px/s rather
+ * than leaving this number alone, or the band quietly speeds up or slows down.
+
  * ── Empty until real logos exist ────────────────────────────────────────────
  * With no logos the section renders nothing in production and labelled empty
  * slots in development.
@@ -144,7 +147,7 @@ export function TrustedBy() {
       {/* Edge fade, so logos drift in and out of nothing rather than being
           cut off by the viewport. */}
       <div className="relative mt-10 [--logo-scale:0.75] sm:[--logo-scale:1] [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <Marquee speed={48} gap="clamp(1.5rem, 4vw, 4rem)" pauseOnHover>
+        <Marquee speed={57} gap="clamp(1.5rem, 4vw, 4rem)" pauseOnHover>
           {preview
             ? Array.from({ length: 6 }, (_, i) => (
                 <span

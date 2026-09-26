@@ -138,7 +138,7 @@ export function ContactForm({ className }: { className?: string }) {
           className
         )}
       >
-        <p className="font-display text-h3 uppercase leading-none text-accent">
+        <p className="font-display text-h3 leading-[1.1] text-accent">
           Got it.
         </p>
         <p className="mt-5 max-w-md text-lead text-muted">

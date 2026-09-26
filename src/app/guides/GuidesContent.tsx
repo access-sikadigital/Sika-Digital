@@ -111,7 +111,7 @@ export function GuidesContent() {
                       </span>
                     </div>
 
-                    <h2 className="mt-7 max-w-[22ch] font-display text-h3 uppercase leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <h2 className="mt-7 max-w-[22ch] font-display text-h3 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
                       {target.h1}
                     </h2>
 
@@ -120,7 +120,7 @@ export function GuidesContent() {
                     </p>
                   </div>
 
-                  <span className="mt-10 flex items-center gap-3 font-display text-body uppercase tracking-wide text-foreground">
+                  <span className="mt-10 flex items-center gap-3 font-display text-body text-foreground">
                     Read it
                     <span
                       aria-hidden
@@ -143,7 +143,7 @@ export function GuidesContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
               >
                 <>
                   No blog. On{" "}

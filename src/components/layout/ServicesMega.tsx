@@ -207,7 +207,7 @@ export function ServicesMega({
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-display text-h4 leading-tight uppercase">
+                  <span className="font-display text-h4 leading-tight">
                     {g.label}
                   </span>
                 </Link>
@@ -259,14 +259,14 @@ export function ServicesMega({
           >
             <div>
               <Logomark className="size-7" color="currentColor" decorative />
-              <p className="mt-6 font-display text-h4 leading-tight uppercase">
+              <p className="mt-6 font-display text-h4 leading-tight">
                 {siteConfig.offer.primary.label}
               </p>
               <p className="mt-3 text-small opacity-80">
                 {siteConfig.offer.primary.note}
               </p>
             </div>
-            <span className="mt-8 inline-flex items-center gap-2 font-display text-small uppercase">
+            <span className="mt-8 inline-flex items-center gap-2 font-display text-small">
               Start here
               <span
                 aria-hidden

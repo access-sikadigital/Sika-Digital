@@ -59,24 +59,30 @@
 
   /* Fluid type. clamp() means no breakpoint jumps — the scale is continuous
      from 320px to 1920px, so a headline never snaps a size mid-resize. */
+  /* Line heights are for SENTENCE CASE, not capitals. Archivo Black's glyphs
+     run 1.088em top to bottom with descenders 0.21em below the baseline, and
+     SplitLines clips each line to its own box as it reveals it. Below ~1.09 the
+     tails of g, y and p are sliced off. The old values (0.86 to 0.98) only
+     worked because every heading was in capitals, which have no descenders.
+     If headings ever go back to uppercase, these can come back down. */
   --text-display: clamp(3.5rem, 1.5rem + 9vw, 11rem);
-  --text-display--line-height: 0.86;
+  --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.035em;
 
   --text-h1: clamp(2.5rem, 1.2rem + 5.5vw, 6rem);
-  --text-h1--line-height: 0.92;
+  --text-h1--line-height: 1.1;
   --text-h1--letter-spacing: -0.03em;
 
   --text-h2: clamp(2rem, 1.1rem + 3.6vw, 4rem);
-  --text-h2--line-height: 0.98;
+  --text-h2--line-height: 1.1;
   --text-h2--letter-spacing: -0.025em;
 
   --text-h3: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  --text-h3--line-height: 1.06;
+  --text-h3--line-height: 1.14;
   --text-h3--letter-spacing: -0.02em;
 
   --text-h4: clamp(1.25rem, 1rem + 1vw, 1.75rem);
-  --text-h4--line-height: 1.16;
+  --text-h4--line-height: 1.2;
   --text-h4--letter-spacing: -0.015em;
 
   --text-lead: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);

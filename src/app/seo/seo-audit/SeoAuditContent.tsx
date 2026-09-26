@@ -124,7 +124,7 @@ export function SeoAuditContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
               >
                 <>
                   Why it is{" "}
@@ -176,7 +176,7 @@ export function SeoAuditContent() {
                       <span className="font-mono text-eyebrow tabular-nums text-accent">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="max-w-[24ch] font-display text-h4 uppercase leading-tight text-foreground">
+                      <h3 className="max-w-[24ch] font-display text-h4 leading-tight text-foreground">
                         {item.t}
                       </h3>
                     </div>
@@ -210,7 +210,7 @@ export function SeoAuditContent() {
 
             <SplitLines
               as="h2"
-              className="mt-7 max-w-[20ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+              className="mt-7 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
             >
               Four things every other free audit is.
             </SplitLines>
@@ -239,7 +239,7 @@ export function SeoAuditContent() {
         <Container>
           <SplitLines
             as="h2"
-            className="max-w-[18ch] font-display text-h2 uppercase leading-[0.96] text-foreground"
+            className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
           >
             Three steps, and one of them is yours.
           </SplitLines>
@@ -271,7 +271,7 @@ export function SeoAuditContent() {
                   aria-hidden
                   className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
                 />
-                <h3 className="mt-7 font-display text-h4 uppercase leading-tight text-foreground">
+                <h3 className="mt-7 font-display text-h4 leading-tight text-foreground">
                   {s.t}
                 </h3>
                 <p className="mt-4 text-body text-muted">{s.c}</p>

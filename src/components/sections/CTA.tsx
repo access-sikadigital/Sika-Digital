@@ -176,13 +176,13 @@ export function CTA() {
         <div className="mt-8 overflow-hidden lg:mt-10">
           <span
             data-drift
-            className="block font-display text-h1 uppercase leading-[0.92] text-foreground"
+            className="block font-display text-h1 leading-[1.1] text-foreground"
           >
             Find out what
           </span>
           <span
             data-drift
-            className="block font-display text-h1 uppercase leading-[0.92] text-foreground"
+            className="block font-display text-h1 leading-[1.1] text-foreground"
           >
             you are <span className="text-accent">missing</span>
           </span>
@@ -203,7 +203,7 @@ export function CTA() {
                   className="flex items-center gap-2.5 text-nowrap"
                 >
                   <Tick className="size-4 shrink-0 text-accent" />
-                  <span className="font-display text-body uppercase tracking-wide text-foreground">
+                  <span className="font-display text-body text-foreground">
                     {c}
                   </span>
                 </li>
