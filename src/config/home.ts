@@ -23,88 +23,109 @@ export const hero = {
 } as const;
 
 /* ── Trusted by ─────────────────────────────────────────────────────────────
-   The client logo band under the hero. A logo here is a public claim that the
-   business is a client, so it is never filled with stand-ins.
+   The client logo band under the hero, and the grid on the results page. A
+   logo here is a public claim that the business is a client. All 30 below are
+   real clients who have agreed to be listed (confirmed 24 Sep 2026).
 
-   Files live in public/media/clients/, full colour. The band greys them out
-   and restores the real colours on hover.
+   Every client has TWO files, and that is deliberate.
 
-     width/height  The file's intrinsic size. Only the ratio is used: the band
-                   sizes every logo to the same visual area, so a wide wordmark
-                   and a square badge carry the same weight.
-     tone          What the logo's real colours need behind them. "dark" logos
-                   (dark ink) get a light tile on hover, or they would vanish
-                   into the page; "light" logos stay on the dark page.
-     idle          "silhouette" flattens to white at rest. "grayscale" is for
-                   illustrated marks, which flatten into a solid blob.
+     white   Shown at rest. The client's own white version, so every logo in
+             the band is the same clean white.
+     src     Shown on hover, on a frosted glass tile. Real colours, in the
+             version made for a DARK background, because the glass is dark.
+
+   One file with a CSS filter cannot do this: a filter can flatten a logo to
+   white, but it cannot turn a navy-on-white logo into one that reads on dark.
+
+   How each hover file was chosen, every one checked by rendering it on glass:
+     · Official "FullColor Light" (made for dark backgrounds) where supplied:
+       King Electrical, Lumenx, Forefront Community Care, Demo Bros, and both
+       Mr. marks. Used as supplied.
+     · Derived, where the client only supplied colour for LIGHT backgrounds:
+       5Star, A&A, Australasian, Bathroom & Balconies, Compare, LiftX, Survaid,
+       Top Spot, Weyn, True Align, Forefront Trades Co, Wells. Built the way
+       the official Light versions are: dark ink (navy, charcoal, purple) goes
+       white, brand accents (the reds, oranges, bright blues) are kept exactly.
+       ⚠️  These are our derivations, not files the clients supplied. If any
+       client has an official dark-background version, use theirs instead.
+     · Formline Joinery: its original olive reads on glass, used as supplied.
+     · Heartbreaker and By Willow: their real colours (maroon #501010, dark
+       brown #4E2D1E) measure about 1:1 against the glass, so they are
+       invisible in their exact shade. Kept at the SAME hue and saturation,
+       with only the lightness raised until they reach 3.2:1: Heartbreaker
+       #D73737, By Willow #AA6241. Recognisably their colour, and visible.
+     · Blinds Corp: its cream B is kept; only the dark grey wordmark, which
+       vanished on glass, is turned white.
+     · White on hover too, for the six who supplied only White and Black:
+       Aust Construct, Deslar, Grindcorp, Lucent Epoxy, Pititto and Rock Up.
+     · Fintellect: the "F." mark supplied 26 Sep 2026, in its brand green
+       #206943, sampled from their own site. (An earlier version used cream
+       #FBFEEE, which is their BACKGROUND colour, not the mark's.) Used at the
+       exact shade, at John's request, although it sits at 2.3:1 on the glass,
+       dimmer than the rest. If it reads too dark, the same hue lifted to
+       #2F9A62 is the fallback. The original SVG used currentColor, which
+       renders black as an image, so the fill is set explicitly.
+
+   ⚠️  After adding or replacing ANY file in public/media/clients, run
+       `node scripts/hash-logos.mjs`. Filenames carry a content hash because
+       images are cached for a year; replace a file under the same name and
+       visitors keep seeing the old one. See next.config.ts.
+
+   Each pair is trimmed and centred on an identical canvas, so the swap on
+   hover is pixel-aligned and nothing shifts.
+
+     width/height  The shared canvas size. Only the ratio is used: the band
+                   sizes every logo to the same visual area.
+     scale         Optical correction on top of equal area. Dense or heavy
+                   marks read bigger than their box and sit below 1; compact or
+                   hairline marks read smaller and sit above. Set by rendering
+                   the whole set at display size and looking at it.
 
    TODO: the real client count for the label (e.g. "100+"). */
 export type ClientLogo = {
   name: string;
+  /** Hover. Real colours, made for a light background. */
   src: string;
+  /** Rest. The white version. */
+  white: string;
   width: number;
   height: number;
-  tone: "dark" | "light";
-  idle?: "silhouette" | "grayscale";
-  /**
-   * Optical correction on top of the equal-area sizing. Equal area gets most
-   * of the way; the rest is how heavy a mark reads. Dense or heavy wordmarks
-   * (Grindcorp, Survaid) read bigger than their box and sit below 1; hairline
-   * or compact marks (Lucent Epoxy, Forefront Trades) read smaller and sit
-   * above. Set by rendering the whole set at display size and looking at it.
-   */
   scale?: number;
 };
 
 export const trustedBy: { count: string; logos: ClientLogo[] } = {
   count: "", // TODO
   logos: [
-    { name: "Wells Roofing", src: "/media/clients/wells-roofing.avif", width: 1080, height: 415, tone: "dark" },
-    { name: "Demo Bros", src: "/media/clients/demo-bros.svg", width: 334, height: 330, tone: "light", idle: "grayscale" },
-    { name: "Formline Joinery", src: "/media/clients/formline-joinery.svg", width: 600, height: 107, tone: "dark" },
-    { name: "Fintellect", src: "/media/clients/fintellect.svg", width: 800, height: 687, tone: "light" },
-    { name: "By Willow", src: "/media/clients/by-willow.svg", width: 1000, height: 170, tone: "dark" },
-    { name: "Heartbreaker", src: "/media/clients/heartbreaker.svg", width: 830, height: 53, tone: "light" },
-
-    /* ── From the CLIENT LOGOS 2.0 pack, 24 Sep 2026 ────────────────────────
-       Trimmed to the ink and fitted inside 720x280. The originals were mostly
-       a 5906px square with the mark in a fraction of it, which renders as a
-       small logo floating in a large empty box.
-
-       Colour file chosen per client: "FullColor Light" where it exists (made
-       for dark backgrounds), then "Full Color", then White for clients who
-       supplied no colour version. Two exceptions, both checked by rendering
-       the hover state: Blinds Corp uses White because its colour version is
-       cream and grey and its wordmark went dim on hover; True Align uses its
-       dark-ink file on a light tile because its light file has navy figures
-       that vanished against the page.
-
-       Demo Bros, Formline Joinery, Heartbreaker and Wells Roofing were already
-       above with hand-made files and are not duplicated. */
-    { name: "King Electrical", src: "/media/clients/king-electrical.png", width: 720, height: 126, tone: "light" },
-    { name: "Weyn Constructions", src: "/media/clients/weyn-constructions.png", width: 465, height: 280, tone: "dark" },
-    { name: "5Star Bath & Kitchen", src: "/media/clients/5star-bath-and-kitchen.png", width: 648, height: 280, tone: "dark" },
-    { name: "Lumenx", src: "/media/clients/lumenx.png", width: 720, height: 135, tone: "light" },
-    { name: "Aust Construct", src: "/media/clients/aust-construct.png", width: 628, height: 280, tone: "light" },
-    { name: "Mr. Tile Removal", src: "/media/clients/mr-tile-removal.png", width: 720, height: 191, tone: "light", idle: "grayscale", scale: 0.92 },
-    { name: "A&A Flooring & Blinds", src: "/media/clients/a-and-a-flooring-and-blinds.png", width: 516, height: 280, tone: "dark" },
-    { name: "Grindcorp", src: "/media/clients/grindcorp.png", width: 720, height: 111, tone: "light", scale: 0.86 },
-    { name: "Top Spot Blinds", src: "/media/clients/top-spot-blinds.png", width: 563, height: 280, tone: "dark" },
-    { name: "Survaid", src: "/media/clients/survaid.png", width: 720, height: 182, tone: "dark", scale: 0.9 },
-    { name: "Forefront Trades Co", src: "/media/clients/forefront-trades-co.png", width: 344, height: 280, tone: "light", scale: 1.15 },
-    { name: "Kitchen & Bath Co", src: "/media/clients/kitchen-and-bath-co.png", width: 720, height: 70, tone: "light", scale: 0.88 },
-    { name: "Deslar Group", src: "/media/clients/deslar-group.png", width: 720, height: 198, tone: "light", scale: 0.9 },
-    { name: "LiftX", src: "/media/clients/liftx.png", width: 601, height: 280, tone: "dark" },
-    { name: "Bathroom & Balconies", src: "/media/clients/bathroom-and-balconies.png", width: 720, height: 251, tone: "dark" },
-    { name: "Compare AirConditioning", src: "/media/clients/compare-airconditioning.png", width: 720, height: 133, tone: "dark", scale: 0.88 },
-    { name: "Pititto Projects", src: "/media/clients/pititto-projects.png", width: 593, height: 280, tone: "light", scale: 0.9 },
-    { name: "Mr. Site Cleanups", src: "/media/clients/mr-site-cleanups.png", width: 720, height: 179, tone: "light", idle: "grayscale", scale: 0.92 },
-    { name: "Blinds Corp", src: "/media/clients/blinds-corp.png", width: 334, height: 280, tone: "light", scale: 1.05 },
-    { name: "Australasian Home", src: "/media/clients/australasian-home.png", width: 720, height: 232, tone: "dark" },
-    { name: "Lucent Epoxy", src: "/media/clients/lucent-epoxy.png", width: 240, height: 280, tone: "light", scale: 1.22 },
-    { name: "Rock Up Group", src: "/media/clients/rock-up-group.png", width: 614, height: 280, tone: "light" },
-    { name: "True Align", src: "/media/clients/true-align.png", width: 463, height: 280, tone: "dark", scale: 1.05 },
-    { name: "Forefront Community Care", src: "/media/clients/forefront-community-care.png", width: 720, height: 209, tone: "light" },
+    { name: "King Electrical", src: "/media/clients/king-electrical.2acb0952.png", white: "/media/clients/king-electrical-white.80fb1b25.png", width: 720, height: 126 },
+    { name: "Weyn Constructions", src: "/media/clients/weyn-constructions.f35da1e3.png", white: "/media/clients/weyn-constructions-white.4949bfb9.png", width: 465, height: 280 },
+    { name: "Wells Roofing", src: "/media/clients/wells-roofing.b3093e7d.png", white: "/media/clients/wells-roofing-white.0f5e41c5.png", width: 718, height: 280 },
+    { name: "5Star Bath & Kitchen", src: "/media/clients/5star-bath-and-kitchen.6861882a.png", white: "/media/clients/5star-bath-and-kitchen-white.204fa349.png", width: 648, height: 280 },
+    { name: "Lumenx", src: "/media/clients/lumenx.c6f4fd18.png", white: "/media/clients/lumenx-white.8d38ad6d.png", width: 720, height: 135 },
+    { name: "Demo Bros", src: "/media/clients/demo-bros.1e65756c.png", white: "/media/clients/demo-bros-white.e2753b0b.png", width: 284, height: 280, scale: 1.05 },
+    { name: "Aust Construct", src: "/media/clients/aust-construct.b253fa24.png", white: "/media/clients/aust-construct-white.b253fa24.png", width: 628, height: 280 },
+    { name: "Mr. Tile Removal", src: "/media/clients/mr-tile-removal.94da7e46.png", white: "/media/clients/mr-tile-removal-white.af1840c3.png", width: 720, height: 192, scale: 0.92 },
+    { name: "A&A Flooring & Blinds", src: "/media/clients/a-and-a-flooring-and-blinds.1314f7cc.png", white: "/media/clients/a-and-a-flooring-and-blinds-white.5530ed1e.png", width: 516, height: 280 },
+    { name: "Grindcorp", src: "/media/clients/grindcorp.ebb846b6.png", white: "/media/clients/grindcorp-white.ebb846b6.png", width: 720, height: 111, scale: 0.86 },
+    { name: "Fintellect", src: "/media/clients/fintellect.32c9eaa7.svg", white: "/media/clients/fintellect-white.a44c30b8.svg", width: 677, height: 800, scale: 1.1 },
+    { name: "Top Spot Blinds", src: "/media/clients/top-spot-blinds.f321ab21.png", white: "/media/clients/top-spot-blinds-white.475cc893.png", width: 563, height: 280 },
+    { name: "Survaid", src: "/media/clients/survaid.77acd1ec.png", white: "/media/clients/survaid-white.8e6df2fe.png", width: 720, height: 182, scale: 0.9 },
+    { name: "Forefront Trades Co", src: "/media/clients/forefront-trades-co.2358e23c.png", white: "/media/clients/forefront-trades-co-white.304e761b.png", width: 720, height: 148 },
+    { name: "Kitchen & Bath Co", src: "/media/clients/kitchen-and-bath-co.67c5d8b1.png", white: "/media/clients/kitchen-and-bath-co-white.7936bd85.png", width: 720, height: 70, scale: 0.88 },
+    { name: "Deslar Group", src: "/media/clients/deslar-group.050abe32.png", white: "/media/clients/deslar-group-white.050abe32.png", width: 720, height: 198, scale: 0.9 },
+    { name: "LiftX", src: "/media/clients/liftx.f92c0491.png", white: "/media/clients/liftx-white.eaa5d959.png", width: 601, height: 280 },
+    { name: "Formline Joinery", src: "/media/clients/formline-joinery.90c55c06.png", white: "/media/clients/formline-joinery-white.99009f85.png", width: 720, height: 129, scale: 0.9 },
+    { name: "Bathroom & Balconies", src: "/media/clients/bathroom-and-balconies.b89a9f4b.png", white: "/media/clients/bathroom-and-balconies-white.4e060fbf.png", width: 720, height: 251 },
+    { name: "Compare AirConditioning", src: "/media/clients/compare-airconditioning.9d5cdecc.png", white: "/media/clients/compare-airconditioning-white.4452c98d.png", width: 720, height: 133, scale: 0.88 },
+    { name: "By Willow", src: "/media/clients/by-willow.af30bc8a.svg", white: "/media/clients/by-willow-white.af6d0195.svg", width: 1000, height: 170 },
+    { name: "Pititto Projects", src: "/media/clients/pititto-projects.0fdf65d0.png", white: "/media/clients/pititto-projects-white.0fdf65d0.png", width: 593, height: 280, scale: 0.9 },
+    { name: "Mr. Site Cleanups", src: "/media/clients/mr-site-cleanups.fb7652df.png", white: "/media/clients/mr-site-cleanups-white.d5a83e0f.png", width: 720, height: 179, scale: 0.92 },
+    { name: "Blinds Corp", src: "/media/clients/blinds-corp.2e18ca7c.png", white: "/media/clients/blinds-corp-white.1502eb78.png", width: 334, height: 280, scale: 1.05 },
+    { name: "Heartbreaker Ink", src: "/media/clients/heartbreaker-ink.f2d1de40.png", white: "/media/clients/heartbreaker-ink-white.54dec076.png", width: 720, height: 38, scale: 1.1 },
+    { name: "Australasian Home", src: "/media/clients/australasian-home.f53dd9c9.png", white: "/media/clients/australasian-home-white.c5a53509.png", width: 720, height: 232 },
+    { name: "Lucent Epoxy", src: "/media/clients/lucent-epoxy.5f2067f0.png", white: "/media/clients/lucent-epoxy-white.5f2067f0.png", width: 240, height: 280, scale: 1.22 },
+    { name: "Rock Up Group", src: "/media/clients/rock-up-group.62053168.png", white: "/media/clients/rock-up-group-white.62053168.png", width: 614, height: 280 },
+    { name: "True Align", src: "/media/clients/true-align.d18abbbd.png", white: "/media/clients/true-align-white.f27abd97.png", width: 463, height: 280, scale: 1.05 },
+    { name: "Forefront Community Care", src: "/media/clients/forefront-community-care.acb2d74e.png", white: "/media/clients/forefront-community-care-white.511923a2.png", width: 720, height: 209 },
   ],
 };
 

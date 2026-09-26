@@ -21,7 +21,17 @@ const nextConfig: NextConfig = {
        photographic content, which is most of what an agency site carries. */
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2560],
-    /* Long cache — filenames are content-hashed, so this is safe. */
+    /* One year. Safe ONLY for files whose name changes when their content does.
+
+       ⚠️  Next does NOT hash files in /public. This comment used to claim it
+       did, and the claim broke the client logo band: logos were replaced under
+       the same filenames and the optimiser kept serving the old versions, with
+       no error anywhere, because a year-long cache is working as designed.
+
+       So any image in /public that may be replaced must carry a content hash
+       in its filename. The client logos do (see scripts/hash-logos.mjs). If you
+       add another replaceable image set, hash it the same way, or lower this
+       number. Never overwrite an optimised image in place. */
     minimumCacheTTL: 31_536_000,
   },
 

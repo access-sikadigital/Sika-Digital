@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { trustedBy } from "@/config/home";
+import { trustedBy, type ClientLogo } from "@/config/home";
 import { Marquee } from "@/components/motion/Marquee";
 import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
@@ -26,25 +26,94 @@ export function logoWidth(width: number, height: number, scale = 1) {
 }
 
 /**
+ * One client logo: white at rest, real colours on a white tile on hover.
+ *
+ * Shared by the homepage band and the results grid, so a client looks the same
+ * in both places and the hover behaves identically.
+ *
+ * ── Two images, stacked ─────────────────────────────────────────────────────
+ * Both files occupy the same grid cell, and hover crossfades between them. The
+ * pair was exported onto an identical canvas, so the swap is pixel-aligned and
+ * nothing shifts. The hover file is `aria-hidden`: it is the same logo again,
+ * and a screen reader should hear the name once.
+ *
+ * ── The tile is glass, not white ────────────────────────────────────────────
+ * A solid white tile was tried and it was a flat bright block punched into a
+ * dark page, thirty times over. Frosted glass keeps the band in the page's own
+ * colour: a faint top-lit gradient, a hairline edge, an inner highlight along
+ * the top, and a blur of whatever is behind it.
+ *
+ * `backdrop-blur` is applied only on hover. The tile sits at opacity 0 the rest
+ * of the time, but a backdrop filter is still computed at opacity 0, and thirty
+ * of them moving in a marquee would cost every frame for nothing visible.
+ *
+ * Because the tile is dark, the hover files are the logos' DARK-BACKGROUND
+ * versions. See `trustedBy` in config/home.ts for how those were chosen.
+ *
+ * Padding on the wrapper rather than on the tile, so the tile has room around
+ * the mark and the band's spacing does not change on hover.
+ *
+ * Needs a `group/logo` ancestor. The band and the grid each supply one.
+ */
+export function ClientMark({
+  logo,
+  width,
+}: {
+  logo: ClientLogo;
+  /** CSS width. A number, or a calc() string for the band's phone scaling. */
+  width: number | string;
+}) {
+  const svg = logo.src.endsWith(".svg");
+
+  return (
+    <span className="relative flex items-center justify-center px-6 py-4">
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-card border border-white/15 bg-linear-to-b from-white/[0.14] to-white/[0.04] opacity-0 shadow-[inset_0_1px_0_rgb(255_255_255/0.2),0_10px_30px_-12px_rgb(0_0_0/0.7)] transition-opacity duration-(--duration-base) ease-out-quart group-hover/logo:opacity-100 group-hover/logo:backdrop-blur-md"
+      />
+      <span className="relative grid">
+        <Image
+          src={logo.white}
+          alt={logo.name}
+          width={logo.width}
+          height={logo.height}
+          unoptimized={svg}
+          style={{ width }}
+          className="col-start-1 row-start-1 h-auto max-w-none opacity-90 transition-opacity duration-(--duration-base) ease-out-quart group-hover/logo:opacity-0"
+        />
+        <Image
+          src={logo.src}
+          alt=""
+          aria-hidden
+          width={logo.width}
+          height={logo.height}
+          unoptimized={svg}
+          style={{ width }}
+          className="col-start-1 row-start-1 h-auto max-w-none opacity-0 transition-opacity duration-(--duration-base) ease-out-quart group-hover/logo:opacity-100"
+        />
+      </span>
+    </span>
+  );
+}
+
+/**
  * TRUSTED BY — client logo band under the hero.
  *
- * Every logo is flattened to a soft white silhouette so a row of mismatched
- * brand colours reads as one calm band, and shows its real colours when
- * hovered. The band slows to a stop under the cursor (`pauseOnHover`) so a
- * logo can actually be hovered rather than chased.
+ * Every logo sits in the band as its own white version, so thirty different
+ * brands read as one calm row. Hovering one brings up a glass tile and the
+ * client's real colours. The band slows to a stop under the cursor
+ * (`pauseOnHover`) so a logo can actually be hovered rather than chased.
  *
- * ── Why a filter and not two images ─────────────────────────────────────────
- * `brightness(0) invert(1)` turns any logo, whatever its colours, into flat
- * white. Removing the filter on hover restores the original file. One asset
- * per client, nothing to keep in sync.
+ * Why each client has two files rather than one file and a filter is written
+ * at `trustedBy` in config/home.ts.
  *
- * Real colours are not always readable on the dark page: a charcoal or navy
- * logo vanishes. Those are marked `tone: "dark"` in config and get a light
- * tile behind them on hover. See `trustedBy` in config/home.ts.
+ * ── Speed ───────────────────────────────────────────────────────────────────
+ * 48 seconds per cycle. 40 read as busy and logos passed before they could be
+ * recognised; 60 read as stalled. 48 is between the two, by eye.
  *
  * ── Empty until real logos exist ────────────────────────────────────────────
- * See `trustedBy` in config/home.ts. With no logos the section renders nothing
- * in production and labelled empty slots in development.
+ * With no logos the section renders nothing in production and labelled empty
+ * slots in development.
  */
 export function TrustedBy() {
   const { count, logos } = trustedBy;
@@ -75,7 +144,7 @@ export function TrustedBy() {
       {/* Edge fade, so logos drift in and out of nothing rather than being
           cut off by the viewport. */}
       <div className="relative mt-10 [--logo-scale:0.75] sm:[--logo-scale:1] [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <Marquee speed={40} gap="clamp(1.5rem, 4vw, 4rem)" pauseOnHover>
+        <Marquee speed={48} gap="clamp(1.5rem, 4vw, 4rem)" pauseOnHover>
           {preview
             ? Array.from({ length: 6 }, (_, i) => (
                 <span
@@ -86,26 +155,10 @@ export function TrustedBy() {
                 </span>
               ))
             : logos.map((logo) => (
-                <span
-                  key={logo.name}
-                  className={cn(
-                    "group/logo flex shrink-0 items-center justify-center rounded-card px-6 py-4 transition-colors duration-(--duration-base)",
-                    logo.tone === "dark" ? "hover:bg-paper" : "hover:bg-white/[0.06]"
-                  )}
-                >
-                  <Image
-                    src={logo.src}
-                    alt={logo.name}
-                    width={logo.width}
-                    height={logo.height}
-                    unoptimized={logo.src.endsWith(".svg")}
-                    style={{
-                      width: `calc(${logoWidth(logo.width, logo.height, logo.scale)}px * var(--logo-scale))`,
-                    }}
-                    className={cn(
-                      "h-auto max-w-none opacity-60 transition-[filter,opacity] duration-(--duration-base) group-hover/logo:opacity-100 group-hover/logo:filter-none",
-                      logo.idle === "grayscale" ? "grayscale" : "brightness-0 invert"
-                    )}
+                <span key={logo.name} className="group/logo flex shrink-0">
+                  <ClientMark
+                    logo={logo}
+                    width={`calc(${logoWidth(logo.width, logo.height, logo.scale)}px * var(--logo-scale))`}
                   />
                 </span>
               ))}

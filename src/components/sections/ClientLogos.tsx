@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { gsap, useGSAP, EASE } from "@/lib/gsap";
 import { trustedBy } from "@/config/home";
-import { logoWidth } from "@/components/sections/TrustedBy";
+import { ClientMark, logoWidth } from "@/components/sections/TrustedBy";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,21 +12,15 @@ import { cn } from "@/lib/utils";
  * The same clients as the band under the homepage hero, laid out still, for
  * the results page.
  *
- * ── One list, one sizing rule ───────────────────────────────────────────────
- * Reads `trustedBy` from config/home and sizes with the band's own
- * `logoWidth`. A second list of clients would eventually disagree with the
- * first about who the clients are, and on a page about honest proof that is
- * the one inconsistency that matters.
+ * ── One list, one mark ──────────────────────────────────────────────────────
+ * Reads `trustedBy` from config/home and renders each logo with the band's own
+ * `ClientMark`, so a client looks the same in both places: white at rest, real
+ * colours on a white tile on hover. A second implementation would drift.
  *
  * ── Still, not moving ───────────────────────────────────────────────────────
  * On the homepage the logos are atmosphere and a moving band suits that. Here
  * they are the evidence, and evidence gets read. Nothing on a page built to be
  * read moves while it is being read.
- *
- * ── Same idle and hover as the band ─────────────────────────────────────────
- * White silhouette at rest, real colours on hover, a light tile behind the
- * logos whose colours need one. So a client recognised in one place looks the
- * same in the other.
  *
  * ── Borders from the gap ────────────────────────────────────────────────────
  * The grid sits on a line-coloured background with a 1px gap, and each cell is
@@ -75,29 +68,19 @@ export function ClientLogos({ className }: { className?: string }) {
         <div
           key={logo.name}
           data-cell
-          className="group/logo flex aspect-[16/10] items-center justify-center bg-background p-5 sm:p-6"
+          className="group/logo @container flex aspect-[16/10] items-center justify-center overflow-hidden bg-background p-2 sm:p-4"
         >
-          <span
-            className={cn(
-              "flex items-center justify-center rounded-card px-4 py-3 transition-colors duration-(--duration-base)",
-              logo.tone === "dark"
-                ? "group-hover/logo:bg-paper"
-                : "group-hover/logo:bg-white/[0.06]"
-            )}
-          >
-            <Image
-              src={logo.src}
-              alt={logo.name}
-              width={logo.width}
-              height={logo.height}
-              unoptimized={logo.src.endsWith(".svg")}
-              style={{ width: logoWidth(logo.width, logo.height, logo.scale) }}
-              className={cn(
-                "h-auto max-w-full opacity-60 transition-[filter,opacity] duration-(--duration-base) group-hover/logo:opacity-100 group-hover/logo:filter-none",
-                logo.idle === "grayscale" ? "grayscale" : "brightness-0 invert"
-              )}
-            />
-          </span>
+          {/* Capped at the cell, so a wide wordmark shrinks on a two-column
+              phone grid instead of overflowing it.
+
+              `cqw`, not `%`. A percentage here resolves against the mark's own
+              wrapper, whose width comes from the image, so it is circular and
+              caps nothing. The cell is a container, and 100cqw is its measured
+              content width. 3rem is the mark's own side padding. */}
+          <ClientMark
+            logo={logo}
+            width={`min(${logoWidth(logo.width, logo.height, logo.scale)}px, calc(100cqw - 3rem))`}
+          />
         </div>
       ))}
     </div>
