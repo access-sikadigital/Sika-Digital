@@ -284,7 +284,7 @@ export function ServicesList() {
                 href={lead.href}
                 onFocus={() => setPreview(servicePreviews[lead.href] ?? null)}
                 onBlur={() => setPreview(null)}
-                className="block font-display text-h1 leading-[1.1] text-foreground transition-colors duration-base group-hover:text-accent"
+                className="block font-display text-h1 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent"
               >
                 {lead.label}
               </Link>
@@ -353,7 +353,7 @@ export function ServicesList() {
                       setPreview(servicePreviews[group.href] ?? null)
                     }
                     onBlur={() => setPreview(null)}
-                    className="block font-display text-h3 leading-[1.1] text-foreground transition-colors duration-base group-hover:text-accent"
+                    className="block font-display text-h3 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent"
                   >
                     {group.label}
                   </Link>

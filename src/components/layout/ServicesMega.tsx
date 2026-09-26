@@ -207,7 +207,7 @@ export function ServicesMega({
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-display text-h4 leading-tight">
+                  <span className="font-display text-h4 leading-[0.94]">
                     {g.label}
                   </span>
                 </Link>
@@ -259,7 +259,7 @@ export function ServicesMega({
           >
             <div>
               <Logomark className="size-7" color="currentColor" decorative />
-              <p className="mt-6 font-display text-h4 leading-tight">
+              <p className="mt-6 font-display text-h4 leading-[0.94]">
                 {siteConfig.offer.primary.label}
               </p>
               <p className="mt-3 text-small opacity-80">

@@ -133,7 +133,7 @@ export function AboutContent() {
               {siteConfig.founder.role}
             </p>
 
-            <h2 className="mt-6 font-display text-h2 leading-[1.1] text-foreground">
+            <h2 className="mt-6 font-display text-h2 leading-[0.94] text-foreground">
               {siteConfig.founder.name}
             </h2>
 
@@ -166,7 +166,7 @@ export function AboutContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 <>
                   We know what a{" "}
@@ -209,7 +209,7 @@ export function AboutContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Four things, and none of them are negotiable.
           </SplitLines>
@@ -221,14 +221,14 @@ export function AboutContent() {
                 data-rise
                 className="group h-full rounded-card border border-line bg-surface p-8 transition-colors duration-slow ease-out-quart hover:border-accent lg:p-12"
               >
-                <span className="block font-display text-h2 tabular-nums leading-none text-accent">
+                <span className="block font-display text-h2 tabular-nums leading-[0.94] text-accent">
                   {h.n}
                 </span>
                 <span
                   aria-hidden
                   className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
                 />
-                <h3 className="mt-7 max-w-[22ch] font-display text-h4 leading-tight text-foreground">
+                <h3 className="mt-7 max-w-[22ch] font-display text-h4 leading-[0.94] text-foreground">
                   {h.t}
                 </h3>
                 <p className="mt-4 max-w-md text-body text-muted">{h.c}</p>
@@ -253,7 +253,7 @@ export function AboutContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Small, and in house.
           </SplitLines>
@@ -305,7 +305,7 @@ export function AboutContent() {
 
             <SplitLines
               as="h2"
-              className="mt-7 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+              className="mt-7 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
             >
               This is a bad fit if any of these are true.
             </SplitLines>

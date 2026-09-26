@@ -132,7 +132,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 {loc.localHeading}
               </SplitLines>
@@ -168,7 +168,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Where {loc.city} businesses actually compete.
           </SplitLines>
@@ -213,7 +213,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <SplitLines
             as="h2"
-            className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             The work behind it.
           </SplitLines>
@@ -236,7 +236,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-background p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
                     <span className="min-w-0">
-                      <span className="block font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                      <span className="block font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                         {target.label}
                       </span>
                       <span className="mt-2 block text-small text-muted">

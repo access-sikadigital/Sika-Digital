@@ -206,7 +206,7 @@ export function ResultsContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             <>
               Four numbers, and they are all{" "}
@@ -234,7 +234,7 @@ export function ResultsContent() {
                 </span>
 
                 <span className="lg:w-[32%] lg:shrink-0">
-                  <span className="block font-display text-h4 leading-tight text-foreground">
+                  <span className="block font-display text-h4 leading-[0.94] text-foreground">
                     {m.t}
                   </span>
                   <span className="mt-2 block text-small text-faint">
@@ -266,7 +266,7 @@ export function ResultsContent() {
 
               <SplitLines
                 as="h2"
-                className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="mt-8 max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 Hold anyone to this. Including us.
               </SplitLines>
@@ -306,7 +306,7 @@ export function ResultsContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 One page, monthly, and you can check it.
               </SplitLines>
@@ -346,7 +346,7 @@ export function ResultsContent() {
           <div className="rounded-card border border-line bg-surface p-8 lg:p-14">
             <SplitLines
               as="h2"
-              className="max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+              className="max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
             >
               No case studies. Have an audit of your own account instead.
             </SplitLines>

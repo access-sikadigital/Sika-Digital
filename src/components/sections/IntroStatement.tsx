@@ -179,7 +179,7 @@ export function IntroStatement() {
             the headline claims and what the four links underneath spell out,
             so it earns the space rather than filling it. */}
         <div className="mt-10 lg:flex lg:items-center lg:gap-16">
-          <h2 className="max-w-[12ch] font-display text-h1 leading-[1.1] text-foreground lg:shrink-0">
+          <h2 className="max-w-[12ch] font-display text-h1 leading-[0.94] text-foreground lg:shrink-0">
             {introStatement}
           </h2>
 
@@ -219,7 +219,7 @@ export function IntroStatement() {
                   {link.n}
                 </span>
 
-                <span className="mt-5 block font-display text-h2 leading-[1.1] text-accent">
+                <span className="mt-5 block font-display text-h2 leading-[0.94] text-accent">
                   {link.verb}
                 </span>
 

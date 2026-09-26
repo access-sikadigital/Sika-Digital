@@ -52,7 +52,7 @@ export default function ContactPage() {
         <div className="mt-8 lg:flex lg:items-end lg:gap-16">
           <SplitLines
             as="h1"
-            className="max-w-[16ch] font-display text-h1 leading-[1.1] text-foreground lg:shrink-0"
+            className="max-w-[16ch] font-display text-h1 leading-[0.94] text-foreground lg:shrink-0"
           >
             {page.h1}
           </SplitLines>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                       {s.n}
                     </span>
                     <span className="min-w-0">
-                      <span className="block font-display text-h4 leading-tight text-foreground">
+                      <span className="block font-display text-h4 leading-[0.94] text-foreground">
                         {s.t}
                       </span>
                       <span className="mt-2 block text-small text-muted">

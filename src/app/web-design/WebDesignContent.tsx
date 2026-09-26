@@ -201,7 +201,7 @@ export function WebDesignContent() {
         <div className="mt-8 lg:flex lg:items-end lg:gap-16">
           <SplitLines
             as="h1"
-            className="max-w-[15ch] font-display text-h1 leading-[1.1] text-foreground lg:shrink-0"
+            className="max-w-[15ch] font-display text-h1 leading-[0.94] text-foreground lg:shrink-0"
           >
             {page.h1}
           </SplitLines>
@@ -236,7 +236,7 @@ export function WebDesignContent() {
             <div className="lg:w-[52%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 <>
                   Most websites are{" "}
@@ -273,7 +273,7 @@ export function WebDesignContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[20ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Four stages, and none of them start with a colour.
           </SplitLines>
@@ -305,7 +305,7 @@ export function WebDesignContent() {
               data-stage
               className="group relative flex h-full flex-col rounded-card border border-line bg-surface p-8 transition-colors duration-slow ease-out-quart hover:border-accent lg:p-12"
             >
-              <span className="block font-display text-h2 tabular-nums leading-none text-accent">
+              <span className="block font-display text-h2 tabular-nums leading-[0.94] text-accent">
                 {s.n}
               </span>
 
@@ -319,7 +319,7 @@ export function WebDesignContent() {
                   close to that. This set has "Work out what the page has to
                   do" in it, which at h3 sets on three lines and starts to read
                   as a headline competing with the section above it. */}
-              <h3 className="mt-7 max-w-[22ch] font-display text-h4 leading-tight text-foreground">
+              <h3 className="mt-7 max-w-[22ch] font-display text-h4 leading-[0.94] text-foreground">
                 {s.t}
               </h3>
 
@@ -343,7 +343,7 @@ export function WebDesignContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Five things, and you can check every one yourself.
           </SplitLines>
@@ -359,7 +359,7 @@ export function WebDesignContent() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <h3 className="mt-3 max-w-[22ch] font-display text-h3 leading-tight text-foreground transition-colors duration-slow ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[40%] lg:shrink-0">
+                <h3 className="mt-3 max-w-[22ch] font-display text-h3 leading-[0.94] text-foreground transition-colors duration-slow ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[40%] lg:shrink-0">
                   {row.t}
                 </h3>
 
@@ -423,7 +423,7 @@ export function WebDesignContent() {
           <Container>
             <SplitLines
               as="h2"
-              className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+              className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
             >
               More specific than that?
             </SplitLines>
@@ -435,7 +435,7 @@ export function WebDesignContent() {
                     href={child.href}
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
-                    <span className="font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <span className="font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                       {child.label}
                     </span>
                     <span

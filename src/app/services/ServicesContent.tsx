@@ -161,7 +161,7 @@ export function ServicesContent() {
         <div className="mt-8 lg:flex lg:items-end lg:gap-16">
           <SplitLines
             as="h1"
-            className="max-w-[14ch] font-display text-h1 leading-[1.1] text-foreground lg:shrink-0"
+            className="max-w-[14ch] font-display text-h1 leading-[0.94] text-foreground lg:shrink-0"
           >
             {page.h1}
           </SplitLines>
@@ -225,7 +225,7 @@ export function ServicesContent() {
                         a long WORD. Before setting display type in a column,
                         take the longest single word in the set and check it
                         fits, because that word is the real constraint. */}
-                    <h2 className="mt-6 font-display text-h2 leading-[1.1] text-foreground">
+                    <h2 className="mt-6 font-display text-h2 leading-[0.94] text-foreground">
                       <Link
                         href={group.href}
                         className="transition-colors duration-base hover:text-accent"
@@ -293,7 +293,7 @@ export function ServicesContent() {
             <div className="lg:w-[52%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 <>
                   One team, so nobody gets to blame the{" "}

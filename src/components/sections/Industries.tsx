@@ -135,7 +135,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
         aria-hidden
         className={cn(
           "pointer-events-none absolute bottom-5 left-5 hidden lg:block",
-          "font-display text-h4 leading-[1.1] tracking-tight text-foreground",
+          "font-display text-h4 leading-[0.94] tracking-[-0.045em] text-foreground",
           "[writing-mode:vertical-rl] rotate-180",
           open ? "lg:opacity-0" : "lg:opacity-100"
         )}
@@ -154,7 +154,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
         )}
       >
         <span className="flex items-end justify-between gap-4">
-          <span className="block whitespace-nowrap font-display text-h3 leading-[1.1] text-foreground">
+          <span className="block whitespace-nowrap font-display text-h3 leading-[0.94] text-foreground">
             {industry.label}
           </span>
           <span

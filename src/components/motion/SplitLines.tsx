@@ -122,7 +122,12 @@ export function SplitLines({
   );
 
   return (
-    <Tag ref={ref} className={cn(className)}>
+    /* flow-root: each line's clip box is extended below the line for
+       descenders, with a matching negative margin (see .split-line-mask in
+       globals.css). Without a formatting context here, the last line's
+       negative margin would collapse through the heading and pull whatever
+       follows it up by a fraction of a line. */
+    <Tag ref={ref} className={cn("flow-root", className)}>
       {children}
     </Tag>
   );

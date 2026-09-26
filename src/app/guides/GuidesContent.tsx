@@ -111,7 +111,7 @@ export function GuidesContent() {
                       </span>
                     </div>
 
-                    <h2 className="mt-7 max-w-[22ch] font-display text-h3 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <h2 className="mt-7 max-w-[22ch] font-display text-h3 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                       {target.h1}
                     </h2>
 
@@ -143,7 +143,7 @@ export function GuidesContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 <>
                   No blog. On{" "}

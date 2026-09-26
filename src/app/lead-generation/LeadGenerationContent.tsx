@@ -209,7 +209,7 @@ export function LeadGenerationContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[19ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[19ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             <>
               Four places an enquiry{" "}
@@ -224,7 +224,7 @@ export function LeadGenerationContent() {
                   <span className="font-mono text-eyebrow tabular-nums text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display text-h3 leading-[1.1] text-foreground">
+                  <h3 className="font-display text-h3 leading-[0.94] text-foreground">
                     {s.t}
                   </h3>
                 </div>
@@ -279,7 +279,7 @@ export function LeadGenerationContent() {
 
           <SplitLines
             as="h2"
-            className="mt-8 max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="mt-8 max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             The quote is usually won before anyone quotes.
           </SplitLines>
@@ -305,7 +305,7 @@ export function LeadGenerationContent() {
                   <span className="font-mono text-eyebrow tabular-nums text-faint">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-5 font-display text-h3 leading-[1.1] text-accent">
+                  <h3 className="mt-5 font-display text-h3 leading-[0.94] text-accent">
                     {s.t}
                   </h3>
                   <p className="mt-4 text-body text-muted">{s.c}</p>
@@ -323,7 +323,7 @@ export function LeadGenerationContent() {
             <div className="lg:w-[46%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 One enquiry in, four things out.
               </SplitLines>
@@ -393,7 +393,7 @@ export function LeadGenerationContent() {
           <Container>
             <SplitLines
               as="h2"
-              className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+              className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
             >
               More specific than that?
             </SplitLines>
@@ -405,7 +405,7 @@ export function LeadGenerationContent() {
                     href={child.href}
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
-                    <span className="font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                    <span className="font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                       {child.label}
                     </span>
                     <span

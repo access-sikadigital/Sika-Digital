@@ -118,7 +118,7 @@ export function IndustriesContent() {
             <div className="lg:w-[48%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 <>
                   An agency that takes anyone learns{" "}
@@ -197,7 +197,7 @@ export function IndustriesContent() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
 
-                    <h2 className="mt-5 font-display text-h2 leading-[1.1] text-foreground">
+                    <h2 className="mt-5 font-display text-h2 leading-[0.94] text-foreground">
                       <Link
                         href={`/industries/${industry.key}/`}
                         className="transition-colors duration-base hover:text-accent"
@@ -247,7 +247,7 @@ export function IndustriesContent() {
             <div className="lg:w-[48%] lg:shrink-0">
               <SplitLines
                 as="h2"
-                className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+                className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
                 Carpenter, roofer, landscaper, concreter.
               </SplitLines>

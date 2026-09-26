@@ -98,7 +98,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
 
         <SplitLines
           as="h1"
-          className="mt-8 max-w-[20ch] font-display text-h1 leading-[1.1] text-foreground"
+          className="mt-8 max-w-[20ch] font-display text-h1 leading-[0.94] text-foreground"
         >
           {page.h1}
         </SplitLines>
@@ -134,7 +134,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
         <div className="max-w-3xl">
           {guide.sections.map((section) => (
             <section key={section.h} data-rise className="mt-16 first:mt-0">
-              <h2 className="max-w-[24ch] font-display text-h3 leading-tight text-foreground">
+              <h2 className="max-w-[24ch] font-display text-h3 leading-[0.94] text-foreground">
                 {section.h}
               </h2>
 
@@ -169,7 +169,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <SplitLines
             as="h2"
-            className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Common questions.
           </SplitLines>
@@ -181,7 +181,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
                 data-rise
                 className="border-t border-line py-8 last:border-b"
               >
-                <h3 className="max-w-[30ch] font-display text-h4 leading-tight text-foreground">
+                <h3 className="max-w-[30ch] font-display text-h4 leading-[0.94] text-foreground">
                   {f.q}
                 </h3>
                 <p className="mt-4 text-body text-muted">{f.a}</p>
@@ -196,7 +196,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <SplitLines
             as="h2"
-            className="max-w-[18ch] font-display text-h2 leading-[1.1] text-foreground"
+            className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             Read next.
           </SplitLines>
@@ -211,7 +211,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
                     className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
                     <span className="min-w-0">
-                      <span className="block font-display text-h4 leading-tight text-foreground transition-colors duration-base group-hover:text-accent">
+                      <span className="block font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                         {target.label}
                       </span>
                       <span className="mt-2 block text-small text-muted">

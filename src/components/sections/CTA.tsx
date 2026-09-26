@@ -172,17 +172,22 @@ export function CTA() {
             column is worth.
 
             Wrapped in `overflow-hidden` so the drift can never push a line
-            past the viewport edge and create a horizontal scrollbar. */}
-        <div className="mt-8 overflow-hidden lg:mt-10">
+            past the viewport edge and create a horizontal scrollbar.
+
+            At the hero's 0.94 line-height that clip would also cut the g in
+            "missing", so the wrapper carries bottom padding with an equal
+            negative margin. `text-h1` sets its em to the headline's size so
+            0.18em means the same thing here as on the lines inside. */}
+        <div className="mt-8 overflow-hidden pb-[0.18em] -mb-[0.18em] text-h1 lg:mt-10">
           <span
             data-drift
-            className="block font-display text-h1 leading-[1.1] text-foreground"
+            className="block font-display text-h1 leading-[0.94] text-foreground"
           >
             Find out what
           </span>
           <span
             data-drift
-            className="block font-display text-h1 leading-[1.1] text-foreground"
+            className="block font-display text-h1 leading-[0.94] text-foreground"
           >
             you are <span className="text-accent">missing</span>
           </span>
