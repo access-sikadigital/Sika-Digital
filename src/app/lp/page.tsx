@@ -46,7 +46,7 @@ import { TrackingScripts } from "@/components/landing/TrackingScripts";
 
 const title = "Sika Digital | Australian Lead Generation Specialists";
 const description =
-  "Google Ads, SEO, paid social and websites for Australian trade, construction and service businesses. Turn searches and ad clicks into genuine enquiries.";
+  "Google Ads, SEO, paid social and websites for Australian service-based businesses. Turn searches and ad clicks into genuine enquiries.";
 
 export const metadata: Metadata = {
   title,

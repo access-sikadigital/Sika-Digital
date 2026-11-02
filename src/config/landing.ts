@@ -18,7 +18,7 @@ export const hero = {
   lines: ["More than traffic."],
   highlight: "Real enquiries.",
   description:
-    "We help Australian trade, construction and service businesses turn searches and ad clicks into genuine enquiries, with Google Ads, SEO, paid social and websites built to convert.",
+    "We help Australian service-based businesses turn searches and ad clicks into genuine enquiries, with Google Ads, SEO, paid social and websites built to convert.",
 };
 
 export const clients = {
@@ -44,12 +44,12 @@ export const services = {
     {
       key: "social",
       title: "Meta Advertising",
-      copy: "Facebook and Instagram ads that put your work in front of the right local audience before they start comparing quotes.",
+      copy: "Facebook and Instagram ads that put your work in front of the right local audience before they start comparing options.",
     },
     {
       key: "web",
       title: "Websites & Conversion",
-      copy: "Fast, mobile-first websites and landing pages that make calling, enquiring or requesting a quote the obvious next step.",
+      copy: "Fast, mobile-first websites and landing pages that make calling, enquiring or booking the obvious next step.",
     },
   ],
   connected: {
@@ -65,12 +65,12 @@ export const why = {
     "You don't need another confusing report or a list of activities. You need the phone ringing with the right people, and an agency that knows what that's worth to your business.",
   items: [
     {
-      title: "We know how trade businesses run",
-      copy: "Our founder spent 12 years as a licensed electrician before starting Sika. We understand quoting, callouts and which jobs are actually worth winning.",
+      title: "We know how service businesses run",
+      copy: "We work with service businesses every day, so we understand how you win customers, what an enquiry is worth and which ones are worth chasing.",
     },
     {
       title: "Measured in enquiries, not clicks",
-      copy: "We track which campaigns bring in calls and quote requests, and put your budget behind what's working.",
+      copy: "We track which campaigns bring in calls, enquiries and bookings, and put your budget behind what's working.",
     },
     {
       title: "Straight answers",
@@ -90,7 +90,7 @@ export const approach = {
     {
       n: "01",
       title: "Understand",
-      copy: "We get to know your services, service areas, ideal jobs and competitors, and look at what your current marketing is and isn't doing.",
+      copy: "We get to know your services, service areas, ideal customers and competitors, and look at what your current marketing is and isn't doing.",
     },
     {
       n: "02",
