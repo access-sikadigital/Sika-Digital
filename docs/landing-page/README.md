@@ -83,7 +83,7 @@ To get a full teardown, allow those domains in the environment's network setting
 
 **Unique value proposition.** One team that runs the whole path from search to quote (ranking, ads, website and lead follow-up) for home services businesses, run by someone who held a trade licence for 12 years.
 
-**Primary conversion.** One action: the "Find my missing leads" audit form. It's the site-wide offer already, so an ad, the landing page and any later visit to the site all say the same thing. Every button on the page goes to the form, including the shared header and Process buttons.
+**Primary conversion.** One action: the lead audit form, button copy "Get my lead audit" (changed from the site-wide "Find my missing leads" at John's request, on `/lp/` only). Same offer as the rest of the site, named as a deliverable. Every button on the page goes to the form, including the shared header and Process buttons.
 
 **Frameworks used, and where:**
 - **PAS** in the problem section: three leaks (can't be found, wrong clicks, slow follow-up), then the agitation line "Each one is a quote you never got the chance to give."
@@ -191,7 +191,7 @@ The approved hero copy is unchanged. For paid traffic I'd test these, in order o
 1. Hero CTA timing: 0s against 1.6s.
 2. Hero headline: approved brand line against "More enquiries for your [trade] business." (search campaigns only).
 3. Form: 7 fields against 4 (name, mobile, trade, budget), with email and business collected on the call. Judge on **qualified** leads, not raw volume.
-4. CTA wording: "Find my missing leads" against "Get my lead audit" against "Show me what I'm missing".
+4. CTA wording: "Get my lead audit" against "Get my free lead audit" (does "free" lift volume without hurting the qualified rate?) against "Show me where I'm losing jobs".
 5. Budget question: keep or remove. Removing will lift volume; check whether it drops the qualified rate.
 6. Problem section above or below the services section.
 7. Adding a 15-minute call booking (GHL calendar) as an alternative on the success screen.

@@ -72,7 +72,10 @@ export const budgetOptions = [
    The hero itself is the approved homepage hero, unchanged. This is the only
    thing added to it: one button and one line, under the service line. */
 export const heroCta = {
-  label: "Find my missing leads",
+  /* Names the deliverable, so the button reads as something you get rather
+     than a sales call. The homepage keeps "Find my missing leads" until this
+     has been tested on paid traffic. */
+  label: "Get my lead audit",
   note: "For Australian home services businesses. Renovations, roofing, solar, building and the trades around them.",
 };
 
@@ -339,7 +342,7 @@ export const enquire = {
       c: "What we found is yours to keep, whether or not you hire us.",
     },
   ],
-  submit: "Find my missing leads",
+  submit: "Get my lead audit",
   /* CONFIRM: the response time. */
   reassurance:
     "We usually reply within one business day. No newsletter, no sales sequence.",
