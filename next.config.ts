@@ -9,6 +9,9 @@ import type { NextConfig } from "next";
  * own pitch, and it is also the landing destination for paid clicks, where Core
  * Web Vitals feed Quality Score and therefore the cost per click.
  */
+/* The host that serves the landing page as its homepage. Apex and www. */
+const LIVE_LANDING_HOST = "(www\\.)?sikadigital\\.com";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
@@ -83,7 +86,41 @@ const nextConfig: NextConfig = {
    * go-live — leaving this array empty at launch is a silent, expensive mistake.
    */
   async redirects() {
-    return [];
+    return [
+      /* While sikadigital.com serves only the landing page, every other path
+         on that host goes to the root, so old URLs from the previous site and
+         unfinished full-site pages land on the page rather than a 404.
+         Assets, the API, the landing routes and SEO files are excluded. */
+      {
+        source:
+          "/:path((?!_next|media|api|lp|home-landing|landing-sitemap\\.xml|icon\\.svg|favicon\\.ico|robots\\.txt|sitemap\\.xml).+)",
+        has: [{ type: "host", value: LIVE_LANDING_HOST }],
+        destination: "/",
+        permanent: false,
+      },
+    ];
+  },
+
+  /* sikadigital.com/ shows the landing page. beforeFiles, because "/" also
+     exists as a real route (the full-site homepage), which would otherwise
+     win. Other hosts are untouched. */
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [{ type: "host", value: LIVE_LANDING_HOST }],
+          destination: "/home-landing/",
+        },
+        {
+          source: "/sitemap.xml",
+          has: [{ type: "host", value: LIVE_LANDING_HOST }],
+          destination: "/landing-sitemap.xml",
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
 };
 

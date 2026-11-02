@@ -13,6 +13,7 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useMagnetic } from "@/lib/useMagnetic";
 import { cn } from "@/lib/utils";
+import { useIsLanding } from "@/lib/landing-route";
 
 /* How long the cursor must rest on the trigger before the mega-menu opens.
    Short enough to feel instant, long enough that a cursor crossing the nav on
@@ -150,7 +151,7 @@ export function Header() {
   /* The paid landing page keeps the header but drops the navigation: every
      link out of the page is a visitor leaving the page built for their ad.
      The CTA stays; on that page it scrolls to the form (LandingBehaviour). */
-  const isLanding = pathname === "/lp" || pathname.startsWith("/lp/");
+  const isLanding = useIsLanding();
 
   return (
     <>
