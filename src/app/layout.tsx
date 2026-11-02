@@ -5,6 +5,7 @@ import { organisationSchema } from "@/lib/metadata";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { HideOnLanding } from "@/components/layout/HideOnLanding";
 import "./globals.css";
 
 /**
@@ -82,7 +83,9 @@ export default function RootLayout({
         <SmoothScroll>
           <Header />
           <main id="main">{children}</main>
-          <Footer />
+          <HideOnLanding>
+            <Footer />
+          </HideOnLanding>
         </SmoothScroll>
       </body>
     </html>

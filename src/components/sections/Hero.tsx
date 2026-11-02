@@ -106,15 +106,27 @@ export function Hero({
   video,
   poster = "/media/hero-poster.jpg",
   children,
+  copy,
 }: {
   video?: string;
   poster?: string;
+  /** Optional copy override, used by the paid landing page. Leave unset and
+      the homepage copy, reviews badge and service line render exactly as
+      before. */
+  copy?: {
+    eyebrow?: ReactNode;
+    lines: readonly string[];
+    highlight: string;
+    description?: ReactNode;
+  };
   /** Optional, rendered under the service line once the headline has typed.
       Used by the paid landing page for its CTA. The homepage passes nothing,
       so it renders exactly as before. */
   children?: ReactNode;
 }) {
   const headline = useRef<HTMLHeadingElement>(null);
+  const lines = copy?.lines ?? hero.lines;
+  const highlight = copy?.highlight ?? hero.highlight;
 
   useGSAP(
     () => {
@@ -303,7 +315,7 @@ export function Hero({
       <div className="relative z-10 flex flex-col items-center px-(--spacing-gutter) text-center">
         {/* Social proof first, then the promise. */}
         <Reveal className="mb-8 sm:mb-10">
-          <GoogleReviewsBadge />
+          {copy?.eyebrow ?? <GoogleReviewsBadge />}
         </Reveal>
 
         {/*
@@ -321,11 +333,11 @@ export function Hero({
         */}
         <h1
           ref={headline}
-          aria-label={[...hero.lines, hero.highlight].join(" ")}
+          aria-label={[...lines, highlight].join(" ")}
           className="flex flex-col items-center font-sans text-[clamp(2.4rem,10.5vw,4rem)] leading-[0.94] font-black tracking-[-0.045em] text-foreground [word-spacing:0.05em] md:text-[clamp(4.5rem,0.75rem+6.6vw,8.25rem)]"
           style={{ fontStretch: "88%" }}
         >
-          {hero.lines.map((line) => (
+          {lines.map((line) => (
             <span key={line} data-line className="relative block pb-[0.04em]">
               <span data-type className="relative block">
                 {line}
@@ -360,7 +372,7 @@ export function Hero({
               {/* Relative, so the typed text paints above the strip, which is
                   absolutely positioned and would otherwise cover it. */}
               <span data-type className="relative block">
-                {hero.highlight}
+                {highlight}
               </span>
               <Caret className="bg-blue" />
             </span>
@@ -368,14 +380,22 @@ export function Hero({
         </h1>
 
         {/* Waits for the headline to finish typing. */}
-        <Reveal delay={3.3} className="mt-8 sm:mt-10">
-          <p className="text-body text-foreground/80 sm:text-lead">
-            {hero.services.join(" · ")}
+        {/* With a copy override (landing page) the description arrives while
+            the headline is still typing: a paid visitor should not wait three
+            seconds to learn what the page offers. */}
+        <Reveal delay={copy ? 1.1 : 3.3} className="mt-8 sm:mt-10">
+          <p
+            className={cn(
+              "text-body text-foreground/80 sm:text-lead",
+              copy?.description && "mx-auto max-w-2xl text-balance"
+            )}
+          >
+            {copy?.description ?? hero.services.join(" · ")}
           </p>
         </Reveal>
 
         {children ? (
-          <Reveal delay={1.6} className="mt-8 sm:mt-10">
+          <Reveal delay={copy ? 1.4 : 1.6} className="mt-8 sm:mt-10">
             {children}
           </Reveal>
         ) : null}

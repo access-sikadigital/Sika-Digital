@@ -31,8 +31,8 @@ const Lead = z.object({
   phone: text(30).min(8),
   email: z.string().trim().toLowerCase().email().max(200),
   website: text(300).optional().default(""),
-  trade: text(80).min(1),
-  budget: text(80).min(1),
+  trade: text(80).optional().default(""),
+  budget: text(80).optional().default(""),
   event_id: text(80).optional(),
   page_url: text(1000).optional(),
   attribution: z.record(z.string().max(1000)).optional().default({}),
@@ -101,10 +101,15 @@ export async function POST(request: Request) {
     trade: lead.trade,
     monthly_budget: lead.budget,
     lead_source: "Landing page",
-    form_id: "lp_enquiry",
+    form_id: "lp_call_request",
     page_url: lead.page_url ?? "",
     event_id: lead.event_id ?? "",
-    tags: ["lp-lead", `budget:${lead.budget}`, `trade:${lead.trade}`],
+    tags: [
+      "lp-lead",
+      "discovery-call",
+      ...(lead.budget ? [`budget:${lead.budget}`] : []),
+      ...(lead.trade ? [`trade:${lead.trade}`] : []),
+    ],
     ...a,
   };
 

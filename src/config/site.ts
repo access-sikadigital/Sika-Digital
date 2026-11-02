@@ -141,7 +141,7 @@ export const siteConfig = {
         pipeline with browsers, and the scope names lead quality as the thing
         to protect.
       */
-      label: "Book a Free Call",
+      label: "Find my missing leads",
       href: "/contact/",
       /* Shown under the button. Says what actually happens next, which
          converts better than a bare "submit". */
