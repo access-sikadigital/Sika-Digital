@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { hero } from "@/config/home";
 import { HeroVideo } from "@/components/media/HeroVideo";
 import { GoogleReviewsBadge } from "@/components/ui/GoogleReviewsBadge";
@@ -105,9 +105,14 @@ export function Hero({
       alone, which is a complete and correct state, not a broken one. */
   video,
   poster = "/media/hero-poster.jpg",
+  children,
 }: {
   video?: string;
   poster?: string;
+  /** Optional, rendered under the service line once the headline has typed.
+      Used by the paid landing page for its CTA. The homepage passes nothing,
+      so it renders exactly as before. */
+  children?: ReactNode;
 }) {
   const headline = useRef<HTMLHeadingElement>(null);
 
@@ -368,6 +373,12 @@ export function Hero({
             {hero.services.join(" · ")}
           </p>
         </Reveal>
+
+        {children ? (
+          <Reveal delay={1.6} className="mt-8 sm:mt-10">
+            {children}
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

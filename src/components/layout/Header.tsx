@@ -146,6 +146,11 @@ export function Header() {
 
   const onDark = !scrolled && !mobileOpen;
 
+  /* The paid landing page keeps the header but drops the navigation: every
+     link out of the page is a visitor leaving the page built for their ad.
+     The CTA stays; on that page it scrolls to the form (LandingBehaviour). */
+  const isLanding = pathname === "/lp" || pathname.startsWith("/lp/");
+
   return (
     <>
       <header
@@ -186,7 +191,7 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className={cn("hidden items-center gap-1", !isLanding && "lg:flex")}>
             {primaryNav.map((item) => {
               const isActive =
                 item.href === "/"
@@ -284,6 +289,7 @@ export function Header() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               className={cn(
                 "-mr-2 flex size-11 flex-col items-center justify-center gap-1.5 lg:hidden",
+                isLanding && "hidden",
                 onDark ? "text-white" : "text-foreground"
               )}
             >
