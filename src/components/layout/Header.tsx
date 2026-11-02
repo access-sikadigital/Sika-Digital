@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { primaryNav } from "@/config/pages";
 import { siteConfig } from "@/config/site";
-import { landing } from "@/config/landing";
+import { cta as landingCta } from "@/config/landing";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { ServicesMega } from "@/components/layout/ServicesMega";
@@ -274,7 +274,7 @@ export function Header() {
                 button keeps its own hover and focus styles untouched. */}
             <div ref={ctaRef} className="hidden sm:block">
               <Button href={siteConfig.offer.primary.href} variant="accent" arrow>
-                {isLanding ? landing.cta : siteConfig.offer.primary.label}
+                {isLanding ? landingCta : siteConfig.offer.primary.label}
               </Button>
             </div>
 

@@ -1,6 +1,6 @@
 # Sika Digital: paid landing page (`/lp/`)
 
-> **Current version (latest brief):** `/lp/` is now a single-screen page: the approved hero and video with the headline "Turn more clicks into qualified leads.", a short description, one **Book a Discovery Call** button, "Our full website is coming soon." and a minimal footer. The button opens the GoHighLevel calendar when `NEXT_PUBLIC_BOOKING_URL` is set, otherwise a call-request form posting to `GHL_WEBHOOK_URL`. The longer page described below has been removed. This document is kept as background only.
+> **Current version (latest brief):** `/lp/` has six short sections built from the approved homepage components: hero ("More than traffic. Real enquiries."), client logos, what we do (four services plus the connected follow-up system), why Sika (four differentiators), how we work (three steps) and a closing "Book a Discovery Call" band with "Our full website is coming soon." beneath it. All copy lives in `src/config/landing.ts`. The CTA opens the GoHighLevel calendar when `NEXT_PUBLIC_BOOKING_URL` is set, otherwise a call-request form posting to `GHL_WEBHOOK_URL`. Earlier versions described below are background only.
 
 
 Research, copy strategy, structure and measurement plan for the Google Ads and Meta Ads landing page. The copy lives in `src/config/landing.ts`. The page is `src/app/lp/page.tsx`.
