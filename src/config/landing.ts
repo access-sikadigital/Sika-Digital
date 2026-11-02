@@ -72,10 +72,8 @@ export const budgetOptions = [
    The hero itself is the approved homepage hero, unchanged. This is the only
    thing added to it: one button and one line, under the service line. */
 export const heroCta = {
-  /* The outcome the owner wants, in the words they use. "Leads", "audit" and
-     "funnel" are agency words; a roofer wants more jobs. The homepage keeps
-     its own CTA until this has been tested on paid traffic. */
-  label: "Get more jobs",
+  /* Says exactly what happens next. No clever wording. */
+  label: "Book a Free Call",
   note: "Marketing for Australian builders, roofers, renovators, solar installers and home service businesses.",
 };
 
@@ -286,7 +284,7 @@ export const fit = {
    need confirming. */
 export const faqs: { q: string; a: string; confirm?: boolean }[] = [
   {
-    q: "What do I get from the free marketing check?",
+    q: "What happens on the call?",
     a: "Before we call, we go through your Google listing, website, ad accounts and how enquiries get followed up. On a short call we show you where work is slipping through and what we'd fix first, in order. It's yours to keep whether or not you work with us.",
   },
   {
@@ -329,7 +327,7 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
 
 /* ── 7. The enquiry section ─────────────────────────────────────────────── */
 export const enquire = {
-  eyebrow: "Free marketing check",
+  eyebrow: "Book a free call",
   title: "Find out why the phone isn't ringing more.",
   intro:
     "Tell us about your business. Before we call, we'll go through your Google listing, website, ads and follow-up, then show you where enquiries are slipping through, in plain English and in the order we'd fix them.",
@@ -357,7 +355,7 @@ export const enquire = {
       c: "What we found is yours to keep, whether or not you hire us.",
     },
   ],
-  submit: "Get more jobs",
+  submit: "Book a Free Call",
   reassurance:
     "Takes about a minute. Yours to keep, whether or not you hire us. No newsletter, no sales sequence.",
   success: {

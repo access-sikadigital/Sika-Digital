@@ -14,7 +14,7 @@ Research, copy strategy, structure and measurement plan for the Google Ads and M
 - The founder held an electrical licence for 12 years (`siteConfig.founder`). No competitor can copy this.
 - The reporting standard on `/results/`: qualified enquiries rather than impressions, accounts in the client's name, and a bad month reported as a bad month.
 - 28 approved client logos, most of them home services.
-- The offer: a check of the website, Google Business Profile, ad accounts and lead follow-up, yours to keep. The homepage calls it "Find my missing leads"; on `/lp/` it's a **free marketing check** behind a **"Get more jobs"** button (see Round 3).
+- The offer: a check of the website, Google Business Profile, ad accounts and lead follow-up, yours to keep. Every CTA on the site is now **"Book a Free Call"** (see Round 3).
 
 **Proof gaps (Open Question #3 on the site).** There are no case studies, testimonials, published review count or client numbers. The page is built so none of these are needed, and so each one slots in when it's ready.
 
@@ -107,7 +107,7 @@ John's feedback: "Get my lead audit" doesn't make sense to an Australian home se
 
 | Was | Now | Why |
 |---|---|---|
-| Button: "Get my lead audit" | **"Get more jobs"** | Owners want jobs, not leads or audits. Short enough for the header and a phone screen. |
+| Button: "Get my lead audit", then "Get more jobs" | **"Book a Free Call"** (site-wide, replacing "Find my missing leads" too) | John: the CTA has to be simple. It says exactly what happens next, with no clever wording. |
 | Hero line: "Enquiries from your own Google, ads and website, sent to you only. Not shared with four other quotes." | **"Marketing for Australian builders, roofers, renovators, solar installers and home service businesses."** | One job only: tell the visitor in two seconds that this page is for them. The shared-leads argument lives in the problem section, where there's room to make it. |
 | "Your own source of enquiries. Not rented, not shared." | **"More enquiries that come straight to you."** | "Rented" was abstract. |
 | "Pay for jobs, not clicks" | **"Ads that bring in real jobs"** | The old line implied pay-per-job pricing, which Sika doesn't offer. |
@@ -128,7 +128,7 @@ John's feedback: "Get my lead audit" doesn't make sense to an Australian home se
 
 **Unique value proposition.** One team that runs the whole path from search to quote (ranking, ads, website and lead follow-up) for home services businesses, run by someone who held a trade licence for 12 years.
 
-**Primary conversion.** One action: the free marketing check form, button copy **"Get more jobs"** (on `/lp/` only; the homepage keeps "Find my missing leads"). Same offer as the rest of the site, in the owner's words. Every button on the page goes to the form, including the shared header and Process buttons.
+**Primary conversion.** One action: the free marketing check form, button copy **"Book a Free Call"**, used site-wide. It says exactly what happens next. Every button on the page goes to the form, including the shared header and Process buttons.
 
 **Frameworks used, and where:**
 - **PAS** in the problem section: "Flat out one month. Dead quiet the next.", then four causes (shared leads, invisible on Google, wasted ads, missed calls), then "None of that is a shortage of work. It's a gap in how the work finds you, and that can be fixed."
@@ -153,7 +153,7 @@ John's feedback: "Get my lead audit" doesn't make sense to an Australian home se
 | 7 | Process (approved homepage section) | Removes fear of the unknown right before the ask. |
 | 8 | Fit / not a fit | Qualifies. Costs a few enquiries from people who were never going to be clients. |
 | 9 | FAQ | What you get, lead sites, what if nothing's found, trade fit, cost, budget, timeline, contract, who does the work. Mid-page CTA beside it. |
-| 10 | Form (blue band): "Free marketing check" | The single conversion, with what gets checked and what happens next beside it. |
+| 10 | Form (blue band): "Book a free call" | The single conversion, with what gets checked and what happens next beside it. |
 
 Plus: the header loses its navigation on `/lp/` (the CTA stays), and a mobile sticky CTA bar appears after the hero and hides while the form is on screen.
 
@@ -235,7 +235,7 @@ The approved hero copy is unchanged. For paid traffic I'd test these, in order o
 1. Hero CTA timing: 0s against 1.6s.
 2. Hero headline: approved brand line against "More enquiries for your [trade] business." (search campaigns only).
 3. Form: 7 fields against 4 (name, mobile, trade, budget), with email and business collected on the call. Judge on **qualified** leads, not raw volume.
-4. CTA wording: "Get more jobs" against "Get my free marketing check" against "Show me where I'm losing jobs". Judge on qualified leads.
+4. CTA wording: keep "Book a Free Call" as the control. Only test a variant if the form start rate is low.
 5. Budget question: keep or remove. Removing will lift volume; check whether it drops the qualified rate.
 6. Problem section above or below the services section.
 7. Adding a 15-minute call booking (GHL calendar) as an alternative on the success screen.
