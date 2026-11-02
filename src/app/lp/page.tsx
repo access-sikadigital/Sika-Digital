@@ -154,7 +154,7 @@ export default function LandingPage() {
             intro={<TradeText text={problem.intro} />}
           />
 
-          <ol className="mt-16 grid gap-5 lg:mt-24 lg:grid-cols-3 lg:gap-6">
+          <ol className="mt-16 grid gap-5 sm:grid-cols-2 lg:mt-24 lg:gap-6">
             {problem.leaks.map((leak, i) => (
               <Reveal
                 as="li"

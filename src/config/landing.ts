@@ -76,7 +76,7 @@ export const heroCta = {
      than a sales call. The homepage keeps "Find my missing leads" until this
      has been tested on paid traffic. */
   label: "Get my lead audit",
-  note: "For Australian home services businesses. Renovations, roofing, solar, building and the trades around them.",
+  note: "For Australian home services businesses. Enquiries from your own Google, ads and website, sent to you only. Not shared with four other quotes.",
 };
 
 /* ── Logos ──────────────────────────────────────────────────────────────────
@@ -115,49 +115,58 @@ export const landingLogos: ClientLogo[] = trustedBy.logos.filter((l) =>
 );
 
 /* ── 1. The problem (PAS) ───────────────────────────────────────────────────
-   Three leaks, in the order a customer meets them: search, click, follow-up.
-   Each one is something the owner has felt but not measured. */
+   Opens on the feeling every owner knows (feast or famine), then names four
+   causes in the owner's own words. The first is the shared-lead marketplace,
+   because it is the one most home services owners are already paying for and
+   resent. It is described, not named: no competitor names on this page. */
 export const problem = {
-  eyebrow: "Where the work goes",
+  eyebrow: "Sound familiar?",
+  title: "Flat out one month. Dead quiet the next.",
   /* `{trade}` is replaced with the trade label from the URL. */
-  title: "The work is out there. It goes to whoever shows up first.",
   intro:
-    "Most {trade} businesses aren't short of demand. They lose it in three places, and none of them show up on an invoice.",
+    "Most {trade} businesses run on word of mouth and whatever the lead sites send. It works until it doesn't, and there's no way to turn it up when the diary empties.",
   leaks: [
     {
       n: "01",
-      title: "Customers can't find you",
-      copy: "They search, check the map and call one of the first three businesses they see. If your Google Business Profile is thin or your site is slow on a phone, you aren't one of the three.",
+      title: "You're quoting against four others",
+      copy: "Lead sites sell the same job to several businesses. By the time you call back, someone has already quoted cheaper. You pay for the lead either way.",
     },
     {
       n: "02",
-      title: "Ad spend goes on the wrong clicks",
-      copy: "Broad keywords, no negatives and every click sent to the homepage. You pay for people after DIY tips, jobs you don't do and suburbs you don't service.",
+      title: "Google sends the job to someone else",
+      copy: "A homeowner searches, checks the map and rings one of the top three. If that isn't you, you never knew the job existed.",
     },
     {
       n: "03",
-      title: "Enquiries come in and go cold",
-      copy: "You're on the tools when the phone rings. By the time you call back at six, they've booked whoever answered. Most leads never get a second follow-up.",
+      title: "The ads are quietly burning money",
+      copy: "Someone set up Google Ads once. Since then they've paid for DIY searches, jobs you don't do and suburbs you won't drive to, and the report still says it's going well.",
+    },
+    {
+      n: "04",
+      title: "Calls missed on the tools",
+      copy: "You're up a ladder when the phone rings. They don't leave a message. They ring the next number on the list.",
     },
   ],
-  close: "Each one is a quote you never got the chance to give.",
+  close:
+    "None of that is a shortage of work. It's a gap in how the work finds you, and that can be fixed.",
 };
 
 /* ── 2. What we fix ─────────────────────────────────────────────────────────
-   Services written as the outcome first, the service name second. The owner
-   is buying the outcome; the service name is there so they know what it is
-   called when they compare quotes. */
+   The answer to the problem section, point for point. The frame is ownership:
+   enquiries from the business's own Google listing, ads and website, coming
+   to them only. That is the clearest contrast with shared leads, and it is
+   true of how every Sika package works. */
 export const fixes = {
-  eyebrow: "What we fix",
-  title: "One team for the whole path, from search to quote.",
+  eyebrow: "What we build",
+  title: "Your own source of enquiries. Not rented, not shared.",
   intro:
-    "Ranking, ads, the website and the follow-up all affect each other. When one business runs all four, a lead can't fall through the gap between two suppliers.",
+    "We set up the four pieces that bring work in and catch it, and connect them so nothing falls through. Every enquiry comes from your Google listing, your ads and your website, and goes to you only.",
   items: [
     {
       n: "01",
-      outcome: "Get found on Google",
+      outcome: "Be on the map when they search",
       service: "Local SEO & Google Business Profile",
-      copy: "Show up in the map results and local searches for the jobs and suburbs you actually want.",
+      copy: "Be one of the businesses people see when someone nearby searches for what you do, for the jobs and suburbs you actually want.",
       points: [
         "Google Business Profile set up properly",
         "Service and suburb pages",
@@ -167,37 +176,37 @@ export const fixes = {
     },
     {
       n: "02",
-      outcome: "Pay for the right clicks",
+      outcome: "Pay for jobs, not clicks",
       service: "Google Ads & Meta Ads",
-      copy: "Campaigns built around the jobs you want, with the searches you don't want blocked before they cost you.",
+      copy: "Ads aimed at the work worth quoting, in the areas you want to work. Searches that will never turn into a job get blocked before they cost you.",
       points: [
         "Campaigns split by job type",
         "Negative keyword lists",
-        "Call and form tracking",
+        "Every call and form tracked",
         "Meta ads for bigger, planned projects",
       ],
     },
     {
       n: "03",
-      outcome: "Turn visits into enquiries",
+      outcome: "Turn visitors into quote requests",
       service: "Websites & landing pages",
-      copy: "Pages that say what you do, where you do it and how to get a quote, on the first screen of a phone.",
+      copy: "Someone on their phone should know in five seconds what you do, where you work and how to get a quote. Then it should take one tap to ask.",
       points: [
         "A landing page per service",
         "Quote forms that work on mobile",
-        "Tap-to-call",
+        "Tap-to-call on every page",
         "Fast loading, tracking built in",
       ],
     },
     {
       n: "04",
-      outcome: "Catch every lead",
+      outcome: "Never lose a job to voicemail",
       service: "GoHighLevel CRM & automation",
-      copy: "Every enquiry lands in one place and gets a reply straight away, even when you're up a ladder.",
+      copy: "Miss a call and they get a text straight back with your business name on it. Every enquiry gets an instant reply and a follow-up until they answer.",
       points: [
         "Missed-call text back",
         "Instant reply to every enquiry",
-        "Follow-up until they answer",
+        "Follow-up until they respond",
         "One pipeline from enquiry to quote",
       ],
     },
@@ -212,20 +221,20 @@ export const why = {
   title: "Run by someone who has quoted the jobs.",
   items: [
     {
-      title: "We know how trade businesses run",
-      copy: "Our founder, John Sikalias, spent 12 years as a licensed electrician before starting the agency. Quoting, callouts, chasing invoices. We market for the work that pays, not the work that's easy to rank for.",
+      title: "We've been on the tools",
+      copy: "John Sikalias held an electrical licence for 12 years before he started Sika. He knows what a callout costs, which jobs are worth chasing, and why more leads mean nothing if they're the wrong ones.",
     },
     {
       title: "Home services is our focus",
       copy: "Renovations, roofing, solar, demolition, joinery, building and the trades around them. We aren't learning your industry on your budget.",
     },
     {
-      title: "Everything is in your name",
-      copy: "Ad accounts, Google Business Profile and tracking are set up under your business. Every number we report, you can check yourself.",
+      title: "Your accounts, your enquiries",
+      copy: "Ad accounts, Google Business Profile and tracking are set up in your name. Your enquiries are never shared or sold on. If you leave, everything stays with you.",
     },
     {
-      title: "We report enquiries, not impressions",
-      copy: "Qualified enquiries, cost per enquiry and which job types came in. A bad month gets reported in the same detail as a good one.",
+      title: "Reports in jobs, not jargon",
+      copy: "Each month: how many enquiries came in, what they cost and which jobs they were for. If something isn't working, you hear it from us first.",
     },
     {
       /* CONFIRM: packages and pricing are still being finalised. */
@@ -272,11 +281,21 @@ export const fit = {
 
 /* ── 6. FAQ ─────────────────────────────────────────────────────────────────
    The questions an owner asks on the first call, answered before they have
-   to ask. Several of these state terms, so several need confirming. */
+   to ask. The lead-site question goes second because it is the comparison
+   most owners are already making. Several answers state terms, so several
+   need confirming. */
 export const faqs: { q: string; a: string; confirm?: boolean }[] = [
   {
     q: "What do I get from the audit?",
-    a: "We look at your website, Google Business Profile, ad accounts and how enquiries get followed up. Then we walk you through where leads are going missing and what we would fix first, in order. It's yours to keep whether or not you work with us.",
+    a: "Before we call, we go through your Google listing, website, ad accounts and how enquiries get followed up. On a short call we show you where work is slipping through and what we'd fix first, in order. It's yours to keep whether or not you work with us.",
+  },
+  {
+    q: "How is this different from lead sites?",
+    a: "Lead sites sell the same enquiry to several businesses, so you're quoting against three or four others before you've said hello. We build your own Google presence, ads and website, so the enquiry comes to you only. And what we build keeps working for your business, not for a platform.",
+  },
+  {
+    q: "What if the audit doesn't find much?",
+    a: "Then we'll tell you that. You'll have spent a short call confirming your marketing is in good shape, which is worth knowing too.",
   },
   {
     q: "Do you work with my trade?",
@@ -298,7 +317,7 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
   },
   {
     q: "Am I locked into a long contract?",
-    a: "The minimum term is set out in writing before you sign, along with the reason for it. Ads and SEO both need a few months of data before they can be judged fairly, and we would rather say that upfront.",
+    a: "The minimum term is set out in writing before you sign, along with the reason for it. Ads and SEO both need a few months of data before they can be judged fairly, and we'd rather say that upfront.",
     confirm: true,
   },
   {
@@ -306,35 +325,31 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
     a: "Our team, working to a documented process for every service, managed from Melbourne. You'll always know who to contact and what's been done.",
     confirm: true,
   },
-  {
-    q: "Do I own my accounts?",
-    a: "Yes. Ad accounts, Google Business Profile and tracking are set up in your business's name. If you ever leave, they stay with you.",
-  },
 ];
 
 /* ── 7. The enquiry section ─────────────────────────────────────────────── */
 export const enquire = {
   eyebrow: "Start here",
-  title: "Find out where your enquiries are going.",
+  title: "See exactly where your next jobs are going.",
   intro:
-    "Tell us about your business. We'll check your website, Google listing, ads and follow-up before we call, so the first conversation is about what we found.",
+    "Tell us about your business. Before we call, we'll go through your Google listing, website, ads and follow-up, then show you where enquiries are slipping through, in plain English and in the order we'd fix them.",
   checks: [
-    "Where you show up on Google, and where you don't",
-    "Ad spend going on searches that won't become jobs",
-    "Gaps in your website and quote form on a phone",
-    "Enquiries being missed or followed up too slowly",
-    "What we'd fix first, in order",
+    "Whether you show up on the map for the jobs you want",
+    "Ad spend going on searches that will never become jobs",
+    "What a homeowner sees on your site on their phone",
+    "How fast enquiries get a reply, and how many never do",
+    "What we'd fix first, and what you can fix yourself",
   ],
   steps: [
     {
       n: "01",
       t: "We look",
-      c: "At your site, listing, ads and follow-up. Before we call, not during.",
+      c: "At your listing, site, ads and follow-up. Before we call, not during.",
     },
     {
       n: "02",
       t: "We show you",
-      c: "A short call, in plain language, with the order we'd fix things in.",
+      c: "A short call, in plain English, with the order we'd fix things in.",
     },
     {
       n: "03",
@@ -343,11 +358,10 @@ export const enquire = {
     },
   ],
   submit: "Get my lead audit",
-  /* CONFIRM: the response time. */
   reassurance:
-    "We usually reply within one business day. No newsletter, no sales sequence.",
+    "Takes about a minute. Yours to keep, whether or not you hire us. No newsletter, no sales sequence.",
   success: {
     title: "Got it.",
-    copy: "We'll look at your website, Google listing and ads before we get in touch, so the first conversation is worth having. We usually reply within one business day.",
+    copy: "We'll go through your Google listing, website and ads before we call, so the first conversation is about what we found, not a sales pitch.",
   },
 };

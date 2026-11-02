@@ -75,6 +75,34 @@ To get a full teardown, allow those domains in the environment's network setting
 
 ---
 
+### Round 2: copy revision (after John's review)
+
+John's feedback: the first draft wasn't convincing enough. Second round of research, again from search results (direct page reads are still blocked in this environment):
+
+**What competing home services and trade agencies lead with**
+- *Outcome plus niche:* "Get More Leads & Book More Jobs" ([roofcontractormarketing.com](https://www.roofcontractormarketing.com/)), "We help Aussie tradies get more jobs" ([thetradiemarketingagency.com.au](https://thetradiemarketingagency.com.au/)).
+- *Risk reversal:* no lock-in ([spruik.co](https://spruik.co/industries/tradies/), [theroofingmarketer.com](https://theroofingmarketer.com/)), 90-day results guarantee ([tradeads.com.au](https://tradeads.com.au/tradie-marketing)), and guaranteed leads hedged with "results will vary" ([start.bestroofermarketing.com](https://start.bestroofermarketing.com/)).
+- *Ownership and exclusivity:* "run in your own ad account" ([minyona.com](https://minyona.com/)), "your setup is yours to keep" ([tradieaf.com.au](https://www.tradieaf.com.au/google-ads-agency-cairns/)), "never resell a lead" ([contractors.homeappointments.com](https://contractors.homeappointments.com/)), "when you're the only contractor a homeowner reaches, you compete less on price" ([99calls.com](https://99calls.com/Home-Improvement-Leads.htm)).
+- *Unverified volume claims* ("10+ leads per week", "20–50+ leads per month", "#1 tradie agency"). Common, uncheckable, and exactly what a sceptical owner discounts.
+
+**Voice of customer (how owners talk about the problem)**
+- Shared-lead marketplaces: the same job sold to several tradies, a "race to the bottom on pricing", paying for leads that go to someone else ([20minutemarketing.com.au](https://www.20minutemarketing.com.au/blog/hipages-reviews), [webblend.au](https://webblend.au/blog/tradie-marketing-reddit/), [backontools.com.au](https://www.backontools.com.au/best-hipages-alternative-tradies-australia)). These are vendor blogs with a commercial interest, but the complaint is consistent.
+- Missed calls on the tools, and leads going cold ([clearscale.com.au](https://clearscale.com.au/blog/how-to-get-more-leads-as-a-tradie), [sellevate.com.au](https://sellevate.com.au/marketing-for-tradies/)).
+- Agencies that report clicks and impressions rather than booked jobs ([seoagencyfortradies.au](https://seoagencyfortradies.au/services/marketing-for-tradies/), [tradiewebguys.com.au](https://www.tradiewebguys.com.au/how-to-choose-marketing-agency-for-trade-business/)).
+
+**Copywriting method:** Voice of Customer before voice of brand, and a specific result rather than a vague benefit (Joanna Wiebe / Copyhackers approach, via secondary summaries).
+
+**What changed in the copy and why**
+1. **Problem section opens on the owner's feeling, not our diagnosis:** "Flat out one month. Dead quiet the next." Feast or famine is the universal complaint and needs no proof.
+2. **Leads with the shared-lead pain** ("You're quoting against four others"). It's the cost most owners already pay and resent, and the one Sika's model solves outright. It isn't named, so no competitor names appear on the page.
+3. **The solution is framed as ownership:** "Your own source of enquiries. Not rented, not shared." Every enquiry comes from the client's own listing, ads and site. This is true of every package, so it's a claim Sika can stand behind, unlike guarantees or lead counts.
+4. **Services rewritten as scenes:** "Never lose a job to voicemail", "Pay for jobs, not clicks".
+5. **New FAQs:** "How is this different from lead sites?" and "What if the audit doesn't find much?" (risk reversal without an unconfirmed guarantee).
+6. **Removed an unconfirmed claim:** the "reply within one business day" promise is gone, replaced with "Takes about a minute. Yours to keep, whether or not you hire us."
+7. **Deliberately not copied:** guarantees, "#1", lead-volume numbers, "no lock-in". Each one wins clicks and loses trust if it can't be backed. If Sika is month-to-month, or can define a guarantee it will honour, those are the next two upgrades.
+
+---
+
 ## 3. Copy strategy
 
 **Target reader.** The owner of a home services business, on a phone, between jobs, who clicked an ad for "roofing marketing" or "Google Ads for builders". Sceptical of agencies. Thinks in jobs and quotes, not leads and CPCs.
@@ -169,7 +197,6 @@ The approved hero copy is unchanged. For paid traffic I'd test these, in order o
 4. FAQ "Am I locked into a long contract?": the real minimum term. If it's month-to-month, say so; that's a stronger line.
 5. FAQ "Who actually does the work?": wording around the offshore team and Melbourne management.
 6. "A set scope, in writing" / "No hourly billing".
-7. "We usually reply within one business day."
 8. `siteConfig.googleReviews.count` and `url`, so the badge shows a number and links out.
 
 **Missing proof that would lift conversion most, in order:** 2–3 short testimonials from home services clients (name, business, trade); one case study with a before/after enquiry figure traceable to the client's account; a photo of John for the "Why Sika" founder card.
