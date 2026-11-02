@@ -14,7 +14,7 @@ Research, copy strategy, structure and measurement plan for the Google Ads and M
 - The founder held an electrical licence for 12 years (`siteConfig.founder`). No competitor can copy this.
 - The reporting standard on `/results/`: qualified enquiries rather than impressions, accounts in the client's name, and a bad month reported as a bad month.
 - 28 approved client logos, most of them home services.
-- The offer, "Find my missing leads": an audit of the website, Google Business Profile and ad accounts. It deliberately avoids the word "free" to protect lead quality.
+- The offer: a check of the website, Google Business Profile, ad accounts and lead follow-up, yours to keep. The homepage calls it "Find my missing leads"; on `/lp/` it's a **free marketing check** behind a **"Get more jobs"** button (see Round 3).
 
 **Proof gaps (Open Question #3 on the site).** There are no case studies, testimonials, published review count or client numbers. The page is built so none of these are needed, and so each one slots in when it's ready.
 
@@ -51,7 +51,7 @@ To get a full teardown, allow those domains in the environment's network setting
 
 ### Why the strong ones work (reverse engineered)
 
-1. **The CTA is a thing you get, not a meeting you sit through.** "Free plan" and "free audit" turn a sales call into a deliverable. Sika already has this with "Find my missing leads". The page makes the deliverable concrete: a five-point list of what gets checked, and the line "yours to keep".
+1. **The CTA is a thing you get, not a meeting you sit through.** "Free plan" and "free audit" turn a sales call into a deliverable. Sika's version is the free marketing check. The page makes it concrete: a five-point list of what gets checked, and the line "yours to keep".
 2. **They speak one trade's language.** Hook's per-trade pages work because a roofer sees "roofing" and stops scanning for whether this applies to them. Sika's equivalent is `?trade=` message match (see §5) rather than 15 separate pages.
 3. **They name the objection before the prospect does.** Lock-in, cost and who does the work are what buyers wonder about. The pages that convert say them out loud.
 4. **Proof sits next to the claim.** Logos straight after the hero; reviews beside the differentiators.
@@ -63,7 +63,7 @@ To get a full teardown, allow those domains in the environment's network setting
 - **Award and "top 3%" claims as the main proof.** Trades don't care, and they read as filler.
 - **Long minimum terms disclosed with no reason given.**
 - **B2B jargon** ("pipeline", "customer generation", "growth partner").
-- **"Free" as the hook.** It lifts clicks and fills the CRM with browsers. The site already decided against it.
+- **"Free" as the whole hook.** On its own it fills the CRM with browsers. On `/lp/` "free" describes the check, but it isn't the headline, and the budget question plus the "not for you" list do the filtering.
 
 ### CRO principles used (sourced; check the figures in the originals before quoting them)
 
@@ -95,11 +95,28 @@ John's feedback: the first draft wasn't convincing enough. Second round of resea
 **What changed in the copy and why**
 1. **Problem section opens on the owner's feeling, not our diagnosis:** "Flat out one month. Dead quiet the next." Feast or famine is the universal complaint and needs no proof.
 2. **Leads with the shared-lead pain** ("You're quoting against four others"). It's the cost most owners already pay and resent, and the one Sika's model solves outright. It isn't named, so no competitor names appear on the page.
-3. **The solution is framed as ownership:** "Your own source of enquiries. Not rented, not shared." Every enquiry comes from the client's own listing, ads and site. This is true of every package, so it's a claim Sika can stand behind, unlike guarantees or lead counts.
-4. **Services rewritten as scenes:** "Never lose a job to voicemail", "Pay for jobs, not clicks".
-5. **New FAQs:** "How is this different from lead sites?" and "What if the audit doesn't find much?" (risk reversal without an unconfirmed guarantee).
+3. **The solution is framed as ownership** (headline later simplified in Round 3 to "More enquiries that come straight to you."). Every enquiry comes from the client's own listing, ads and site. This is true of every package, so it's a claim Sika can stand behind, unlike guarantees or lead counts.
+4. **Services rewritten as scenes:** "Never lose a job to voicemail", "Ads that bring in real jobs".
+5. **New FAQs:** "How is this different from lead sites?" and "What if you don't find much?" (risk reversal without an unconfirmed guarantee).
 6. **Removed an unconfirmed claim:** the "reply within one business day" promise is gone, replaced with "Takes about a minute. Yours to keep, whether or not you hire us."
 7. **Deliberately not copied:** guarantees, "#1", lead-volume numbers, "no lock-in". Each one wins clicks and loses trust if it can't be backed. If Sika is month-to-month, or can define a guarantee it will honour, those are the next two upgrades.
+
+### Round 3: plain-language pass (after John's second review)
+
+John's feedback: "Get my lead audit" doesn't make sense to an Australian home services owner, and the hero's supporting line was confusing. Both were agency language. Rule for this pass: **every word has to be one a builder or roofer would say themselves.**
+
+| Was | Now | Why |
+|---|---|---|
+| Button: "Get my lead audit" | **"Get more jobs"** | Owners want jobs, not leads or audits. Short enough for the header and a phone screen. |
+| Hero line: "Enquiries from your own Google, ads and website, sent to you only. Not shared with four other quotes." | **"Marketing for Australian builders, roofers, renovators, solar installers and home service businesses."** | One job only: tell the visitor in two seconds that this page is for them. The shared-leads argument lives in the problem section, where there's room to make it. |
+| "Your own source of enquiries. Not rented, not shared." | **"More enquiries that come straight to you."** | "Rented" was abstract. |
+| "Pay for jobs, not clicks" | **"Ads that bring in real jobs"** | The old line implied pay-per-job pricing, which Sika doesn't offer. |
+| "Google Ads & Meta Ads", "Meta ads" | **"Facebook / Instagram ads"** | Owners say Facebook, not Meta. |
+| "GoHighLevel CRM & automation", "pipeline", "CRM setup" | **"Lead follow-up & automation"**, "every enquiry tracked, from first call to quote", "follow-up system" | Tool names and CRM terms mean nothing to the buyer. |
+| "Negative keyword lists" | **"Blocking searches that waste your money"** | Says what it does. |
+| "Turn visitors into quote requests" | **"A website that gets the phone ringing"** | The owner's outcome. |
+| Form: "Start here" / "See exactly where your next jobs are going." | **"Free marketing check" / "Find out why the phone isn't ringing more."** | Names what they get and the question in their head. |
+| FAQ: "What do I get from the audit?" | **"What do I get from the free marketing check?"** | No "audit". |
 
 ---
 
@@ -111,11 +128,11 @@ John's feedback: the first draft wasn't convincing enough. Second round of resea
 
 **Unique value proposition.** One team that runs the whole path from search to quote (ranking, ads, website and lead follow-up) for home services businesses, run by someone who held a trade licence for 12 years.
 
-**Primary conversion.** One action: the lead audit form, button copy "Get my lead audit" (changed from the site-wide "Find my missing leads" at John's request, on `/lp/` only). Same offer as the rest of the site, named as a deliverable. Every button on the page goes to the form, including the shared header and Process buttons.
+**Primary conversion.** One action: the free marketing check form, button copy **"Get more jobs"** (on `/lp/` only; the homepage keeps "Find my missing leads"). Same offer as the rest of the site, in the owner's words. Every button on the page goes to the form, including the shared header and Process buttons.
 
 **Frameworks used, and where:**
-- **PAS** in the problem section: three leaks (can't be found, wrong clicks, slow follow-up), then the agitation line "Each one is a quote you never got the chance to give."
-- **Jobs-to-be-Done and outcome-first** in the services section: the outcome is the heading ("Get found on Google") and the service name is the label.
+- **PAS** in the problem section: "Flat out one month. Dead quiet the next.", then four causes (shared leads, invisible on Google, wasted ads, missed calls), then "None of that is a shortage of work. It's a gap in how the work finds you, and that can be fixed."
+- **Jobs-to-be-Done and outcome-first** in the services section: the outcome is the heading ("Be on the map when they search", "Never lose a job to voicemail") and the service name is the label.
 - **AIDA** as the overall page arc: hero → problem → solution and differentiators → process and FAQ → form.
 - **Voice of customer:** language owners use ("on the tools", "up a ladder", "call back at six", "jobs you don't do"). Replace it with real phrases from sales calls once Fathom transcripts are mined (recommended next step).
 
@@ -127,16 +144,16 @@ John's feedback: the first draft wasn't convincing enough. Second round of resea
 
 | # | Section | Job |
 |---|---|---|
-| 1 | Hero (approved, unchanged) + one button + one line | Attention and an immediate next step. The added line does the message match the headline can't: "For Australian home services businesses…" |
+| 1 | Hero (approved, unchanged) + one button + one line | Attention and an immediate next step. The added line says who it's for: "Marketing for Australian builders, roofers, renovators, solar installers and home service businesses." |
 | 2 | Home services logo band | Proof before the pitch. Filtered to home services clients only (see `landingLogos`). |
 | 3 | The problem (PAS) | Makes the reader feel the cost of doing nothing. Trade-aware via `?trade=`. |
-| 4 | What we fix | The four services as outcomes, mapped one-to-one to the three leaks plus conversion. First mid-page CTA. |
+| 4 | What we build | The four services as outcomes, answering the four problems point for point. First mid-page CTA. |
 | 5 | Why Sika | Five differentiators, all checkable. The founder credential leads. Google reviews badge. |
 | 6 | Testimonials | Renders only when `testimonials[]` has real, approved quotes. |
 | 7 | Process (approved homepage section) | Removes fear of the unknown right before the ask. |
 | 8 | Fit / not a fit | Qualifies. Costs a few enquiries from people who were never going to be clients. |
-| 9 | FAQ | Cost, budget, timeline, contract, who does the work, ownership. Mid-page CTA beside it. |
-| 10 | Form (blue band) | The single conversion, with what gets checked and what happens next beside it. |
+| 9 | FAQ | What you get, lead sites, what if nothing's found, trade fit, cost, budget, timeline, contract, who does the work. Mid-page CTA beside it. |
+| 10 | Form (blue band): "Free marketing check" | The single conversion, with what gets checked and what happens next beside it. |
 
 Plus: the header loses its navigation on `/lp/` (the CTA stays), and a mobile sticky CTA bar appears after the hero and hides while the form is on screen.
 
@@ -208,7 +225,7 @@ The approved hero copy is unchanged. For paid traffic I'd test these, in order o
 **Measure**
 - Lead conversion rate (`generate_lead` / sessions), by campaign, trade and device
 - **Qualified** lead rate: tag in GHL whether each lead fits (trade, budget band, service area). Feed qualified leads back to Google Ads as an offline conversion, so bidding optimises for quality rather than volume.
-- Cost per qualified lead, and cost per booked audit call
+- Cost per qualified lead, and cost per booked call
 - Form start → submit rate (`form_start` vs `generate_lead`)
 - CTA clicks by location (which section drives the scroll to the form)
 - Scroll depth and session recordings: install Microsoft Clarity via GTM
@@ -218,7 +235,7 @@ The approved hero copy is unchanged. For paid traffic I'd test these, in order o
 1. Hero CTA timing: 0s against 1.6s.
 2. Hero headline: approved brand line against "More enquiries for your [trade] business." (search campaigns only).
 3. Form: 7 fields against 4 (name, mobile, trade, budget), with email and business collected on the call. Judge on **qualified** leads, not raw volume.
-4. CTA wording: "Get my lead audit" against "Get my free lead audit" (does "free" lift volume without hurting the qualified rate?) against "Show me where I'm losing jobs".
+4. CTA wording: "Get more jobs" against "Get my free marketing check" against "Show me where I'm losing jobs". Judge on qualified leads.
 5. Budget question: keep or remove. Removing will lift volume; check whether it drops the qualified rate.
 6. Problem section above or below the services section.
 7. Adding a 15-minute call booking (GHL calendar) as an alternative on the success screen.

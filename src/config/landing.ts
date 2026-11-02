@@ -72,11 +72,11 @@ export const budgetOptions = [
    The hero itself is the approved homepage hero, unchanged. This is the only
    thing added to it: one button and one line, under the service line. */
 export const heroCta = {
-  /* Names the deliverable, so the button reads as something you get rather
-     than a sales call. The homepage keeps "Find my missing leads" until this
-     has been tested on paid traffic. */
-  label: "Get my lead audit",
-  note: "For Australian home services businesses. Enquiries from your own Google, ads and website, sent to you only. Not shared with four other quotes.",
+  /* The outcome the owner wants, in the words they use. "Leads", "audit" and
+     "funnel" are agency words; a roofer wants more jobs. The homepage keeps
+     its own CTA until this has been tested on paid traffic. */
+  label: "Get more jobs",
+  note: "Marketing for Australian builders, roofers, renovators, solar installers and home service businesses.",
 };
 
 /* ── Logos ──────────────────────────────────────────────────────────────────
@@ -158,9 +158,9 @@ export const problem = {
    true of how every Sika package works. */
 export const fixes = {
   eyebrow: "What we build",
-  title: "Your own source of enquiries. Not rented, not shared.",
+  title: "More enquiries that come straight to you.",
   intro:
-    "We set up the four pieces that bring work in and catch it, and connect them so nothing falls through. Every enquiry comes from your Google listing, your ads and your website, and goes to you only.",
+    "We look after the four things that bring work in: showing up on Google, ads, your website and following up every enquiry. Each enquiry comes to you only, not to four other businesses.",
   items: [
     {
       n: "01",
@@ -176,19 +176,19 @@ export const fixes = {
     },
     {
       n: "02",
-      outcome: "Pay for jobs, not clicks",
-      service: "Google Ads & Meta Ads",
+      outcome: "Ads that bring in real jobs",
+      service: "Google Ads & Facebook / Instagram ads",
       copy: "Ads aimed at the work worth quoting, in the areas you want to work. Searches that will never turn into a job get blocked before they cost you.",
       points: [
         "Campaigns split by job type",
-        "Negative keyword lists",
+        "Blocking searches that waste your money",
         "Every call and form tracked",
-        "Meta ads for bigger, planned projects",
+        "Facebook and Instagram ads for bigger projects",
       ],
     },
     {
       n: "03",
-      outcome: "Turn visitors into quote requests",
+      outcome: "A website that gets the phone ringing",
       service: "Websites & landing pages",
       copy: "Someone on their phone should know in five seconds what you do, where you work and how to get a quote. Then it should take one tap to ask.",
       points: [
@@ -201,13 +201,13 @@ export const fixes = {
     {
       n: "04",
       outcome: "Never lose a job to voicemail",
-      service: "GoHighLevel CRM & automation",
+      service: "Lead follow-up & automation",
       copy: "Miss a call and they get a text straight back with your business name on it. Every enquiry gets an instant reply and a follow-up until they answer.",
       points: [
         "Missed-call text back",
         "Instant reply to every enquiry",
         "Follow-up until they respond",
-        "One pipeline from enquiry to quote",
+        "Every enquiry tracked, from first call to quote",
       ],
     },
   ],
@@ -286,7 +286,7 @@ export const fit = {
    need confirming. */
 export const faqs: { q: string; a: string; confirm?: boolean }[] = [
   {
-    q: "What do I get from the audit?",
+    q: "What do I get from the free marketing check?",
     a: "Before we call, we go through your Google listing, website, ad accounts and how enquiries get followed up. On a short call we show you where work is slipping through and what we'd fix first, in order. It's yours to keep whether or not you work with us.",
   },
   {
@@ -294,7 +294,7 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
     a: "Lead sites sell the same enquiry to several businesses, so you're quoting against three or four others before you've said hello. We build your own Google presence, ads and website, so the enquiry comes to you only. And what we build keeps working for your business, not for a platform.",
   },
   {
-    q: "What if the audit doesn't find much?",
+    q: "What if you don't find much?",
     a: "Then we'll tell you that. You'll have spent a short call confirming your marketing is in good shape, which is worth knowing too.",
   },
   {
@@ -303,7 +303,7 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
   },
   {
     q: "How much does it cost?",
-    a: "It depends on what you need. We run set packages, from local SEO with basic follow-up automation through to a full website, SEO, ads and CRM setup. Ad spend is separate and paid straight to Google or Meta. You get a fixed price in writing before anything starts.",
+    a: "It depends on what you need. We run set packages, from local SEO with basic follow-up automation through to a full website, SEO, ads and follow-up system. Ad spend is separate and paid straight to Google or Facebook. You get a fixed price in writing before anything starts.",
     confirm: true,
   },
   {
@@ -329,13 +329,13 @@ export const faqs: { q: string; a: string; confirm?: boolean }[] = [
 
 /* ── 7. The enquiry section ─────────────────────────────────────────────── */
 export const enquire = {
-  eyebrow: "Start here",
-  title: "See exactly where your next jobs are going.",
+  eyebrow: "Free marketing check",
+  title: "Find out why the phone isn't ringing more.",
   intro:
     "Tell us about your business. Before we call, we'll go through your Google listing, website, ads and follow-up, then show you where enquiries are slipping through, in plain English and in the order we'd fix them.",
   checks: [
     "Whether you show up on the map for the jobs you want",
-    "Ad spend going on searches that will never become jobs",
+    "Money spent on ads that will never turn into jobs",
     "What a homeowner sees on your site on their phone",
     "How fast enquiries get a reply, and how many never do",
     "What we'd fix first, and what you can fix yourself",
@@ -357,7 +357,7 @@ export const enquire = {
       c: "What we found is yours to keep, whether or not you hire us.",
     },
   ],
-  submit: "Get my lead audit",
+  submit: "Get more jobs",
   reassurance:
     "Takes about a minute. Yours to keep, whether or not you hire us. No newsletter, no sales sequence.",
   success: {
