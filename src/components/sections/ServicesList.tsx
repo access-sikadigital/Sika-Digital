@@ -68,7 +68,7 @@ function TileGlow() {
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity duration-slow ease-out-quart group-hover:opacity-100 group-focus-within:opacity-100"
+      className="duration-slow pointer-events-none absolute inset-0 overflow-hidden opacity-0 transition-opacity ease-out-quart group-focus-within:opacity-100 group-hover:opacity-100"
     >
       <span
         className="tile-glow tile-glow--a absolute -top-1/4 -left-1/4 block aspect-square w-[150%] mix-blend-screen"
@@ -88,7 +88,16 @@ function TileGlow() {
   );
 }
 
-export function ServicesList() {
+/** Optional copy, keyed by service-group href. Only label, blurb and the
+    destination change; the tile layout and drawings stay as approved. */
+export type ServicesCopy = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  items?: Record<string, { label: string; blurb: string; href?: string }>;
+};
+
+export function ServicesList({ copy }: { copy?: ServicesCopy } = {}) {
   const root = useRef<HTMLElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -154,7 +163,11 @@ export function ServicesList() {
             duration: 0.4,
             ease: EASE.quart,
             stagger: 0.07,
-            scrollTrigger: { trigger: mark, start: "clamp(top 85%)", once: true },
+            scrollTrigger: {
+              trigger: mark,
+              start: "clamp(top 85%)",
+              once: true,
+            },
           }
         );
       });
@@ -208,7 +221,13 @@ export function ServicesList() {
     { scope: root }
   );
 
-  const [lead, ...rest] = serviceGroups;
+  const groups = serviceGroups.map((g) => {
+    const o = copy?.items?.[g.href];
+    return o
+      ? { ...g, label: o.label, blurb: o.blurb, href: o.href ?? g.href }
+      : g;
+  });
+  const [lead, ...rest] = groups;
   if (!lead) return null;
 
   /**
@@ -222,7 +241,7 @@ export function ServicesList() {
   const tileClass = (featured: boolean) =>
     cn(
       "group relative flex flex-col justify-between overflow-hidden rounded-card border border-line bg-background",
-      "transition-colors duration-slow ease-out-quart hover:border-accent",
+      "duration-slow transition-colors ease-out-quart hover:border-accent",
       featured ? "min-h-[26rem] p-8 lg:min-h-full lg:p-10" : "min-h-56 p-7"
     );
 
@@ -233,9 +252,13 @@ export function ServicesList() {
     >
       <Container>
         <SectionHeading
-          eyebrow="Services"
-          title="Five things, in the order they matter."
-          intro="Most of it starts with the website. Everything else is pointing traffic at something that converts."
+          eyebrow={copy?.eyebrow ?? "Services"}
+          title={copy?.title ?? "Five things, in the order they matter."}
+          intro={
+            copy
+              ? copy.intro
+              : "Most of it starts with the website. Everything else is pointing traffic at something that converts."
+          }
         />
 
         <div className="mt-16 flex flex-col gap-4 lg:mt-24 lg:flex-row">
@@ -251,12 +274,12 @@ export function ServicesList() {
             {/* `relative` on the content, so it paints above the absolutely
                 positioned glow rather than underneath it. */}
             <div className="relative flex items-start justify-between gap-6">
-              <span className="font-mono text-eyebrow tabular-nums text-faint">
+              <span className="font-mono text-eyebrow text-faint tabular-nums">
                 01
               </span>
               <span
                 aria-hidden
-                className="text-h3 text-accent opacity-0 transition-all duration-base ease-out-quart group-hover:translate-x-0 group-hover:opacity-100 lg:-translate-x-3"
+                className="duration-base text-h3 text-accent opacity-0 transition-all ease-out-quart group-hover:translate-x-0 group-hover:opacity-100 lg:-translate-x-3"
               >
                 &rarr;
               </span>
@@ -284,7 +307,10 @@ export function ServicesList() {
                 href={lead.href}
                 onFocus={() => setPreview(servicePreviews[lead.href] ?? null)}
                 onBlur={() => setPreview(null)}
-                className="block font-display text-h1 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent"
+                className={cn(
+                  "duration-base block font-display leading-[0.94] text-foreground transition-colors group-hover:text-accent",
+                  lead.label.length > 14 ? "text-h2" : "text-h1"
+                )}
               >
                 {lead.label}
               </Link>
@@ -296,7 +322,7 @@ export function ServicesList() {
                   <li key={child.href}>
                     <Link
                       href={child.href}
-                      className="text-small whitespace-nowrap text-muted underline-offset-4 transition-colors duration-base hover:text-accent hover:underline"
+                      className="duration-base text-small whitespace-nowrap text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
                     >
                       {child.label}
                     </Link>
@@ -321,12 +347,12 @@ export function ServicesList() {
                 <TileGlow />
 
                 <div className="relative flex items-start justify-between gap-4">
-                  <span className="font-mono text-eyebrow tabular-nums text-faint">
+                  <span className="font-mono text-eyebrow text-faint tabular-nums">
                     {String(i + 2).padStart(2, "0")}
                   </span>
                   <span
                     aria-hidden
-                    className="text-lead text-accent opacity-0 transition-all duration-base ease-out-quart group-hover:translate-x-0 group-hover:opacity-100 lg:-translate-x-2"
+                    className="duration-base text-lead text-accent opacity-0 transition-all ease-out-quart group-hover:translate-x-0 group-hover:opacity-100 lg:-translate-x-2"
                   >
                     &rarr;
                   </span>
@@ -353,7 +379,7 @@ export function ServicesList() {
                       setPreview(servicePreviews[group.href] ?? null)
                     }
                     onBlur={() => setPreview(null)}
-                    className="block font-display text-h3 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent"
+                    className="duration-base block font-display text-h3 leading-[0.94] text-foreground transition-colors group-hover:text-accent"
                   >
                     {group.label}
                   </Link>

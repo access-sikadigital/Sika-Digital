@@ -130,7 +130,10 @@ export function IntroStatement() {
                  solid line. A dasharray left on a finished path is invisible
                  at full offset but reappears as a dotted line the moment
                  anything re-renders or the SVG is scaled. */
-              onComplete: () => gsap.set(wire, { clearProps: "strokeDasharray,strokeDashoffset" }),
+              onComplete: () =>
+                gsap.set(wire, {
+                  clearProps: "strokeDasharray,strokeDashoffset",
+                }),
               scrollTrigger: {
                 trigger: diagram,
                 start: "clamp(top 80%)",
@@ -215,7 +218,7 @@ export function IntroStatement() {
                   (i > 0 ? "lg:border-l lg:border-line lg:pl-8" : "lg:pr-8")
                 }
               >
-                <span className="font-mono text-eyebrow tabular-nums text-faint">
+                <span className="font-mono text-eyebrow text-faint tabular-nums">
                   {link.n}
                 </span>
 
@@ -238,7 +241,7 @@ export function IntroStatement() {
 
           All three are already true elsewhere in the config. Nothing invented.
         */}
-        <p className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-8 font-mono text-eyebrow uppercase tracking-wider text-faint">
+        <p className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-8 font-mono text-eyebrow tracking-wider text-faint uppercase">
           <span>{siteConfig.homeCity}, working Australia wide</span>
           <span aria-hidden className="text-line-strong">
             /

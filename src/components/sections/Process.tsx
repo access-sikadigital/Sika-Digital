@@ -58,7 +58,9 @@ const STEP_ART: { node: ReactNode; wide?: boolean }[] = [
  * The project's standing rule. `fromTo` renders its start state immediately,
  * so nothing already on screen at mount is given a reveal.
  */
-export function Process() {
+export type ProcessCopy = { eyebrow: string; title: string; intro: string };
+
+export function Process({ copy }: { copy?: ProcessCopy } = {}) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -262,13 +264,15 @@ export function Process() {
       <Container className="relative">
         {/* ── Heading ─────────────────────────────────────────────────────── */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow text-accent">How it works</p>
+          <p className="eyebrow text-accent">
+            {copy?.eyebrow ?? "How it works"}
+          </p>
           <h2 className="mt-5 font-display text-h2 leading-[0.94] text-foreground">
-            Wired for enquiries.
+            {copy?.title ?? "Wired for enquiries."}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lead text-muted">
-            Four steps, in order. The first one is free and you keep it whether
-            or not you hire us.
+            {copy?.intro ??
+              "Four steps, in order. The first one is free and you keep it whether or not you hire us."}
           </p>
         </div>
 
@@ -299,7 +303,13 @@ export function Process() {
           </span>
 
           {processSteps.map((step, i) => (
-            <CircuitStep key={step.n} step={step} index={i} art={STEP_ART[i]} />
+            <CircuitStep
+              key={step.n}
+              step={step}
+              index={i}
+              art={STEP_ART[i]}
+              free={!copy}
+            />
           ))}
         </ol>
 
@@ -329,11 +339,13 @@ export function Process() {
 
           <div className="mt-10 flex flex-col items-start gap-3 lg:items-center">
             <Button href={primary.href} size="lg">
-              Start with step one, free
+              {copy ? primary.label : "Start with step one, free"}
             </Button>
-            <p className="text-small text-faint">
-              Yours to keep, whether or not you hire us.
-            </p>
+            {copy ? null : (
+              <p className="text-small text-faint">
+                Yours to keep, whether or not you hire us.
+              </p>
+            )}
           </div>
         </div>
       </Container>
@@ -346,12 +358,15 @@ export function Process() {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 function CircuitStep({
+  free = true,
   step,
   index,
   art,
 }: {
   step: Step;
   index: number;
+  /** The "Free" badge on step one. Off when a page's copy does not offer it. */
+  free?: boolean;
   art?: { node: ReactNode; wide?: boolean };
 }) {
   /* Even steps: copy left, panel right. Odd steps swap. */
@@ -414,7 +429,7 @@ function CircuitStep({
               <span className="font-mono text-eyebrow tracking-[0.16em] text-accent uppercase">
                 Step {step.n}
               </span>
-              {index === 0 ? (
+              {index === 0 && free ? (
                 <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[0.62rem] font-medium tracking-wider text-on-accent uppercase">
                   Free
                 </span>

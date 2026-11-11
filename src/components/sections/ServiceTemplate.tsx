@@ -71,7 +71,8 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-rise]", el).forEach((node) => {
-        if (node.getBoundingClientRect().top < window.innerHeight * 0.95) return;
+        if (node.getBoundingClientRect().top < window.innerHeight * 0.95)
+          return;
 
         gsap.fromTo(
           node,
@@ -135,7 +136,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">What the work is</p>
+            <p className="shrink-0 eyebrow text-accent">What the work is</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -153,11 +154,11 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
                 data-rise
                 className="group border-t border-line py-8 last:border-b lg:flex lg:items-baseline lg:gap-10"
               >
-                <span className="font-mono text-eyebrow tabular-nums text-faint lg:w-14 lg:shrink-0">
+                <span className="font-mono text-eyebrow text-faint tabular-nums lg:w-14 lg:shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <h3 className="mt-3 max-w-[24ch] font-display text-h4 leading-[0.94] text-foreground transition-colors duration-slow ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[36%] lg:shrink-0">
+                <h3 className="duration-slow mt-3 max-w-[24ch] font-display text-h4 leading-[0.94] text-foreground transition-colors ease-out-quart group-hover:text-accent lg:mt-0 lg:w-[36%] lg:shrink-0">
                   {item.t}
                 </h3>
 
@@ -176,7 +177,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
       <section className="border-y border-line bg-surface py-(--spacing-section)">
         <Container>
           <div className="rounded-card border border-accent bg-background p-8 lg:p-14">
-            <p className="font-mono text-eyebrow uppercase tracking-wider text-accent">
+            <p className="font-mono text-eyebrow tracking-wider text-accent uppercase">
               Worth knowing
             </p>
 
@@ -211,7 +212,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">Where we would start</p>
+            <p className="shrink-0 eyebrow text-accent">Where we would start</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -227,14 +228,14 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
               <article
                 key={f.t}
                 data-rise
-                className="group h-full rounded-card border border-line bg-surface p-8 transition-colors duration-slow ease-out-quart hover:border-accent lg:p-10"
+                className="group duration-slow h-full rounded-card border border-line bg-surface p-8 transition-colors ease-out-quart hover:border-accent lg:p-10"
               >
-                <span className="block font-display text-h2 tabular-nums leading-[0.94] text-accent">
+                <span className="block font-display text-h2 leading-[0.94] text-accent tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
                   aria-hidden
-                  className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
+                  className="duration-slow mt-7 block h-px w-full bg-line transition-colors ease-out-quart group-hover:bg-accent/40"
                 />
                 <h3 className="mt-7 max-w-[20ch] font-display text-h4 leading-[0.94] text-foreground">
                   {f.t}
@@ -251,7 +252,7 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">Evidence</p>
+            <p className="shrink-0 eyebrow text-accent">Evidence</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -284,7 +285,9 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
             as="h2"
             className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
           >
-            {parent ? `The rest of ${parent.label.toLowerCase()}.` : "Everything else."}
+            {parent
+              ? `The rest of ${parent.label.toLowerCase()}.`
+              : "Everything else."}
           </SplitLines>
 
           <ul className="mt-12 grid gap-3 sm:grid-cols-2">
@@ -292,14 +295,14 @@ export function ServiceTemplate({ pageKey }: { pageKey: string }) {
               <li key={child.href}>
                 <Link
                   href={child.href}
-                  className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
+                  className="group duration-slow flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors ease-out-quart hover:border-accent"
                 >
-                  <span className="font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
+                  <span className="duration-base font-display text-h4 leading-[0.94] text-foreground transition-colors group-hover:text-accent">
                     {child.label}
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-lead text-accent transition-transform duration-base ease-out-quart group-hover:translate-x-1"
+                    className="duration-base shrink-0 text-lead text-accent transition-transform ease-out-quart group-hover:translate-x-1"
                   >
                     &rarr;
                   </span>

@@ -39,7 +39,7 @@ function Items({ hidden = false }: { hidden?: boolean }) {
         <span key={item.key} className="flex items-center gap-10">
           <Link
             href={getPage(item.key).url}
-            className="whitespace-nowrap font-display text-h4 leading-[1.2] underline-offset-[6px] decoration-2 transition-opacity duration-(--duration-base) hover:underline"
+            className="font-display text-h4 leading-[1.2] whitespace-nowrap decoration-2 underline-offset-[6px] transition-opacity duration-(--duration-base) hover:underline"
           >
             {item.label}
           </Link>

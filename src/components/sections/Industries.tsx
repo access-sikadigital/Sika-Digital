@@ -76,7 +76,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
            ratio is the row. `min-w-0` then lets a panel go narrower than the
            word inside it, which is the whole point of a closed panel. */
         "lg:min-w-0 lg:basis-0",
-        "transition-colors duration-slow ease-out-quart hover:border-accent",
+        "duration-slow transition-colors ease-out-quart hover:border-accent",
         /* The resting split, in CSS. GSAP takes over on first hover. */
         open ? "lg:grow-[2.4]" : "lg:grow"
       )}
@@ -101,7 +101,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
                the file it describes, in config, so that swapping a photo and
                swapping its crop are the same edit. */
             style={{ objectPosition: industry.focus ?? "50% 50%" }}
-            className="object-cover transition-transform duration-slower ease-out-quart group-hover:scale-105"
+            className="duration-slower object-cover transition-transform ease-out-quart group-hover:scale-105"
           />
         </span>
       </span>
@@ -121,7 +121,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
 
       {/* Index. Sits in every panel, open or closed, so the row reads as an
           ordered set rather than four unrelated pictures. */}
-      <span className="absolute left-5 top-5 block font-mono text-eyebrow tabular-nums text-foreground/70">
+      <span className="absolute top-5 left-5 block font-mono text-eyebrow text-foreground/70 tabular-nums">
         {String(i + 1).padStart(2, "0")}
       </span>
 
@@ -136,7 +136,7 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
         className={cn(
           "pointer-events-none absolute bottom-5 left-5 hidden lg:block",
           "font-display text-h4 leading-[0.94] tracking-[-0.045em] text-foreground",
-          "[writing-mode:vertical-rl] rotate-180",
+          "rotate-180 [writing-mode:vertical-rl]",
           open ? "lg:opacity-0" : "lg:opacity-100"
         )}
       >
@@ -154,12 +154,12 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
         )}
       >
         <span className="flex items-end justify-between gap-4">
-          <span className="block whitespace-nowrap font-display text-h3 leading-[0.94] text-foreground">
+          <span className="block font-display text-h3 leading-[0.94] whitespace-nowrap text-foreground">
             {industry.label}
           </span>
           <span
             aria-hidden
-            className="block shrink-0 translate-y-1 text-lead text-accent opacity-0 transition-all duration-base ease-out-quart group-hover:translate-y-0 group-hover:opacity-100"
+            className="duration-base block shrink-0 translate-y-1 text-lead text-accent opacity-0 transition-all ease-out-quart group-hover:translate-y-0 group-hover:opacity-100"
           >
             &rarr;
           </span>
@@ -173,7 +173,9 @@ function Panel({ industry, i }: { industry: Industry; i: number }) {
   );
 }
 
-export function Industries() {
+export type IndustriesCopy = { eyebrow: string; title: string; intro: string };
+
+export function Industries({ copy }: { copy?: IndustriesCopy } = {}) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -211,22 +213,24 @@ export function Industries() {
 
          Scrubbed, so the offset is a function of scroll position rather than
          something that plays. Stop mid-section and it stops with you. */
-      gsap.utils.toArray<HTMLElement>("[data-parallax]", el).forEach((layer) => {
-        gsap.fromTo(
-          layer,
-          { yPercent: -6 },
-          {
-            yPercent: 6,
-            ease: "none",
-            scrollTrigger: {
-              trigger: layer,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.6,
-            },
-          }
-        );
-      });
+      gsap.utils
+        .toArray<HTMLElement>("[data-parallax]", el)
+        .forEach((layer) => {
+          gsap.fromTo(
+            layer,
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: "none",
+              scrollTrigger: {
+                trigger: layer,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.6,
+              },
+            }
+          );
+        });
 
       /* ── The opening. Desktop only. ──────────────────────────────────────
          On a phone every panel is full width and already open, so there is no
@@ -319,7 +323,7 @@ export function Industries() {
     >
       <Container>
         <SectionHeading
-          eyebrow="Who we work with"
+          eyebrow={copy?.eyebrow ?? "Who we work with"}
           /* The headline was the only thing on the page this size with no
              colour in it at all. At 20ch this line breaks as "WE KNOW WHAT /
              A QUIET WEEK / COSTS YOU.", so the accent lands on a whole line
@@ -329,12 +333,20 @@ export function Industries() {
              Safe inside SplitLines: SplitText divides on lines and keeps
              nested inline elements intact. A character split would not be. */
           title={
-            <>
-              We know what{" "}
-              <span className="text-accent">a quiet week</span> costs you.
-            </>
+            copy ? (
+              copy.title
+            ) : (
+              <>
+                We know what <span className="text-accent">a quiet week</span>{" "}
+                costs you.
+              </>
+            )
           }
-          intro={`${siteConfig.founder.name} spent ${siteConfig.founder.credential.replace(/^12 years/, "twelve years")}. The advice comes from someone who has run a job, not just a campaign.`}
+          intro={
+            copy
+              ? copy.intro
+              : `${siteConfig.founder.name} spent ${siteConfig.founder.credential.replace(/^12 years/, "twelve years")}. The advice comes from someone who has run a job, not just a campaign.`
+          }
         />
       </Container>
 

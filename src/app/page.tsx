@@ -2,11 +2,13 @@ import { metadataFor } from "@/lib/metadata";
 import { Hero } from "@/components/sections/Hero";
 import { ServiceTicker } from "@/components/sections/ServiceTicker";
 import { TrustedBy } from "@/components/sections/TrustedBy";
-import { IntroStatement } from "@/components/sections/IntroStatement";
 import { ServicesList } from "@/components/sections/ServicesList";
 import { Process } from "@/components/sections/Process";
 import { Industries } from "@/components/sections/Industries";
 import { CTA } from "@/components/sections/CTA";
+import { Button } from "@/components/ui/Button";
+import { homeCopy } from "@/config/home";
+import { siteConfig } from "@/config/site";
 
 export const metadata = metadataFor("home");
 
@@ -62,16 +64,39 @@ export const metadata = metadataFor("home");
  * (Open Question #1) is settled.
  */
 export default function HomePage() {
+  const { hero, services, approach, whoWeHelp, cta, clients } = homeCopy;
+
   return (
     <>
-      <Hero video="/media/hero.mp4" poster="/media/hero-poster.jpg" />
+      <Hero
+        video="/media/hero.mp4"
+        poster="/media/hero-poster.jpg"
+        copy={{
+          eyebrow: (
+            <p className="rounded-full border border-line-strong bg-white/[0.06] px-4 py-2 eyebrow !text-[0.625rem] !tracking-[0.12em] whitespace-nowrap text-foreground/85 backdrop-blur-md sm:!text-eyebrow sm:!tracking-[0.16em]">
+              {hero.eyebrow}
+            </p>
+          ),
+          lines: hero.lines,
+          highlight: hero.highlight,
+          description: hero.description,
+        }}
+      >
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <Button href={siteConfig.offer.primary.href} size="lg">
+            {siteConfig.offer.primary.label}
+          </Button>
+          <Button href={hero.secondary.href} size="lg" variant="outline">
+            {hero.secondary.label}
+          </Button>
+        </div>
+      </Hero>
       <ServiceTicker />
-      <TrustedBy />
-      <IntroStatement />
-      <ServicesList />
-      <Process />
-      <Industries />
-      <CTA />
+      <TrustedBy label={clients} />
+      <ServicesList copy={services} />
+      <Process copy={approach} />
+      <Industries copy={whoWeHelp} />
+      <CTA copy={cta} />
     </>
   );
 }

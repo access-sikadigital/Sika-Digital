@@ -81,7 +81,17 @@ function Tick({ className }: { className?: string }) {
   );
 }
 
-export function CTA() {
+/** Optional copy for pages whose copy doc gives the closing section its own
+    words. Leave unset and the original headline and checks render. */
+export type CTACopy = {
+  eyebrow?: string;
+  line1: string;
+  line2: string;
+  accent: string;
+  copy: string;
+};
+
+export function CTA({ copy }: { copy?: CTACopy } = {}) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -117,7 +127,10 @@ export function CTA() {
       });
 
       const checks = gsap.utils.toArray<HTMLElement>("[data-check]", el);
-      if (checks.length && el.getBoundingClientRect().top > window.innerHeight) {
+      if (
+        checks.length &&
+        el.getBoundingClientRect().top > window.innerHeight
+      ) {
         gsap.fromTo(
           checks,
           { autoAlpha: 0, y: 12 },
@@ -155,7 +168,7 @@ export function CTA() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-[18%] top-1/2 hidden w-[36rem] -translate-y-1/2 opacity-[0.12] lg:block"
+        className="pointer-events-none absolute top-1/2 -right-[18%] hidden w-[36rem] -translate-y-1/2 opacity-[0.12] lg:block"
       >
         <Logomark className="mark-turn" color="lime" decorative />
       </div>
@@ -163,7 +176,7 @@ export function CTA() {
       <Container className="relative">
         <div className="flex items-center gap-3">
           <MarkAnchor size="w-4" />
-          <p className="eyebrow text-accent">Start here</p>
+          <p className="eyebrow text-accent">{copy?.eyebrow ?? "Start here"}</p>
         </div>
 
         {/* Full container width. This is the whole reason the headline sets on
@@ -178,18 +191,26 @@ export function CTA() {
             "missing", so the wrapper carries bottom padding with an equal
             negative margin. `text-h1` sets its em to the headline's size so
             0.18em means the same thing here as on the lines inside. */}
-        <div className="mt-8 overflow-hidden pb-[0.18em] -mb-[0.18em] text-h1 lg:mt-10">
+        <div className="mt-8 -mb-[0.18em] overflow-hidden pb-[0.18em] text-h1 lg:mt-10">
           <span
             data-drift
             className="block font-display text-h1 leading-[0.94] text-foreground"
           >
-            Find out what
+            {copy ? copy.line1 : "Find out what"}
           </span>
           <span
             data-drift
             className="block font-display text-h1 leading-[0.94] text-foreground"
           >
-            you are <span className="text-accent">missing</span>
+            {copy ? (
+              <>
+                {copy.line2} <span className="text-accent">{copy.accent}</span>
+              </>
+            ) : (
+              <>
+                you are <span className="text-accent">missing</span>
+              </>
+            )}
           </span>
         </div>
 
@@ -200,24 +221,30 @@ export function CTA() {
             {/* Three items on one line. As a panel of three rows with a
                 description under each, this was taller than the headline, for
                 content that is a list of three nouns. */}
-            <ul className="flex flex-wrap gap-x-8 gap-y-4">
-              {CHECKS.map((c) => (
-                <li
-                  key={c}
-                  data-check
-                  className="flex items-center gap-2.5 text-nowrap"
-                >
-                  <Tick className="size-4 shrink-0 text-accent" />
-                  <span className="font-display text-body text-foreground">
-                    {c}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {copy ? (
+              <p className="max-w-xl text-lead text-muted">{copy.copy}</p>
+            ) : (
+              <>
+                <ul className="flex flex-wrap gap-x-8 gap-y-4">
+                  {CHECKS.map((c) => (
+                    <li
+                      key={c}
+                      data-check
+                      className="flex items-center gap-2.5 text-nowrap"
+                    >
+                      <Tick className="size-4 shrink-0 text-accent" />
+                      <span className="font-display text-body text-foreground">
+                        {c}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
 
-            <p className="mt-5 text-small text-faint">
-              Yours to keep, whether or not you hire us.
-            </p>
+                <p className="mt-5 text-small text-faint">
+                  Yours to keep, whether or not you hire us.
+                </p>
+              </>
+            )}
           </div>
 
           <div className="mt-10 shrink-0 lg:mt-0">
@@ -230,10 +257,10 @@ export function CTA() {
             </Button>
 
             <p className="mt-4 text-small text-muted lg:text-right">
-              Not ready for that?{" "}
+              Or{" "}
               <Link
                 href={fallback.href}
-                className="text-foreground underline decoration-line-strong underline-offset-4 transition-colors duration-base hover:text-accent hover:decoration-accent"
+                className="duration-base text-foreground underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
               >
                 {fallback.label}
               </Link>

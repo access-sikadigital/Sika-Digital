@@ -24,7 +24,7 @@ export const siteConfig = {
    * Melbourne, it is not doing any work.
    */
   tagline:
-    "Web and SEO first, paid and AI to make it move faster. Built for Australian service and trade businesses.",
+    "SEO, PPC, web development and AI consulting for Australian businesses.",
 
   /**
    * The positioning one-liner — Open Question #1 in the scope workbook.
@@ -141,15 +141,15 @@ export const siteConfig = {
         pipeline with browsers, and the scope names lead quality as the thing
         to protect.
       */
-      label: "Find my missing leads",
+      label: "Book a Discovery Call",
       href: "/contact/",
       /* Shown under the button. Says what actually happens next, which
          converts better than a bare "submit". */
       note: "We check your website, Google Business Profile and ad accounts, then show you where the enquiries are going missing.",
     },
     fallback: {
-      label: "Book a 15-minute call",
-      href: "/contact/",
+      label: "Explore our services",
+      href: "/services/",
     },
   },
 

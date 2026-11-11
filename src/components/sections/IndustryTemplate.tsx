@@ -64,7 +64,8 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-rise]", el).forEach((node) => {
-        if (node.getBoundingClientRect().top < window.innerHeight * 0.95) return;
+        if (node.getBoundingClientRect().top < window.innerHeight * 0.95)
+          return;
 
         gsap.fromTo(
           node,
@@ -111,7 +112,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
           </div>
 
           <div className="flex flex-col justify-center p-8 lg:min-w-0 lg:flex-1 lg:p-12">
-            <p className="font-mono text-eyebrow uppercase tracking-wider text-accent">
+            <p className="font-mono text-eyebrow tracking-wider text-accent uppercase">
               Who you would be dealing with
             </p>
             <p className="mt-6 max-w-lg text-lead text-foreground">
@@ -165,7 +166,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">Which jobs</p>
+            <p className="shrink-0 eyebrow text-accent">Which jobs</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -174,14 +175,17 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
             className="mt-8 max-w-[20ch] font-display text-h2 leading-[0.94] text-foreground"
           >
             <>
-              Not every enquiry is a{" "}
-              <span className="text-accent">good</span> enquiry.
+              Not every enquiry is a <span className="text-accent">good</span>{" "}
+              enquiry.
             </>
           </SplitLines>
 
           <div className="mt-14 grid gap-4 lg:mt-20 lg:grid-cols-2">
-            <div data-rise className="rounded-card border border-accent bg-surface p-8 lg:p-11">
-              <p className="font-mono text-eyebrow uppercase tracking-wider text-accent">
+            <div
+              data-rise
+              className="rounded-card border border-accent bg-surface p-8 lg:p-11"
+            >
+              <p className="font-mono text-eyebrow tracking-wider text-accent uppercase">
                 More of this
               </p>
               <ul className="mt-7 flex flex-col gap-4">
@@ -196,8 +200,11 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
               </ul>
             </div>
 
-            <div data-rise className="rounded-card border border-line bg-surface p-8 lg:p-11">
-              <p className="font-mono text-eyebrow uppercase tracking-wider text-faint">
+            <div
+              data-rise
+              className="rounded-card border border-line bg-surface p-8 lg:p-11"
+            >
+              <p className="font-mono text-eyebrow tracking-wider text-faint uppercase">
                 Less of this
               </p>
               <ul className="mt-7 flex flex-col gap-4">
@@ -227,7 +234,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">What they type</p>
+            <p className="shrink-0 eyebrow text-accent">What they type</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -262,7 +269,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">Where we would start</p>
+            <p className="shrink-0 eyebrow text-accent">Where we would start</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -278,14 +285,14 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
               <article
                 key={f.t}
                 data-rise
-                className="group h-full rounded-card border border-line bg-surface p-8 transition-colors duration-slow ease-out-quart hover:border-accent lg:p-10"
+                className="group duration-slow h-full rounded-card border border-line bg-surface p-8 transition-colors ease-out-quart hover:border-accent lg:p-10"
               >
-                <span className="block font-display text-h2 tabular-nums leading-[0.94] text-accent">
+                <span className="block font-display text-h2 leading-[0.94] text-accent tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
                   aria-hidden
-                  className="mt-7 block h-px w-full bg-line transition-colors duration-slow ease-out-quart group-hover:bg-accent/40"
+                  className="duration-slow mt-7 block h-px w-full bg-line transition-colors ease-out-quart group-hover:bg-accent/40"
                 />
                 <h3 className="mt-7 max-w-[20ch] font-display text-h4 leading-[0.94] text-foreground">
                   {f.t}
@@ -302,7 +309,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="eyebrow shrink-0 text-accent">Evidence</p>
+            <p className="shrink-0 eyebrow text-accent">Evidence</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -344,10 +351,10 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
               <li key={g.href}>
                 <Link
                   href={g.href}
-                  className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
+                  className="group duration-slow flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors ease-out-quart hover:border-accent"
                 >
                   <span className="min-w-0">
-                    <span className="block font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
+                    <span className="duration-base block font-display text-h4 leading-[0.94] text-foreground transition-colors group-hover:text-accent">
                       {g.label}
                     </span>
                     <span className="mt-2 block text-small text-muted">
@@ -356,7 +363,7 @@ export function IndustryTemplate({ pageKey }: { pageKey: string }) {
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-lead text-accent transition-transform duration-base ease-out-quart group-hover:translate-x-1"
+                    className="duration-base shrink-0 text-lead text-accent transition-transform ease-out-quart group-hover:translate-x-1"
                   >
                     &rarr;
                   </span>

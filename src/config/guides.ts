@@ -67,9 +67,7 @@ export const guides: Guide[] = [
       },
       {
         h: "What moves the number",
-        p: [
-          "Four things, and none of them are the agency's overheads.",
-        ],
+        p: ["Four things, and none of them are the agency's overheads."],
         list: [
           "Competition. Ranking a plumber in a regional town and ranking one in inner Sydney are different amounts of work for the same words.",
           "The state of the site. A fast, well-built site needs far less technical time than a page builder site with six years of plugins on it.",
@@ -370,9 +368,7 @@ export const guides: Guide[] = [
       },
       {
         h: "What it actually involves",
-        p: [
-          "Four areas, in rough order of return.",
-        ],
+        p: ["Four areas, in rough order of return."],
         list: [
           "The Google Business Profile: categories, services, areas, photos, hours, all complete and kept current.",
           "Reviews: a system that asks every customer the same day, so they arrive steadily.",

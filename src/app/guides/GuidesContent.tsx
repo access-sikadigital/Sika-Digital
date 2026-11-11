@@ -9,6 +9,8 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitLines } from "@/components/motion/SplitLines";
 import { PageOpening } from "@/components/ui/PageOpening";
+import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/config/site";
 import { CTA } from "@/components/sections/CTA";
 
 /**
@@ -25,9 +27,54 @@ import { CTA } from "@/components/sections/CTA";
  * Each card shows the page's H1, which is the question, rather than a clever
  * title. People scan this page looking for their own question and the match
  * should be literal.
+ *
+ * ── Copy ────────────────────────────────────────────────────────────────────
+ * Source: "Guides — Page Copy" in the SIKA Website Copy spreadsheet (Draft for
+ * review). The guides are grouped into the four starting points the doc sets
+ * out, each group introduced by the doc's own line.
  */
+
+const COPY = {
+  eyebrow: "Digital marketing guides",
+  title: "Understand your options before making the next decision.",
+  intro:
+    "Marketing terms and quotes can be hard to compare. These guides explain common questions in everyday language, so you can plan the work and ask more useful questions.",
+  groupsTitle: "Choose a starting point",
+  groups: [
+    {
+      title: "SEO and local visibility",
+      copy: "What is local SEO? explains how it relates to nearby customers. Google Maps SEO looks at your business profile, accurate information and the factors behind local results.",
+      keys: ["guide-what-is-local-seo", "guide-maps-seo"],
+    },
+    {
+      title: "Search and advertising choices",
+      copy: "SEO vs Google Ads compares how the two approaches work and when each may fit your priorities.",
+      keys: ["guide-seo-vs-ads"],
+    },
+    {
+      title: "Costs and scope",
+      copy: "How much does SEO cost in Australia?, How much do Google Ads cost? and How much does a website cost? explain what changes the budget and what to look for in a quote.",
+      keys: ["guide-seo-cost", "guide-ads-cost", "guide-website-cost"],
+    },
+    {
+      title: "Enquiries and trade marketing",
+      copy: "How to get more leads looks at the journey from getting found to following up. Digital marketing for tradies applies that thinking to services, areas and the jobs you want.",
+      keys: ["guide-more-leads", "guide-tradies"],
+    },
+  ],
+  prepare: {
+    title: "Use the guides to prepare for a conversation.",
+    copy: "Write down your current situation, the work you want to improve and anything a quote needs to include. Your own business details will matter more than a general example.",
+  },
+  cta: {
+    eyebrow: "Start here",
+    line1: "Want help applying it",
+    line2: "to your",
+    accent: "business?",
+    copy: "Explore our services or tell us which question you are working through. We’ll discuss a practical next step with you.",
+  },
+};
 export function GuidesContent() {
-  const page = getPage("guides");
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -66,78 +113,91 @@ export function GuidesContent() {
   return (
     <main ref={root} className="pt-32 lg:pt-40">
       <PageOpening
-        eyebrow="Guides"
-        title={page.h1}
-        titleMax="max-w-[16ch]"
-        intro="Written for people deciding whether to spend money, including the parts that would talk you out of it."
+        eyebrow={COPY.eyebrow}
+        title={COPY.title}
+        titleMax="max-w-[12ch]"
+        intro={COPY.intro}
       />
-
-      {/* ── Why these exist ───────────────────────────────────────────────── */}
-      <Container className="mt-14 lg:mt-20">
-        <div className="rounded-card border border-line bg-surface p-7 lg:p-10">
-          <p className="max-w-2xl text-body text-muted">
-            <span className="text-foreground">
-              The cost guides have real numbers in them.
-            </span>{" "}
-            Almost every competing page on those questions avoids giving one,
-            which is exactly why we do. Each guide shows when it was last
-            checked, because a page about prices with no date on it stops being
-            useful and gives you no way to tell.
-          </p>
-        </div>
+      <Container className="mt-10 lg:mt-12">
+        <Reveal delay={0.2}>
+          <Button href={siteConfig.offer.primary.href} size="lg">
+            {siteConfig.offer.primary.label}
+          </Button>
+        </Reveal>
       </Container>
 
-      {/* ── The guides ────────────────────────────────────────────────────── */}
+      {/* ── Choose a starting point ──────────────────────────────────────── */}
       <section className="py-(--spacing-section)">
         <Container>
-          <div className="grid gap-4 lg:grid-cols-2">
-            {guides.map((guide, i) => {
-              const target = getPage(guide.key);
+          <SplitLines
+            as="h2"
+            className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
+          >
+            {COPY.groupsTitle}
+          </SplitLines>
 
-              return (
-                <Link
-                  key={guide.key}
-                  href={target.url}
-                  data-card
-                  className="group flex h-full flex-col justify-between rounded-card border border-line bg-surface p-8 transition-colors duration-slow ease-out-quart hover:border-accent lg:p-11"
-                >
-                  <div>
-                    <div className="flex items-baseline justify-between gap-6 border-b border-line pb-5">
-                      <span className="font-mono text-eyebrow tabular-nums text-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="font-mono text-eyebrow uppercase tracking-wider text-faint">
-                        {guide.label}
-                      </span>
-                    </div>
-
-                    <h2 className="mt-7 max-w-[22ch] font-display text-h3 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
-                      {target.h1}
-                    </h2>
-
-                    <p className="mt-5 max-w-md text-body text-muted">
-                      {guide.summary}
-                    </p>
-                  </div>
-
-                  <span className="mt-10 flex items-center gap-3 font-display text-body text-foreground">
-                    Read it
-                    <span
-                      aria-hidden
-                      className="text-accent transition-transform duration-base ease-out-quart group-hover:translate-x-1.5"
-                    >
-                      &rarr;
-                    </span>
+          <div className="mt-14 flex flex-col gap-16 lg:mt-20 lg:gap-24">
+            {COPY.groups.map((group, g) => (
+              <div
+                key={group.title}
+                className="lg:flex lg:items-start lg:gap-16"
+              >
+                <div className="lg:w-[34%] lg:shrink-0">
+                  <span className="font-mono text-eyebrow text-accent tabular-nums">
+                    {String(g + 1).padStart(2, "0")}
                   </span>
-                </Link>
-              );
-            })}
+                  <h3 className="mt-4 font-display text-h3 leading-[0.94] text-foreground">
+                    {group.title}
+                  </h3>
+                  <p className="mt-5 max-w-md text-body text-muted">
+                    {group.copy}
+                  </p>
+                </div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-0 lg:min-w-0 lg:flex-1">
+                  {group.keys.map((key) => {
+                    const guide = guides.find((x) => x.key === key);
+                    if (!guide) return null;
+                    const target = getPage(key);
+                    return (
+                      <Link
+                        key={key}
+                        href={target.url}
+                        data-card
+                        className="group duration-slow flex h-full flex-col justify-between rounded-card border border-line bg-surface p-7 transition-colors ease-out-quart hover:border-accent lg:p-9"
+                      >
+                        <div>
+                          <span className="font-mono text-eyebrow tracking-wider text-faint uppercase">
+                            {guide.label}
+                          </span>
+                          <h4 className="duration-base mt-5 max-w-[22ch] font-display text-h4 leading-[0.94] text-foreground transition-colors group-hover:text-accent">
+                            {target.h1}
+                          </h4>
+                          <p className="mt-4 text-small text-muted">
+                            {guide.summary}
+                          </p>
+                        </div>
+                        <span className="mt-8 flex items-center gap-3 font-display text-body text-foreground">
+                          Read it
+                          <span
+                            aria-hidden
+                            className="duration-base text-accent transition-transform ease-out-quart group-hover:translate-x-1.5"
+                          >
+                            &rarr;
+                          </span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* ── What is not here ──────────────────────────────────────────────── */}
-      <section className="border-t border-line py-(--spacing-section)">
+      {/* ── Prepare for a conversation ───────────────────────────────────── */}
+      <section className="border-y border-line bg-surface py-(--spacing-section)">
         <Container>
           <div className="lg:flex lg:items-start lg:gap-16 xl:gap-24">
             <div className="lg:w-[46%] lg:shrink-0">
@@ -145,29 +205,22 @@ export function GuidesContent() {
                 as="h2"
                 className="max-w-[18ch] font-display text-h2 leading-[0.94] text-foreground"
               >
-                <>
-                  No blog. On{" "}
-                  <span className="text-accent">purpose</span>.
-                </>
+                {COPY.prepare.title}
               </SplitLines>
             </div>
-
             <Reveal delay={0.1} className="mt-10 max-w-text lg:mt-0 lg:flex-1">
-              <p className="text-lead text-muted">
-                There is no weekly post here and there is not going to be one.
-              </p>
-              <p className="mt-6 text-body text-muted">
-                Publishing on a schedule produces content that exists because it
-                was Thursday. These get written when there is a question worth
-                answering properly, and updated when the answer changes, which
-                is a slower output and a more useful one.
-              </p>
+              <p className="text-lead text-muted">{COPY.prepare.copy}</p>
+              <div className="mt-10">
+                <Button href="/services/" variant="outline" size="lg">
+                  Explore our services
+                </Button>
+              </div>
             </Reveal>
           </div>
         </Container>
       </section>
 
-      <CTA />
+      <CTA copy={COPY.cta} />
     </main>
   );
 }

@@ -22,6 +22,76 @@ export const hero = {
   services: ["Websites", "SEO", "Paid Ads", "AI Search"],
 } as const;
 
+/* ── Homepage copy (Copy doc: "Homepage — Page Copy", status Approved) ──────
+   Source of truth is the SIKA Website Copy spreadsheet. Change the doc first,
+   then this block, so the two never disagree. */
+export const homeCopy = {
+  hero: {
+    eyebrow: "Digital marketing agency | Australia",
+    /* "Get more from your website and marketing." set on the approved typed
+       headline: two lines, then the payoff on the lime strip. */
+    lines: ["Get more from", "your website"],
+    highlight: "and marketing.",
+    description:
+      "SIKA Digital is an Australian digital marketing agency. We build websites, manage SEO and PPC campaigns, and help you find useful ways to bring AI into your day-to-day work.",
+    secondary: { label: "Explore our services", href: "/services/" },
+  },
+  clients: "Businesses we work with",
+  services: {
+    eyebrow: "Services",
+    title: "What we can do for you.",
+    /* Keyed by the service group's href in config/pages, so the approved tile
+       layout and drawings stay where they are and only the words change. */
+    items: {
+      "/web-design/": {
+        label: "Web design and development",
+        blurb:
+          "Give customers a website that explains your business clearly and makes it easy to enquire or buy.",
+      },
+      "/seo/": {
+        label: "SEO",
+        blurb:
+          "Make it easier for customers to find you in Google search, whether they’re looking locally or shopping online.",
+      },
+      "/google-ads/": {
+        label: "Google Ads and PPC",
+        blurb:
+          "Put your advertising budget behind the products and services you want to sell, with campaigns aimed at relevant searches.",
+      },
+      "/facebook-ads/": {
+        label: "Meta Ads",
+        blurb:
+          "Reach people on Facebook and Instagram with ads that show what you offer and why it matters.",
+      },
+      "/lead-generation/": {
+        label: "AI consulting",
+        href: "/ai-automation/",
+        blurb:
+          "Work out where AI could save your team time and what you need to get started.",
+      },
+    } as Record<string, { label: string; blurb: string; href?: string }>,
+  },
+  approach: {
+    eyebrow: "Approach",
+    title: "Start with what you need.",
+    intro:
+      "Come to us for a single project or ongoing support. We’ll look at what’s already in place and agree on the work and budget before we start.",
+  },
+  whoWeHelp: {
+    eyebrow: "Industries",
+    title: "Who we help.",
+    intro:
+      "Whether you run a local service, a trade business or an online store, we’ll take time to understand what your customers need from you.",
+  },
+  cta: {
+    eyebrow: "Start here",
+    line1: "Let’s talk about",
+    line2: "what’s",
+    accent: "next.",
+    copy: "Tell us about the website, campaign or AI project you’re considering. We’ll talk through your goals and what the work could involve.",
+  },
+} as const;
+
 /* ── Service ticker ─────────────────────────────────────────────────────────
    The lime band under the hero. `label` is the name people search and say;
    `key` is the page in config/pages it links to, resolved through getPage so a
@@ -112,34 +182,215 @@ export type ClientLogo = {
 export const trustedBy: { count: string; logos: ClientLogo[] } = {
   count: "", // TODO
   logos: [
-    { name: "King Electrical", src: "/media/clients/king-electrical.2acb0952.png", white: "/media/clients/king-electrical-white.80fb1b25.png", width: 720, height: 126 },
-    { name: "Weyn Constructions", src: "/media/clients/weyn-constructions.f35da1e3.png", white: "/media/clients/weyn-constructions-white.4949bfb9.png", width: 465, height: 280 },
-    { name: "Wells Roofing", src: "/media/clients/wells-roofing.b3093e7d.png", white: "/media/clients/wells-roofing-white.0f5e41c5.png", width: 718, height: 280 },
-    { name: "5Star Bath & Kitchen", src: "/media/clients/5star-bath-and-kitchen.6861882a.png", white: "/media/clients/5star-bath-and-kitchen-white.204fa349.png", width: 648, height: 280 },
-    { name: "Lumenx", src: "/media/clients/lumenx.c6f4fd18.png", white: "/media/clients/lumenx-white.8d38ad6d.png", width: 720, height: 135 },
-    { name: "Demo Bros", src: "/media/clients/demo-bros.1e65756c.png", white: "/media/clients/demo-bros-white.e2753b0b.png", width: 284, height: 280, scale: 1.05 },
-    { name: "Aust Construct", src: "/media/clients/aust-construct.b253fa24.png", white: "/media/clients/aust-construct-white.b253fa24.png", width: 628, height: 280 },
-    { name: "A&A Flooring & Blinds", src: "/media/clients/a-and-a-flooring-and-blinds.1314f7cc.png", white: "/media/clients/a-and-a-flooring-and-blinds-white.5530ed1e.png", width: 516, height: 280 },
-    { name: "Grindcorp", src: "/media/clients/grindcorp.ebb846b6.png", white: "/media/clients/grindcorp-white.ebb846b6.png", width: 720, height: 111, scale: 0.86 },
-    { name: "Fintellect", src: "/media/clients/fintellect.32c9eaa7.svg", white: "/media/clients/fintellect-white.a44c30b8.svg", width: 677, height: 800, scale: 1.1 },
-    { name: "Top Spot Blinds", src: "/media/clients/top-spot-blinds.f321ab21.png", white: "/media/clients/top-spot-blinds-white.475cc893.png", width: 563, height: 280 },
-    { name: "Survaid", src: "/media/clients/survaid.77acd1ec.png", white: "/media/clients/survaid-white.8e6df2fe.png", width: 720, height: 182, scale: 0.9 },
-    { name: "Forefront Trades Co", src: "/media/clients/forefront-trades-co.2358e23c.png", white: "/media/clients/forefront-trades-co-white.304e761b.png", width: 720, height: 148 },
-    { name: "Kitchen & Bath Co", src: "/media/clients/kitchen-and-bath-co.67c5d8b1.png", white: "/media/clients/kitchen-and-bath-co-white.7936bd85.png", width: 720, height: 70, scale: 0.88 },
-    { name: "Deslar Group", src: "/media/clients/deslar-group.050abe32.png", white: "/media/clients/deslar-group-white.050abe32.png", width: 720, height: 198, scale: 0.9 },
-    { name: "LiftX", src: "/media/clients/liftx.f92c0491.png", white: "/media/clients/liftx-white.eaa5d959.png", width: 601, height: 280 },
-    { name: "Formline Joinery", src: "/media/clients/formline-joinery.90c55c06.png", white: "/media/clients/formline-joinery-white.99009f85.png", width: 720, height: 129, scale: 0.9 },
-    { name: "Bathroom & Balconies", src: "/media/clients/bathroom-and-balconies.b89a9f4b.png", white: "/media/clients/bathroom-and-balconies-white.4e060fbf.png", width: 720, height: 251 },
-    { name: "Compare AirConditioning", src: "/media/clients/compare-airconditioning.9d5cdecc.png", white: "/media/clients/compare-airconditioning-white.4452c98d.png", width: 720, height: 133, scale: 0.88 },
-    { name: "By Willow", src: "/media/clients/by-willow.af30bc8a.svg", white: "/media/clients/by-willow-white.af6d0195.svg", width: 1000, height: 170 },
-    { name: "Pititto Projects", src: "/media/clients/pititto-projects.0fdf65d0.png", white: "/media/clients/pititto-projects-white.0fdf65d0.png", width: 593, height: 280, scale: 0.9 },
-    { name: "Mr. Site Cleanups", src: "/media/clients/mr-site-cleanups.fb7652df.png", white: "/media/clients/mr-site-cleanups-white.d5a83e0f.png", width: 720, height: 179, scale: 0.92 },
-    { name: "Blinds Corp", src: "/media/clients/blinds-corp.2e18ca7c.png", white: "/media/clients/blinds-corp-white.1502eb78.png", width: 334, height: 280, scale: 1.05 },
-    { name: "Heartbreaker Ink", src: "/media/clients/heartbreaker-ink.f2d1de40.png", white: "/media/clients/heartbreaker-ink-white.54dec076.png", width: 720, height: 38, scale: 1.1 },
-    { name: "Australasian Home", src: "/media/clients/australasian-home.f53dd9c9.png", white: "/media/clients/australasian-home-white.c5a53509.png", width: 720, height: 232 },
-    { name: "Rock Up Group", src: "/media/clients/rock-up-group.62053168.png", white: "/media/clients/rock-up-group-white.62053168.png", width: 614, height: 280 },
-    { name: "True Align", src: "/media/clients/true-align.d18abbbd.png", white: "/media/clients/true-align-white.f27abd97.png", width: 463, height: 280, scale: 1.05 },
-    { name: "Forefront Community Care", src: "/media/clients/forefront-community-care.acb2d74e.png", white: "/media/clients/forefront-community-care-white.511923a2.png", width: 720, height: 209 },
+    {
+      name: "King Electrical",
+      src: "/media/clients/king-electrical.2acb0952.png",
+      white: "/media/clients/king-electrical-white.80fb1b25.png",
+      width: 720,
+      height: 126,
+    },
+    {
+      name: "Weyn Constructions",
+      src: "/media/clients/weyn-constructions.f35da1e3.png",
+      white: "/media/clients/weyn-constructions-white.4949bfb9.png",
+      width: 465,
+      height: 280,
+    },
+    {
+      name: "Wells Roofing",
+      src: "/media/clients/wells-roofing.b3093e7d.png",
+      white: "/media/clients/wells-roofing-white.0f5e41c5.png",
+      width: 718,
+      height: 280,
+    },
+    {
+      name: "5Star Bath & Kitchen",
+      src: "/media/clients/5star-bath-and-kitchen.6861882a.png",
+      white: "/media/clients/5star-bath-and-kitchen-white.204fa349.png",
+      width: 648,
+      height: 280,
+    },
+    {
+      name: "Lumenx",
+      src: "/media/clients/lumenx.c6f4fd18.png",
+      white: "/media/clients/lumenx-white.8d38ad6d.png",
+      width: 720,
+      height: 135,
+    },
+    {
+      name: "Demo Bros",
+      src: "/media/clients/demo-bros.1e65756c.png",
+      white: "/media/clients/demo-bros-white.e2753b0b.png",
+      width: 284,
+      height: 280,
+      scale: 1.05,
+    },
+    {
+      name: "Aust Construct",
+      src: "/media/clients/aust-construct.b253fa24.png",
+      white: "/media/clients/aust-construct-white.b253fa24.png",
+      width: 628,
+      height: 280,
+    },
+    {
+      name: "A&A Flooring & Blinds",
+      src: "/media/clients/a-and-a-flooring-and-blinds.1314f7cc.png",
+      white: "/media/clients/a-and-a-flooring-and-blinds-white.5530ed1e.png",
+      width: 516,
+      height: 280,
+    },
+    {
+      name: "Grindcorp",
+      src: "/media/clients/grindcorp.ebb846b6.png",
+      white: "/media/clients/grindcorp-white.ebb846b6.png",
+      width: 720,
+      height: 111,
+      scale: 0.86,
+    },
+    {
+      name: "Fintellect",
+      src: "/media/clients/fintellect.32c9eaa7.svg",
+      white: "/media/clients/fintellect-white.a44c30b8.svg",
+      width: 677,
+      height: 800,
+      scale: 1.1,
+    },
+    {
+      name: "Top Spot Blinds",
+      src: "/media/clients/top-spot-blinds.f321ab21.png",
+      white: "/media/clients/top-spot-blinds-white.475cc893.png",
+      width: 563,
+      height: 280,
+    },
+    {
+      name: "Survaid",
+      src: "/media/clients/survaid.77acd1ec.png",
+      white: "/media/clients/survaid-white.8e6df2fe.png",
+      width: 720,
+      height: 182,
+      scale: 0.9,
+    },
+    {
+      name: "Forefront Trades Co",
+      src: "/media/clients/forefront-trades-co.2358e23c.png",
+      white: "/media/clients/forefront-trades-co-white.304e761b.png",
+      width: 720,
+      height: 148,
+    },
+    {
+      name: "Kitchen & Bath Co",
+      src: "/media/clients/kitchen-and-bath-co.67c5d8b1.png",
+      white: "/media/clients/kitchen-and-bath-co-white.7936bd85.png",
+      width: 720,
+      height: 70,
+      scale: 0.88,
+    },
+    {
+      name: "Deslar Group",
+      src: "/media/clients/deslar-group.050abe32.png",
+      white: "/media/clients/deslar-group-white.050abe32.png",
+      width: 720,
+      height: 198,
+      scale: 0.9,
+    },
+    {
+      name: "LiftX",
+      src: "/media/clients/liftx.f92c0491.png",
+      white: "/media/clients/liftx-white.eaa5d959.png",
+      width: 601,
+      height: 280,
+    },
+    {
+      name: "Formline Joinery",
+      src: "/media/clients/formline-joinery.90c55c06.png",
+      white: "/media/clients/formline-joinery-white.99009f85.png",
+      width: 720,
+      height: 129,
+      scale: 0.9,
+    },
+    {
+      name: "Bathroom & Balconies",
+      src: "/media/clients/bathroom-and-balconies.b89a9f4b.png",
+      white: "/media/clients/bathroom-and-balconies-white.4e060fbf.png",
+      width: 720,
+      height: 251,
+    },
+    {
+      name: "Compare AirConditioning",
+      src: "/media/clients/compare-airconditioning.9d5cdecc.png",
+      white: "/media/clients/compare-airconditioning-white.4452c98d.png",
+      width: 720,
+      height: 133,
+      scale: 0.88,
+    },
+    {
+      name: "By Willow",
+      src: "/media/clients/by-willow.af30bc8a.svg",
+      white: "/media/clients/by-willow-white.af6d0195.svg",
+      width: 1000,
+      height: 170,
+    },
+    {
+      name: "Pititto Projects",
+      src: "/media/clients/pititto-projects.0fdf65d0.png",
+      white: "/media/clients/pititto-projects-white.0fdf65d0.png",
+      width: 593,
+      height: 280,
+      scale: 0.9,
+    },
+    {
+      name: "Mr. Site Cleanups",
+      src: "/media/clients/mr-site-cleanups.fb7652df.png",
+      white: "/media/clients/mr-site-cleanups-white.d5a83e0f.png",
+      width: 720,
+      height: 179,
+      scale: 0.92,
+    },
+    {
+      name: "Blinds Corp",
+      src: "/media/clients/blinds-corp.2e18ca7c.png",
+      white: "/media/clients/blinds-corp-white.1502eb78.png",
+      width: 334,
+      height: 280,
+      scale: 1.05,
+    },
+    {
+      name: "Heartbreaker Ink",
+      src: "/media/clients/heartbreaker-ink.f2d1de40.png",
+      white: "/media/clients/heartbreaker-ink-white.54dec076.png",
+      width: 720,
+      height: 38,
+      scale: 1.1,
+    },
+    {
+      name: "Australasian Home",
+      src: "/media/clients/australasian-home.f53dd9c9.png",
+      white: "/media/clients/australasian-home-white.c5a53509.png",
+      width: 720,
+      height: 232,
+    },
+    {
+      name: "Rock Up Group",
+      src: "/media/clients/rock-up-group.62053168.png",
+      white: "/media/clients/rock-up-group-white.62053168.png",
+      width: 614,
+      height: 280,
+    },
+    {
+      name: "True Align",
+      src: "/media/clients/true-align.d18abbbd.png",
+      white: "/media/clients/true-align-white.f27abd97.png",
+      width: 463,
+      height: 280,
+      scale: 1.05,
+    },
+    {
+      name: "Forefront Community Care",
+      src: "/media/clients/forefront-community-care.acb2d74e.png",
+      white: "/media/clients/forefront-community-care-white.511923a2.png",
+      width: 720,
+      height: 209,
+    },
   ],
 };
 
@@ -187,27 +438,27 @@ export type Step = {
 export const processSteps: Step[] = [
   {
     n: "01",
-    title: "We look at what you have",
-    copy: "Your website, your Google Business Profile, your ad accounts. We find where the enquiries are going missing before anyone talks about budget.",
-    tags: ["Website review", "Google Business Profile", "Ad accounts", "Tracking check"],
+    title: "Talk",
+    copy: "Tell us about your business and what you want to change.",
+    tags: ["Your goals", "What's in place", "What's not working"],
   },
   {
     n: "02",
-    title: "We tell you what we would do",
-    copy: "A plan with an order to it, and the reasoning behind each piece. If the first fix is something you can do yourself, we will say so.",
-    tags: ["Priority order", "Channel plan", "Budget guide", "Quick wins first"],
+    title: "Plan",
+    copy: "Agree on the priorities, scope and cost.",
+    tags: ["Priorities", "Scope", "Budget", "Timeline"],
   },
   {
     n: "03",
-    title: "We build it",
-    copy: "Website, tracking, campaigns and the follow-up that catches the lead. In house, so there is one team accountable for the whole thing.",
-    tags: ["Websites", "Google Ads", "Meta Ads", "Landing pages", "Call tracking", "Follow-up automation"],
+    title: "Build",
+    copy: "Put the website, campaigns or systems in place.",
+    tags: ["Websites", "SEO", "Google Ads", "Meta Ads", "AI and automation"],
   },
   {
     n: "04",
-    title: "We report on what it did",
-    copy: "Leads and revenue, not impressions. If something is not working we change it rather than explaining it.",
-    tags: ["Lead tracking", "Cost per lead", "Revenue by source", "Monthly review"],
+    title: "Review",
+    copy: "Look at what’s working and what needs attention.",
+    tags: ["Results", "What to change", "Next steps"],
   },
 ];
 

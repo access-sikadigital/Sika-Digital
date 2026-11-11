@@ -118,14 +118,17 @@ export function ClientMark({
  * With no logos the section renders nothing in production and labelled empty
  * slots in development.
  */
-export function TrustedBy() {
+export function TrustedBy({ label }: { label?: string } = {}) {
   const { count, logos } = trustedBy;
   const preview = logos.length === 0;
 
   if (preview && process.env.NODE_ENV === "production") return null;
 
   return (
-    <section aria-label="Clients" className="relative overflow-hidden border-b border-line py-12 sm:py-16">
+    <section
+      aria-label="Clients"
+      className="relative overflow-hidden border-b border-line py-12 sm:py-16"
+    >
       {/* Picks up the blue glow from the bottom of the hero and lets it fade
           out through this band. */}
       <div
@@ -137,22 +140,26 @@ export function TrustedBy() {
         }}
       />
       <Reveal className="relative">
-        <p className="eyebrow text-center text-faint">
-          Trusted by{" "}
-          {count ? <span className="text-foreground">{count} </span> : null}
-          service businesses
+        <p className="text-center eyebrow text-faint">
+          {label ?? (
+            <>
+              Trusted by{" "}
+              {count ? <span className="text-foreground">{count} </span> : null}
+              service businesses
+            </>
+          )}
         </p>
       </Reveal>
 
       {/* Edge fade, so logos drift in and out of nothing rather than being
           cut off by the viewport. */}
-      <div className="relative mt-10 [--logo-scale:0.75] sm:[--logo-scale:1] [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+      <div className="relative mt-10 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)] [--logo-scale:0.75] sm:[--logo-scale:1]">
         <Marquee speed={57} gap="clamp(1.5rem, 4vw, 4rem)" pauseOnHover>
           {preview
             ? Array.from({ length: 6 }, (_, i) => (
                 <span
                   key={i}
-                  className="eyebrow flex h-12 w-44 items-center justify-center rounded-button border border-dashed border-line-strong text-faint"
+                  className="flex h-12 w-44 items-center justify-center rounded-button border border-dashed border-line-strong eyebrow text-faint"
                 >
                   Client logo
                 </span>
