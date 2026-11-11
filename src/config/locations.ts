@@ -160,8 +160,7 @@ export const locations: LocationDetail[] = [
     eyebrow: "SEO in Brisbane",
     intro:
       "A market growing faster than the number of businesses competing properly in it.",
-    localHeading:
-      "Less contested than the southern capitals, and it will not stay that way.",
+    localHeading: "Less contested than the southern capitals, and it will not stay that way.",
     local: [
       "Brisbane search is genuinely easier to win than Sydney or Melbourne for most service terms, because population has grown faster than the number of local businesses doing search well. Terms that would be out of reach down south are realistic here.",
       "That window is closing rather than opening. The businesses that establish now are the ones that will be difficult to displace once the market catches up, which makes timing more of an argument here than anywhere else in the country.",

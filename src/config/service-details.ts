@@ -494,8 +494,7 @@ export const serviceDetails: ServiceDetail[] = [
     eyebrow: "Email marketing",
     intro:
       "The list you already have is the cheapest audience you will ever reach, and most businesses email it twice a year.",
-    angleHeading:
-      "Past customers are the most under-used asset in a trade business.",
+    angleHeading: "Past customers are the most under-used asset in a trade business.",
     angle: [
       "Every quote you sent, every job you finished, every enquiry that went quiet. Hundreds of people who already know you, already trust you, and are not hearing from you.",
       "This is not a newsletter. It is a handful of messages that go out on a trigger: a quote that went cold, a job that finished, a service that is due again. Written once, running forever.",
@@ -616,8 +615,7 @@ export const serviceDetails: ServiceDetail[] = [
         c: "Recency counts. Ninety reviews that stopped two years ago read worse than thirty that are still arriving.",
       },
     ],
-    honestHeading:
-      "We will not remove a bad review, and neither will anyone else.",
+    honestHeading: "We will not remove a bad review, and neither will anyone else.",
     honest: [
       "Services that offer to are either filing bulk removal requests that mostly fail, or burying it with fake reviews, which breaches Google's terms and risks the whole profile. On a business that depends on the map pack, that is betting the main channel to hide one paragraph.",
       "A genuine bad review with a calm, specific reply underneath does very little damage. A perfect five star record with no negatives at all is the thing people find suspicious.",

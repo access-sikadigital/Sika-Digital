@@ -59,8 +59,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-rise]", el).forEach((node) => {
-        if (node.getBoundingClientRect().top < window.innerHeight * 0.95)
-          return;
+        if (node.getBoundingClientRect().top < window.innerHeight * 0.95) return;
 
         gsap.fromTo(
           node,
@@ -90,7 +89,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
           <MarkAnchor size="w-3.5" />
           <Link
             href="/guides/"
-            className="duration-base shrink-0 eyebrow text-accent transition-colors hover:text-foreground"
+            className="eyebrow shrink-0 text-accent transition-colors duration-base hover:text-foreground"
           >
             Guides
           </Link>
@@ -107,7 +106,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
         {/* ── The answer ─────────────────────────────────────────────────── */}
         <Reveal delay={0.1} className="mt-12 lg:mt-16">
           <div className="rounded-card border border-accent bg-surface p-8 lg:p-12">
-            <p className="font-mono text-eyebrow tracking-wider text-accent uppercase">
+            <p className="font-mono text-eyebrow uppercase tracking-wider text-accent">
               Short answer
             </p>
             {guide.shortAnswer.map((p, i) => (
@@ -125,7 +124,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
           </div>
         </Reveal>
 
-        <p className="mt-6 font-mono text-eyebrow tracking-wider text-faint uppercase">
+        <p className="mt-6 font-mono text-eyebrow uppercase tracking-wider text-faint">
           Last checked {reviewed}
         </p>
       </Container>
@@ -209,10 +208,10 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
                 <li key={key}>
                   <Link
                     href={target.url}
-                    className="group duration-slow flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors ease-out-quart hover:border-accent"
+                    className="group flex items-center justify-between gap-6 rounded-card border border-line bg-surface p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
                     <span className="min-w-0">
-                      <span className="duration-base block font-display text-h4 leading-[0.94] text-foreground transition-colors group-hover:text-accent">
+                      <span className="block font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                         {target.label}
                       </span>
                       <span className="mt-2 block text-small text-muted">
@@ -221,7 +220,7 @@ export function GuideTemplate({ pageKey }: { pageKey: string }) {
                     </span>
                     <span
                       aria-hidden
-                      className="duration-base shrink-0 text-lead text-accent transition-transform ease-out-quart group-hover:translate-x-1"
+                      className="shrink-0 text-lead text-accent transition-transform duration-base ease-out-quart group-hover:translate-x-1"
                     >
                       &rarr;
                     </span>

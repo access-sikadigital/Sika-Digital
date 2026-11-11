@@ -66,8 +66,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
       });
 
       gsap.utils.toArray<HTMLElement>("[data-rise]", el).forEach((node) => {
-        if (node.getBoundingClientRect().top < window.innerHeight * 0.95)
-          return;
+        if (node.getBoundingClientRect().top < window.innerHeight * 0.95) return;
 
         gsap.fromTo(
           node,
@@ -112,7 +111,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
             worth knowing before you read the rest of this.
           </p>
 
-          <p className="mt-5 shrink-0 font-mono text-eyebrow tracking-wider text-faint uppercase sm:mt-0">
+          <p className="mt-5 shrink-0 font-mono text-eyebrow uppercase tracking-wider text-faint sm:mt-0">
             {siteConfig.homeCity} based
           </p>
         </div>
@@ -123,7 +122,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="shrink-0 eyebrow text-accent">
+            <p className="eyebrow shrink-0 text-accent">
               The {loc.city} market
             </p>
             <Rule className="flex-1" delay={0.15} />
@@ -163,7 +162,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
         <Container>
           <Reveal y={14} className="flex items-center gap-4">
             <MarkAnchor size="w-3.5" />
-            <p className="shrink-0 eyebrow text-accent">Areas</p>
+            <p className="eyebrow shrink-0 text-accent">Areas</p>
             <Rule className="flex-1" delay={0.15} />
           </Reveal>
 
@@ -176,9 +175,9 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
 
           <Reveal delay={0.1} className="mt-8">
             <p className="max-w-text text-lead text-muted">
-              Not one market. Each of these behaves differently in search, and a
-              campaign pointed at the whole city is usually pointed at none of
-              them.
+              Not one market. Each of these behaves differently in search, and
+              a campaign pointed at the whole city is usually pointed at none
+              of them.
             </p>
           </Reveal>
 
@@ -191,7 +190,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
             {loc.suburbs.map((s) => (
               <li
                 key={s}
-                className="rounded-full border border-line px-5 py-2.5 font-mono text-eyebrow tracking-wider text-muted uppercase"
+                className="rounded-full border border-line px-5 py-2.5 font-mono text-eyebrow uppercase tracking-wider text-muted"
               >
                 {s}
               </li>
@@ -234,10 +233,10 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
                 <li key={key}>
                   <Link
                     href={target.url}
-                    className="group duration-slow flex items-center justify-between gap-6 rounded-card border border-line bg-background p-7 transition-colors ease-out-quart hover:border-accent"
+                    className="group flex items-center justify-between gap-6 rounded-card border border-line bg-background p-7 transition-colors duration-slow ease-out-quart hover:border-accent"
                   >
                     <span className="min-w-0">
-                      <span className="duration-base block font-display text-h4 leading-[0.94] text-foreground transition-colors group-hover:text-accent">
+                      <span className="block font-display text-h4 leading-[0.94] text-foreground transition-colors duration-base group-hover:text-accent">
                         {target.label}
                       </span>
                       <span className="mt-2 block text-small text-muted">
@@ -246,7 +245,7 @@ export function LocationTemplate({ pageKey }: { pageKey: string }) {
                     </span>
                     <span
                       aria-hidden
-                      className="duration-base shrink-0 text-lead text-accent transition-transform ease-out-quart group-hover:translate-x-1"
+                      className="shrink-0 text-lead text-accent transition-transform duration-base ease-out-quart group-hover:translate-x-1"
                     >
                       &rarr;
                     </span>
