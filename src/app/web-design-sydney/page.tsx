@@ -1,15 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { LocationTemplate } from "@/components/sections/LocationTemplate";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/**
- * Server wrapper. See the note in web-design/page.tsx for why this is split.
- *
- * Body is the shared location template, driven by `config/locations`. The
- * doorway-page risk these pages carry, and what actually defends against it,
- * is written at the top of LocationTemplate.
- */
+/* Copy: V1 doc for /web-design-sydney/ (config/copy-v1). */
 export const metadata = metadataFor("web-design-sydney");
 
 export default function Page() {
-  return <LocationTemplate pageKey="web-design-sydney" />;
+  return <CopyPage route="/web-design-sydney/" />;
 }

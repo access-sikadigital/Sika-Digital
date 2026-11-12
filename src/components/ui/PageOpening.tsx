@@ -43,7 +43,7 @@ export function PageOpening({
     <Container>
       <Reveal y={14} className="flex items-center gap-4">
         <MarkAnchor size="w-3.5" />
-        <p className="eyebrow shrink-0 text-accent">{eyebrow}</p>
+        <p className="eyebrow min-w-0 text-accent">{eyebrow}</p>
         <Rule className="flex-1" delay={0.15} />
       </Reveal>
 

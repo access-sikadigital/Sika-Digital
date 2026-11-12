@@ -1,9 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { IndustriesContent } from "./IndustriesContent";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/** Server wrapper. See the note in web-design/page.tsx for why this is split. */
+/* Copy: V1 doc for /industries/ (config/copy-v1). */
 export const metadata = metadataFor("industries");
 
-export default function IndustriesPage() {
-  return <IndustriesContent />;
+export default function Page() {
+  return <CopyPage route="/industries/" />;
 }

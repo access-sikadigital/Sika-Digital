@@ -1,12 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { GuideTemplate } from "@/components/sections/GuideTemplate";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/**
- * Server wrapper. See the note in web-design/page.tsx for why this is split.
- * Body is the shared guide template, driven by `config/guides`.
- */
+/* Copy: V1 doc for /guides/how-to-get-more-leads/ (config/copy-v1). */
 export const metadata = metadataFor("guide-more-leads");
 
 export default function Page() {
-  return <GuideTemplate pageKey="guide-more-leads" />;
+  return <CopyPage route="/guides/how-to-get-more-leads/" />;
 }

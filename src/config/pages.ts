@@ -160,7 +160,7 @@ export const pages: PageSpec[] = [
       "What we measure, what we report, and the standard we think any agency should be held to. Case studies go up here as clients approve them.",
     /* Was "The numbers, not the adjectives." Clever, and clever is the thing to
        avoid. This says the same in plain words. */
-    h1: "What the work actually did.",
+    h1: "Understand the work behind the result.",
   },
   {
     key: "contact",
@@ -174,7 +174,7 @@ export const pages: PageSpec[] = [
     title: "Contact Sika Digital | Melbourne",
     description:
       "Tell us what you are trying to fix and we will check your website, Google Business Profile and ads. Melbourne based, working Australia wide.",
-    h1: "Tell us what you are trying to fix.",
+    h1: "Tell us what you want to work on.",
   },
 
   /**
@@ -204,7 +204,7 @@ export const pages: PageSpec[] = [
     title: "Digital Marketing Services | Sika Digital",
     description:
       "SEO, Google Ads, Meta ads, web design, lead generation and AI automation, built for Australian service and trade businesses.",
-    h1: "Everything we do, in one place.",
+    h1: "Choose the help your business needs next.",
   },
 
   /* ── SEO cluster ──────────────────────────────────────────────────────── */
@@ -222,7 +222,7 @@ export const pages: PageSpec[] = [
     title: "SEO Agency Melbourne | Sika Digital",
     description:
       "SEO that brings qualified enquiries, not vanity rankings. Technical, on-page, local and content SEO for Australian service businesses.",
-    h1: "SEO that brings enquiries, not just rankings.",
+    h1: "SEO that helps customers find you on Google and ChatGPT.",
   },
   {
     key: "local-seo",
@@ -238,7 +238,7 @@ export const pages: PageSpec[] = [
     title: "Local SEO Services Australia | Sika Digital",
     description:
       "Rank in the map pack where your customers actually search. Google Business Profile, local citations and location pages that convert.",
-    h1: "Get found in the map pack.",
+    h1: "Make it easier for nearby customers to find you.",
   },
   {
     key: "ecommerce-seo",
@@ -254,7 +254,7 @@ export const pages: PageSpec[] = [
     title: "Ecommerce SEO Agency Australia | Sika Digital",
     description:
       "Product, category and technical SEO for Australian online stores. Built around revenue, not traffic.",
-    h1: "Ecommerce SEO built around revenue.",
+    h1: "Help shoppers find the products you sell.",
   },
   {
     key: "small-business-seo",
@@ -270,7 +270,7 @@ export const pages: PageSpec[] = [
     title: "Small Business SEO Australia | Sika Digital",
     description:
       "Affordable, honest SEO for small Australian businesses. Clear scope, clear price, and reporting you can actually read.",
-    h1: "SEO for small businesses, without the lock-in.",
+    h1: "Put your SEO effort where it can be most useful.",
   },
   {
     key: "seo-audit",
@@ -287,7 +287,7 @@ export const pages: PageSpec[] = [
     title: "Free SEO Audit | Sika Digital",
     description:
       "A real audit by a human, not an automated score out of 100. We show you what is costing you rankings and what to fix first.",
-    h1: "A free SEO audit, done by a person.",
+    h1: "Know what your website needs before planning the next changes.",
   },
 
   /* ── Google Ads cluster — the priority commercial win ──────────────────── */
@@ -305,7 +305,7 @@ export const pages: PageSpec[] = [
     title: "Google Ads Agency Melbourne | Sika Digital",
     description:
       "Google Ads management that optimises for qualified leads, not cheap clicks. Transparent reporting, no lock-in contracts.",
-    h1: "Google Ads that bring the right enquiries.",
+    h1: "Google Ads that put your offer in front of the right people.",
   },
   {
     key: "ppc-management",
@@ -321,7 +321,7 @@ export const pages: PageSpec[] = [
     title: "PPC Management Services Australia | Sika Digital",
     description:
       "Ongoing PPC management across Google and Microsoft Ads. Search terms mined weekly, budget moved to what converts.",
-    h1: "PPC management, managed properly.",
+    h1: "Keep your paid campaigns working towards the right goals.",
   },
 
   /* ── Meta / Social ────────────────────────────────────────────────────── */
@@ -339,7 +339,7 @@ export const pages: PageSpec[] = [
     title: "Facebook & Instagram Ads Agency | Sika Digital",
     description:
       "Meta ads for Australian service businesses. Creative, targeting and Conversions API tracking that actually attributes leads.",
-    h1: "Meta ads that generate real enquiries.",
+    h1: "Give people a clear reason to stop and look.",
   },
   {
     key: "social-media-marketing",
@@ -355,7 +355,7 @@ export const pages: PageSpec[] = [
     title: "Social Media Marketing Agency | Sika Digital",
     description:
       "Organic social that supports the paid work. Content, scheduling and community management for Australian service brands.",
-    h1: "Social that earns attention.",
+    h1: "Give people something useful to follow.",
   },
 
   /* ── Lead generation ──────────────────────────────────────────────────── */
@@ -373,7 +373,7 @@ export const pages: PageSpec[] = [
     title: "Lead Generation Agency Australia | Sika Digital",
     description:
       "End-to-end lead generation. Traffic, landing pages, qualifying forms and CRM follow-up wired together so nothing leaks.",
-    h1: "Leads, followed all the way to the sale.",
+    h1: "Bring the right enquiries closer to becoming customers.",
   },
 
   /* ── Web ──────────────────────────────────────────────────────────────── */
@@ -391,7 +391,7 @@ export const pages: PageSpec[] = [
     title: "Web Design Agency Melbourne | Sika Digital",
     description:
       "Fast, conversion-focused websites built to rank. In-house design and development, no templates.",
-    h1: "Websites built to convert and to rank.",
+    h1: "A website that makes your business easy to understand.",
   },
   {
     key: "ecommerce-web-design",
@@ -407,7 +407,7 @@ export const pages: PageSpec[] = [
     title: "Ecommerce Web Design Australia | Sika Digital",
     description:
       "Online stores built for speed and conversion. Shopify and custom builds for Australian retailers.",
-    h1: "Online stores that sell.",
+    h1: "Make shopping with you straightforward.",
   },
   {
     key: "wordpress-web-design",
@@ -423,7 +423,7 @@ export const pages: PageSpec[] = [
     title: "WordPress Web Design Australia | Sika Digital",
     description:
       "Custom WordPress themes built properly. Fast, secure and easy for your team to update.",
-    h1: "WordPress, built properly.",
+    h1: "A WordPress website your team can work with.",
   },
   {
     key: "cro",
@@ -439,7 +439,7 @@ export const pages: PageSpec[] = [
     title: "Conversion Rate Optimisation | Sika Digital",
     description:
       "Turn the traffic you already have into more enquiries. Heatmaps, testing and evidence-led page changes.",
-    h1: "More leads from the traffic you already have.",
+    h1: "Make the next step easier for your website visitors.",
   },
 
   /* ── AI & other services ──────────────────────────────────────────────── */
@@ -457,7 +457,7 @@ export const pages: PageSpec[] = [
     title: "AI Automation Agency Australia | Sika Digital",
     description:
       "Automate the follow-up, the admin and the reporting. Practical AI workflows wired into your CRM.",
-    h1: "Automate the work that eats your week.",
+    h1: "Find a useful place for AI in the work you already do.",
   },
   {
     key: "email-marketing",
@@ -473,7 +473,7 @@ export const pages: PageSpec[] = [
     title: "Email Marketing Agency Australia | Sika Digital",
     description:
       "Email and SMS flows that turn enquiries into customers. Nurture, reactivation and review requests.",
-    h1: "Email that earns its place in the inbox.",
+    h1: "Send something your customers have a reason to read.",
   },
   {
     key: "content-marketing",
@@ -489,7 +489,7 @@ export const pages: PageSpec[] = [
     title: "Content Marketing Agency Australia | Sika Digital",
     description:
       "Content built from validated search demand, not guesswork. Written to rank and to answer the question properly.",
-    h1: "Content that answers what people search.",
+    h1: "Answer the questions that help people choose you.",
   },
   {
     key: "reputation-management",
@@ -505,7 +505,7 @@ export const pages: PageSpec[] = [
     title: "Reputation Management Services | Sika Digital",
     description:
       "Get more reviews, respond to the ones you have, and make your star rating an asset rather than a liability.",
-    h1: "Reviews are a system, not luck.",
+    h1: "Give customer feedback the attention it deserves.",
   },
 
   /* ── Industries — the trades wedge (finding #2, cheapest ground) ──────── */
@@ -523,7 +523,7 @@ export const pages: PageSpec[] = [
     title: "Marketing for Tradies & Service Businesses | Sika Digital",
     description:
       "Marketing built for trades and service businesses by someone who ran one. Electricians, plumbers, builders and more.",
-    h1: "Marketing for people who work for a living.",
+    h1: "Marketing should make sense for the work you do.",
   },
   {
     key: "tradies",
@@ -539,7 +539,7 @@ export const pages: PageSpec[] = [
     title: "Digital Marketing for Tradies | Sika Digital",
     description:
       "Run by a former licensed electrician. Get more of the jobs you want, not tyre-kickers and price-shoppers.",
-    h1: "Digital marketing for tradies, by an ex-sparky.",
+    h1: "Be found for the jobs you want to take on.",
   },
   {
     key: "electricians",
@@ -555,7 +555,7 @@ export const pages: PageSpec[] = [
     title: "Marketing for Electricians | Sika Digital",
     description:
       "Get more switchboard upgrades and fewer callouts you don't want. Marketing for Australian electrical contractors.",
-    h1: "Marketing for electricians.",
+    h1: "Make your electrical services easier to find and understand.",
   },
   {
     key: "plumbers",
@@ -571,7 +571,7 @@ export const pages: PageSpec[] = [
     title: "Marketing for Plumbers | Sika Digital",
     description:
       "Emergency work, maintenance contracts or renovations. Marketing that brings the plumbing jobs you actually want.",
-    h1: "Marketing for plumbers.",
+    h1: "Help customers find the right plumbing service to ask for.",
   },
   {
     key: "builders",
@@ -587,7 +587,7 @@ export const pages: PageSpec[] = [
     title: "Marketing for Builders | Sika Digital",
     description:
       "Marketing for Australian builders and renovators. Qualified enquiries for the projects worth quoting.",
-    h1: "Marketing for builders.",
+    h1: "Help the right clients picture working with you.",
   },
 
   /* ── Locations ────────────────────────────────────────────────────────── */
@@ -605,7 +605,7 @@ export const pages: PageSpec[] = [
     title: "Google Ads Agency Brisbane | Sika Digital",
     description:
       "Google Ads management for Brisbane businesses. Qualified leads, transparent reporting, no lock-in.",
-    h1: "Google Ads agency, Brisbane.",
+    h1: "Focus your Brisbane advertising on the work you want.",
   },
   {
     key: "seo-sydney",
@@ -621,7 +621,7 @@ export const pages: PageSpec[] = [
     title: "SEO Agency Sydney | Sika Digital",
     description:
       "SEO for Sydney service businesses. Technical, local and content SEO built around enquiries.",
-    h1: "SEO agency, Sydney.",
+    h1: "Make your Sydney business easier to find through search.",
   },
   {
     key: "seo-brisbane",
@@ -637,7 +637,7 @@ export const pages: PageSpec[] = [
     title: "SEO Agency Brisbane | Sika Digital",
     description:
       "SEO for Brisbane businesses that turns search traffic into qualified enquiries.",
-    h1: "SEO agency, Brisbane.",
+    h1: "Give your existing website a clearer SEO plan.",
   },
   {
     key: "seo-adelaide",
@@ -653,7 +653,7 @@ export const pages: PageSpec[] = [
     title: "SEO Agency Adelaide | Sika Digital",
     description:
       "SEO for Adelaide businesses. Local rankings, technical fixes and content that converts.",
-    h1: "SEO agency, Adelaide.",
+    h1: "Put your business knowledge to work on your website.",
   },
   {
     key: "seo-perth",
@@ -669,7 +669,7 @@ export const pages: PageSpec[] = [
     title: "SEO Agency Perth | Sika Digital",
     description:
       "SEO for Perth businesses, built around qualified enquiries rather than vanity rankings.",
-    h1: "SEO agency, Perth.",
+    h1: "Build your search plan around where your customers buy.",
   },
   {
     key: "google-ads-sydney",
@@ -685,7 +685,7 @@ export const pages: PageSpec[] = [
     title: "Google Ads Agency Sydney | Sika Digital",
     description:
       "Google Ads management for Sydney businesses, built for lead quality, not click volume.",
-    h1: "Google Ads agency, Sydney.",
+    h1: "Give the click a useful next step.",
   },
   {
     key: "local-seo-sydney",
@@ -701,7 +701,7 @@ export const pages: PageSpec[] = [
     title: "Local SEO Sydney | Sika Digital",
     description:
       "Rank in the Sydney map pack. Google Business Profile optimisation, citations and local content.",
-    h1: "Local SEO, Sydney.",
+    h1: "Help nearby customers check the details that matter.",
   },
   {
     key: "local-seo-brisbane",
@@ -717,7 +717,7 @@ export const pages: PageSpec[] = [
     title: "Local SEO Brisbane | Sika Digital",
     description:
       "Get found in the Brisbane map pack with a properly optimised Google Business Profile and local pages.",
-    h1: "Local SEO, Brisbane.",
+    h1: "Make your service area clear to nearby customers.",
   },
   {
     key: "web-design-brisbane",
@@ -733,7 +733,7 @@ export const pages: PageSpec[] = [
     title: "Web Design Brisbane | Sika Digital",
     description:
       "Fast, conversion-focused websites for Brisbane businesses. Built in-house, built to rank.",
-    h1: "Web design, Brisbane.",
+    h1: "Give your business a website customers can make sense of.",
   },
   {
     key: "web-design-sydney",
@@ -749,7 +749,7 @@ export const pages: PageSpec[] = [
     title: "Web Design Sydney | Sika Digital",
     description:
       "Conversion-focused web design for Sydney businesses, built for speed and search.",
-    h1: "Web design, Sydney.",
+    h1: "Help visitors decide what to do next.",
   },
   {
     key: "web-design-perth",
@@ -765,7 +765,7 @@ export const pages: PageSpec[] = [
     title: "Web Design Perth | Sika Digital",
     description:
       "Websites for Perth businesses that load fast and turn visitors into enquiries.",
-    h1: "Web design, Perth.",
+    h1: "Plan the next version of your website properly.",
   },
   {
     key: "dma-sydney",
@@ -781,7 +781,7 @@ export const pages: PageSpec[] = [
     title: "Digital Marketing Agency Sydney | Sika Digital",
     description:
       "Full-service digital marketing for Sydney service businesses. SEO, Google Ads, Meta and web.",
-    h1: "Digital marketing agency, Sydney.",
+    h1: "Work out what your marketing needs next.",
   },
 
   /* ── Guides ───────────────────────────────────────────────────────────── */
@@ -829,7 +829,7 @@ export const pages: PageSpec[] = [
     title: "SEO vs Google Ads: Which Is Right for You?",
     description:
       "Which channel to start with, when to run both, and how the maths changes depending on your margin and timeframe.",
-    h1: "SEO vs Google Ads: which is right for you?",
+    h1: "SEO vs Google Ads: where should you start?",
   },
   {
     key: "guide-maps-seo",
@@ -845,7 +845,7 @@ export const pages: PageSpec[] = [
     title: "Google Maps SEO: How to Rank in the Map Pack",
     description:
       "What actually moves map pack rankings in 2026. Proximity, prominence, reviews and the Google Business Profile fields that matter.",
-    h1: "How to rank in the Google map pack.",
+    h1: "Google Maps SEO: start with accurate business information.",
   },
   {
     key: "guide-tradies",
@@ -861,7 +861,7 @@ export const pages: PageSpec[] = [
     title: "Digital Marketing for Tradies: The Honest Guide",
     description:
       "What actually gets a trade business more of the right jobs, and what is a waste of money. Written by a former sparky.",
-    h1: "Digital marketing for tradies: the honest guide.",
+    h1: "Digital marketing for tradies: choose the jobs before the channel.",
   },
   {
     key: "guide-what-is-local-seo",
@@ -925,7 +925,7 @@ export const pages: PageSpec[] = [
     title: "How to Get More Leads for Your Business",
     description:
       "The order to fix things in, because more traffic on a page that does not convert just costs more.",
-    h1: "How to get more leads.",
+    h1: "How to get more leads: find the first gap in the journey.",
   },
 ];
 

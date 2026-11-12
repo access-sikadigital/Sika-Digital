@@ -1,9 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { LeadGenerationContent } from "./LeadGenerationContent";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/** Server wrapper. See the note in web-design/page.tsx for why this is split. */
+/* Copy: V1 doc for /lead-generation/ (config/copy-v1). */
 export const metadata = metadataFor("lead-generation");
 
-export default function LeadGenerationPage() {
-  return <LeadGenerationContent />;
+export default function Page() {
+  return <CopyPage route="/lead-generation/" />;
 }

@@ -1,15 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { ServiceTemplate } from "@/components/sections/ServiceTemplate";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/**
- * Server wrapper. See the note in web-design/page.tsx for why this is split.
- *
- * Body is the shared service template, driven by `config/service-details`.
- * The reason these share a frame while the five hubs do not is written at the
- * top of ServiceTemplate.
- */
+/* Copy: V1 doc for /email-marketing/ (config/copy-v1). */
 export const metadata = metadataFor("email-marketing");
 
 export default function Page() {
-  return <ServiceTemplate pageKey="email-marketing" />;
+  return <CopyPage route="/email-marketing/" />;
 }

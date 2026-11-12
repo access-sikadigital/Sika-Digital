@@ -1,9 +1,9 @@
 import { metadataFor } from "@/lib/metadata";
-import { GoogleAdsContent } from "./GoogleAdsContent";
+import { CopyPage } from "@/components/sections/CopyPage";
 
-/** Server wrapper. See the note in web-design/page.tsx for why this is split. */
+/* Copy: V1 doc for /google-ads/ (config/copy-v1). */
 export const metadata = metadataFor("google-ads");
 
-export default function GoogleAdsPage() {
-  return <GoogleAdsContent />;
+export default function Page() {
+  return <CopyPage route="/google-ads/" />;
 }

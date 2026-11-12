@@ -57,7 +57,14 @@ const fieldClass =
 const labelClass =
   "block font-mono text-eyebrow uppercase tracking-wider text-faint";
 
-export function ContactForm({ className }: { className?: string }) {
+export function ContactForm({
+  className,
+  submitLabel = "Send it",
+}: {
+  className?: string;
+  /** Button text. The Contact page copy uses "Send Enquiry". */
+  submitLabel?: string;
+}) {
   const root = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>("idle");
 
@@ -266,7 +273,7 @@ export function ContactForm({ className }: { className?: string }) {
             viewBox="0 0 16 16"
             aria-hidden
             fill="none"
-            className="pointer-events-none absolute right-0 top-1/2 size-4 -translate-y-1/2 text-accent"
+            className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-accent"
           >
             <path
               d="M3 6l5 5 5-5"
@@ -305,7 +312,7 @@ export function ContactForm({ className }: { className?: string }) {
 
       <div data-field className="flex flex-wrap items-center gap-6 pt-2">
         <Button type="submit" size="lg" disabled={status === "sending"}>
-          {status === "sending" ? "Sending" : "Send it"}
+          {status === "sending" ? "Sending" : submitLabel}
         </Button>
 
         <p className="text-small text-faint">
